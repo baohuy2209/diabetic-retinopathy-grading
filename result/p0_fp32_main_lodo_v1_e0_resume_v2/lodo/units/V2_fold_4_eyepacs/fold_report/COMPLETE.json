@@ -1,0 +1,128 @@
+{
+  "identity": {
+    "stage": "E0",
+    "inputs": {
+      "source_train": {
+        "source_marker_sha256": "8fdec8c8ee8e0c1767a3d0712e0af1f7b8ba545598ddfb83319caebbbd54aad2",
+        "identity": {
+          "checkpoint_path": "/content/mlwa_p0_e0_e1/checkpoints_ssd/lodo_V2_PlusGlobalContext_H2_fold_4_eyepacs_best.pth",
+          "checkpoint_sha256": "b9c66fc665746ebb781e37d01caf5a3472acb1923239f6613af8c5afbe34d5d5",
+          "epoch": 16,
+          "manifest_sha256": "5753e5546978d1ec8632f85ecf52a7db76e88e8316a3ae1a114395de1e0532ca",
+          "runtime_manifest_sha256": "17b96f65b7aac0568220c6e227b6a7e6cf6a85e602aca156d2edae3e6ee14730",
+          "code_sha256": "e6ec12131affc816d099a1ee324fee9b7f579e1f51c964690047cf98359addc8",
+          "variant": "V2",
+          "fold": 4,
+          "cohort": "eyepacs",
+          "split": "source_train",
+          "forward_id": "main_lodo_survival_fp32_clamp20_expm1_norm1e12",
+          "patch_cap": 256,
+          "patch_chunk": 1024,
+          "precision": "fp32_tf32_off",
+          "diagnostic_limit": 0,
+          "data_archive_sha256": "2317a83eeb1c58471af0529cd5e358d9441f29d2fe421e52266480d542f0ccd4",
+          "image_inputs": "f780ddac09440370630d3d1f39b523db244ff040389c6aacd75fd562e1d60234"
+        },
+        "files": {
+          "predictions.csv": "4bbd07ae2643d133963093030668a57ecdf1f6a36921b5548f1a538ccb3e75b5"
+        }
+      },
+      "source_val": {
+        "source_marker_sha256": "09f6b3b64ab4ff4b0e36bee35704655243ebc10b144f3c0e6cb101c95f05441e",
+        "identity": {
+          "checkpoint_path": "/content/mlwa_p0_e0_e1/checkpoints_ssd/lodo_V2_PlusGlobalContext_H2_fold_4_eyepacs_best.pth",
+          "checkpoint_sha256": "b9c66fc665746ebb781e37d01caf5a3472acb1923239f6613af8c5afbe34d5d5",
+          "epoch": 16,
+          "manifest_sha256": "a82baf4f966dba87d41946236d79984d2ede4fc93398b74da991f28bb992f9ee",
+          "runtime_manifest_sha256": "5ef37378f383cf662921136ee5605c1d94e6d0f3f2740480b5baeba36cc3263c",
+          "code_sha256": "e6ec12131affc816d099a1ee324fee9b7f579e1f51c964690047cf98359addc8",
+          "variant": "V2",
+          "fold": 4,
+          "cohort": "eyepacs",
+          "split": "source_val",
+          "forward_id": "main_lodo_survival_fp32_clamp20_expm1_norm1e12",
+          "patch_cap": 256,
+          "patch_chunk": 1024,
+          "precision": "fp32_tf32_off",
+          "diagnostic_limit": 0,
+          "data_archive_sha256": "2317a83eeb1c58471af0529cd5e358d9441f29d2fe421e52266480d542f0ccd4",
+          "image_inputs": "7e47e99471e5a58fb2bfb215d520911df314a5e1fb96e4b4557d80fe78959abd"
+        },
+        "files": {
+          "predictions.csv": "f15d44c01f3bb48f79c92cfbaa2280fb0df88becc84a5348dde67cab3994184a"
+        }
+      },
+      "target": {
+        "source_marker_sha256": "97708e3a486ffe8590c1036bd2cd7faa8a41cbcb6cda102520234da157794f4c",
+        "identity": {
+          "checkpoint_path": "/content/mlwa_p0_e0_e1/checkpoints_ssd/lodo_V2_PlusGlobalContext_H2_fold_4_eyepacs_best.pth",
+          "checkpoint_sha256": "b9c66fc665746ebb781e37d01caf5a3472acb1923239f6613af8c5afbe34d5d5",
+          "epoch": 16,
+          "manifest_sha256": "1f76f3289b5dba1d2eea8b89493c66a5ed35a640bc2a7c88bf3aa87817d268ee",
+          "runtime_manifest_sha256": "3a703bbaae93c05220402f30a52817812505ff155c84cefdfb5e4f9652fef929",
+          "code_sha256": "e6ec12131affc816d099a1ee324fee9b7f579e1f51c964690047cf98359addc8",
+          "variant": "V2",
+          "fold": 4,
+          "cohort": "eyepacs",
+          "split": "target",
+          "forward_id": "main_lodo_survival_fp32_clamp20_expm1_norm1e12",
+          "patch_cap": 256,
+          "patch_chunk": 1024,
+          "precision": "fp32_tf32_off",
+          "diagnostic_limit": 0,
+          "data_archive_sha256": "2317a83eeb1c58471af0529cd5e358d9441f29d2fe421e52266480d542f0ccd4",
+          "image_inputs": "3f0e2673280872a00ab7f009a9049ab549fa41ba6db85534908136f70ab6a7d9"
+        },
+        "files": {
+          "predictions.csv": "c3d5b46e6630f3efafd291c588caeb0f5d691360988abd5e39f206705e38d424"
+        }
+      }
+    },
+    "bootstrap_reps": 2000,
+    "stability_reps": 1000,
+    "bootstrap_batch": 50,
+    "plan": "0fd996e6eb1c69851492b739abd2543237ff3b5beae1a8c5fb6ea8957ffea967",
+    "code": "e71d402a5eb7eb61af8b57895314dd46c57ec45adb307495e902e8f8a2334970",
+    "versions": {
+      "numpy": "2.4.6",
+      "pandas": "2.2.3",
+      "scikit-learn": "1.6.1",
+      "scipy": "1.16.3",
+      "matplotlib": "3.10.0"
+    }
+  },
+  "files": {
+    "source_val_native_replay_counts.csv": "af672aae466bbec64ca3cdb00256a08bb7b6dc13204d111317a1a0b36f4d1094",
+    "source_grid.csv": "e6b9b3f67c843ae9a0ea7c71bba9c4254d252a51e235b5e970bdc7419dcfaf9f",
+    "source_val_decisions.csv": "48ca49cf577e0dcbfc0dd8a079ecf7ca729e9d19618d236275befc126dfe71ba",
+    "source_val_cibd_selected_counts.csv": "0b8b126389662651e4a7bebf14f9c35aba536378a38157e52f691b509857affd",
+    "arrays.npz": "9fc8ef21e4f5e0ad00f176503ae07e72eac54eaabdbba098f0db566e3a259f46",
+    "target_rounded_expectation_row_normalized.csv": "fe1708045b53b40ea402b88f5ffbacb56cdae1db105ebdb76ee38dc1fc5a5592",
+    "pareto.pdf": "a6d6c7015e74962f2b40462a88b11b6df3596c3191c0fb596fe65cc31fc15311",
+    "selection_bootstrap.csv": "2c27d596cb9290cc7393d10bd6e0372700373023a42c4e9319d771773b6e986e",
+    "source_val_native_replay_row_normalized.csv": "00387e16ff2a8a61f8c2d1419a7bcdeb0881cee4b3529234f56442ed5b8bae2e",
+    "source_val_cibd_selected_row_normalized.csv": "4456798a1b97bfb717e964d68c6a3e4b9ec8a5e80f058adf1234cb02f515319b",
+    "target_posterior_median_counts.csv": "df204dd2da71a5e124ad2aca40f752198cdd53a5cca8c6e61cc52489abcffb37",
+    "pareto.png": "ed09b73ea6b33ff2cf8f024d03953f4b38ba883dd6a4d50a8f9f1cd7e72e76d7",
+    "source_val_argmax_row_normalized.csv": "00387e16ff2a8a61f8c2d1419a7bcdeb0881cee4b3529234f56442ed5b8bae2e",
+    "selection_bootstrap_metadata.json": "52647b0877ca6b3803eb7047b0d6f03b6bbf524e790c740d510f36b26d07ff03",
+    "target_posterior_median_row_normalized.csv": "3365d07afa975288fc7fe0d81323274a2b6571213960abd1e53fdeb214c4c6fb",
+    "source_val_posterior_median_counts.csv": "839a9ad40b18bfe1a32ebf3b7892c8942a4d3143ba359a0db5bcfeb15e650477",
+    "target_native_replay_row_normalized.csv": "eb13345e9a21dd0ca890b8f944b678921133cdd7c89dbf651f689c8e0c533a6e",
+    "target_argmax_counts.csv": "8a0717c3dbfc605a53c5c22d76eb42583c77eaffd63894f9189eb8443000af80",
+    "source_val_rounded_expectation_row_normalized.csv": "770224d03f18fb7d1571f564e4b7d8e550870984013fcd90047f750ca5d81bf4",
+    "source_val_rounded_expectation_counts.csv": "b571289800503e39d1be2190a15a8a8409933cfb0310d21471b61d96daaae9ea",
+    "source_val_argmax_counts.csv": "af672aae466bbec64ca3cdb00256a08bb7b6dc13204d111317a1a0b36f4d1094",
+    "target_rounded_expectation_counts.csv": "55e6c04d75fdf94b8468a3ef7280b3f3f17ad79dde23261977231bcb53c77c44",
+    "selection_frequencies.csv": "83a7801bb13c7dec853b9cb16a01d56122ecb07379eda713e7ac8f75a0c180e3",
+    "target_native_replay_counts.csv": "8a0717c3dbfc605a53c5c22d76eb42583c77eaffd63894f9189eb8443000af80",
+    "target_grid_EXPLORATORY.csv": "a6568911e7dee3fc56947fa93064445a1a3ecb43a3a48083e41c6e6f42c5eabe",
+    "result.json": "68ff80231ebd3e1a6febf64cce334f5faf37cf108c919f4aa7a73ddacbf88948",
+    "selected_params.json": "3b79e251b3fd8b5c5a5bb6f1808890409e2db9fc0b9f4f9a7b4f6e5c611700a0",
+    "target_cibd_selected_row_normalized.csv": "9859133dab2fcc37600882ae466752f45cbfa61ebe87d13fa2e71bd26ceebfac",
+    "source_val_posterior_median_row_normalized.csv": "a219e447eceefa50d20e164b0ec0e714ba4eceda40c9554a7da26594d4ab5cfe",
+    "target_argmax_row_normalized.csv": "eb13345e9a21dd0ca890b8f944b678921133cdd7c89dbf651f689c8e0c533a6e",
+    "target_decisions.csv": "c0932de61b993029fa3c4c5e6ef4efd4a764094bfb279f4cc33dc583b58eb07c",
+    "target_cibd_selected_counts.csv": "0d777f3f50b7557335598d4a8b8df8ba709476f543d864337da668b80e0d06c3"
+  }
+}

@@ -1,0 +1,9 @@
+fold_id,cohort,contrast,interpretation,metric,difference,lower,upper,valid,invalid,reps,unit,status
+4,eyepacs,z_v3-s_v3,same V3 encoder; probe family comparison,recall_g3,-0.006872852233677007,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+4,eyepacs,z_v3-s_v3,same V3 encoder; probe family comparison,macro_recall,0.0025329681197049925,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+4,eyepacs,z_v3-s_v3,same V3 encoder; probe family comparison,within1,-0.00022775152308829316,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+4,eyepacs,z_v3-s_v3,same V3 encoder; probe family comparison,qwk,0.015051210869982623,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+4,eyepacs,z_v2-z_v3,different learned encoder configurations,recall_g3,-0.016036655211912942,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+4,eyepacs,z_v2-z_v3,different learned encoder configurations,macro_recall,0.014969980985065301,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+4,eyepacs,z_v2-z_v3,different learned encoder configurations,within1,-0.03612708534988329,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+4,eyepacs,z_v2-z_v3,different learned encoder configurations,qwk,-0.042677942978419425,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE

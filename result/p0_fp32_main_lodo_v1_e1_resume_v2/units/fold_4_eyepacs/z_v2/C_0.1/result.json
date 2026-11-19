@@ -1,0 +1,8 @@
+{
+  "C": 0.1,
+  "converged": true,
+  "iterations": 634,
+  "val_macro_recall": 0.6588337137733914,
+  "val_g3": 0.5658914728682171,
+  "val_nll": 2.234108945920689
+}

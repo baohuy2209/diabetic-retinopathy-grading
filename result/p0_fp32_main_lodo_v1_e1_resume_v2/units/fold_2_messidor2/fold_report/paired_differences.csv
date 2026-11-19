@@ -1,0 +1,9 @@
+fold_id,cohort,contrast,interpretation,metric,difference,lower,upper,valid,invalid,reps,unit,status
+2,messidor2,z_v3-s_v3,same V3 encoder; probe family comparison,recall_g3,-0.09859154929577463,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+2,messidor2,z_v3-s_v3,same V3 encoder; probe family comparison,macro_recall,-0.03035346847032544,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+2,messidor2,z_v3-s_v3,same V3 encoder; probe family comparison,within1,0.009460737937559194,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+2,messidor2,z_v3-s_v3,same V3 encoder; probe family comparison,qwk,-0.02164902412523939,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+2,messidor2,z_v2-z_v3,different learned encoder configurations,recall_g3,0.05633802816901412,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+2,messidor2,z_v2-z_v3,different learned encoder configurations,macro_recall,0.03402628124105406,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+2,messidor2,z_v2-z_v3,different learned encoder configurations,within1,-0.022705771050141932,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+2,messidor2,z_v2-z_v3,different learned encoder configurations,qwk,0.008076943938664649,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE

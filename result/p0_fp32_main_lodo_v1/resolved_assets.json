@@ -1,0 +1,24 @@
+{
+  "images_root": "/content/mlwa_p0_e0_e1/data_ssd/native_cropped",
+  "checkpoint_root": "/content/mlwa_p0_e0_e1/checkpoints_ssd",
+  "manifest_counts": {
+    "(0, 'source_train')": 9202,
+    "(0, 'source_val')": 7891,
+    "(0, 'target')": 3662,
+    "(1, 'source_train')": 10352,
+    "(1, 'source_val')": 8357,
+    "(1, 'target')": 516,
+    "(2, 'source_train')": 9786,
+    "(2, 'source_val')": 8143,
+    "(2, 'target')": 1057,
+    "(3, 'source_train')": 8224,
+    "(3, 'source_val')": 6560,
+    "(3, 'target')": 12522,
+    "(4, 'source_train')": 7159,
+    "(4, 'source_val')": 2966,
+    "(4, 'target')": 35126,
+    "(5, 'source_train')": 8543,
+    "(5, 'source_val')": 7990,
+    "(5, 'target')": 2000
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "identity": {
+    "source": {
+      "source_train": {
+        "source_marker_sha256": "73f8e03b5a59a66d321e27e462f16c3749c99209c6827d52e8f0f6f195bb49c9",
+        "identity": {
+          "checkpoint_path": "/content/mlwa_p0_e0_e1/checkpoints_ssd/lodo_V3_PlusOrdinalHead_H3_Champion_fold_5_deepdrid_best.pth",
+          "checkpoint_sha256": "b9f0a772e7caf7eab8102793920d04898a8136113fe8736eaa24b90d25e85580",
+          "epoch": 23,
+          "manifest_sha256": "8ea2980012b88e01433f25c0a4c9500129e65ef3c1eeca04e43eab3da917db8b",
+          "runtime_manifest_sha256": "81c0f90164b8f6e0d96d02fae71afc45e0d844a5d0fd6a9347b5c630f70e146a",
+          "code_sha256": "e6ec12131affc816d099a1ee324fee9b7f579e1f51c964690047cf98359addc8",
+          "variant": "V3",
+          "fold": 5,
+          "cohort": "deepdrid",
+          "split": "source_train",
+          "forward_id": "main_lodo_survival_fp32_clamp20_expm1_norm1e12",
+          "patch_cap": 256,
+          "patch_chunk": 1024,
+          "precision": "fp32_tf32_off",
+          "diagnostic_limit": 0,
+          "data_archive_sha256": "2317a83eeb1c58471af0529cd5e358d9441f29d2fe421e52266480d542f0ccd4",
+          "image_inputs": "ff75f12815b8ead3341c8d06a32ec66a968268d03e06643481cd5120a971b4f8"
+        },
+        "files": {
+          "predictions.csv": "edbbb91e70572b28da68c7131ba37e296d37110835689bbe3adf45b23d8a0c4c",
+          "z.npy": "6fd516d3e3e19e8859d12d6f27820e75f5cbdc23a0148136144ee79482f202e2"
+        }
+      },
+      "source_val": {
+        "source_marker_sha256": "4e741f0978789979862122bee473583aa1bee29081a70b35a0f701087d14f52e",
+        "identity": {
+          "checkpoint_path": "/content/mlwa_p0_e0_e1/checkpoints_ssd/lodo_V3_PlusOrdinalHead_H3_Champion_fold_5_deepdrid_best.pth",
+          "checkpoint_sha256": "b9f0a772e7caf7eab8102793920d04898a8136113fe8736eaa24b90d25e85580",
+          "epoch": 23,
+          "manifest_sha256": "9def9032d68eec45a212c416df781c6e2cf764ab1c269a7c4638102e0ecfbdc9",
+          "runtime_manifest_sha256": "4299ea6d39602d3c5ea52e8f940b66749ccfb144a596c7c99362b80528d6905d",
+          "code_sha256": "e6ec12131affc816d099a1ee324fee9b7f579e1f51c964690047cf98359addc8",
+          "variant": "V3",
+          "fold": 5,
+          "cohort": "deepdrid",
+          "split": "source_val",
+          "forward_id": "main_lodo_survival_fp32_clamp20_expm1_norm1e12",
+          "patch_cap": 256,
+          "patch_chunk": 1024,
+          "precision": "fp32_tf32_off",
+          "diagnostic_limit": 0,
+          "data_archive_sha256": "2317a83eeb1c58471af0529cd5e358d9441f29d2fe421e52266480d542f0ccd4",
+          "image_inputs": "b0ec6a61e15676ce7ab6ba15469c8cd984589c4e891f1e7b6f6e281486c9bcb9"
+        },
+        "files": {
+          "predictions.csv": "f60b5279cba530778c74ce83d229a9bcec8593a8eb9ebffb308b2a37552550a0",
+          "z.npy": "d452e7ff7aa940bfd122ffd63acc4750ed0f1770c1a4239a20547eaa45fc8113"
+        }
+      }
+    },
+    "C": 0.1,
+    "permutation_sha256": "fea6c4e48a28e1e957031c32d9cce70cf878e548626b13f48991934aac636af2",
+    "seed": 0,
+    "code": "3405a3c94eebcbaa6b7b5e10f89516ceb4c498a46393116bfc613627a3c39805",
+    "versions": {
+      "numpy": "2.4.6",
+      "pandas": "2.2.3",
+      "scikit-learn": "1.6.1",
+      "scipy": "1.16.3",
+      "matplotlib": "3.10.0"
+    }
+  },
+  "files": {
+    "arrays.npz": "f079e9f06d686bdc52c0e1e178914b6e37c39d97ec91ce24b47fca6cac234f68",
+    "result.json": "8707fd49bd5c16e46e9f8be1bffac520e0b0a47d416353e50404a6a251c05de4"
+  }
+}

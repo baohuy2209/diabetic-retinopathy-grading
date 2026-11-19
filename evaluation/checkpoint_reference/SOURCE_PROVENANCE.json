@@ -1,0 +1,30 @@
+{
+  "note": "Portable code only. No checkpoints, predictions, images, or results bundled.",
+  "files": [
+    {
+      "file": "models.py",
+      "source": "camera_ready_analysis/camera_ready_analysis_colab_L4.ipynb cell 8",
+      "original_module_sha256": "348541f7592f0205209919e558f006bef3a7fc3c5935672ba4afb5daa15e6751",
+      "ported_sha256": "f341d276d2b889535ad1eb60cb5207eed574c3d4d0f66d9ddd82e71621b70ac1",
+      "modifications": "Verbatim embedded Colab implementation (fail on unreadable images; optional evaluation patch chunking)",
+      "ported_sha256_lf": "c15350bf87db2e109472dd843cf0c63691b7d833124399854a2865586cbbecbd"
+    },
+    {
+      "file": "losses_and_heads.py",
+      "source": "camera_ready_analysis/camera_ready_analysis_colab_L4.ipynb cell 9",
+      "original_module_sha256": "004bbbce7dfc8a5a5fccfa2043ddb4dea9b842bc07af0f8fba1f789b89df6497",
+      "ported_sha256": "f19c31acf0ce6df144fced22ef4378e2f2cfe4016868b0d5002b0e915c9a2c1b",
+      "modifications": "Verbatim embedded Colab implementation (fail on unreadable images; optional evaluation patch chunking)",
+      "ported_sha256_lf": "004bbbce7dfc8a5a5fccfa2043ddb4dea9b842bc07af0f8fba1f789b89df6497"
+    },
+    {
+      "file": "data_loader.py",
+      "source": "camera_ready_analysis/camera_ready_analysis_colab_L4.ipynb cell 10",
+      "original_module_sha256": "fa4532802f88b61843a0e785c507cafe37471a390dbe2567b18ab791e18553fe",
+      "ported_sha256": "91543f8dabf1b415e5165993d3ff69650f80f4399c3cc4c1484dff41bc2c886a",
+      "modifications": "Verbatim embedded Colab implementation (fail on unreadable images; optional evaluation patch chunking)",
+      "ported_sha256_lf": "90edd336ceb5f235a8a8a9e93b6fb18c0b77b35454347747c240183ee9c3faef"
+    }
+  ],
+  "hash_policy": "ported_sha256 records the initial byte snapshot; ported_sha256_lf normalizes CRLF to LF for cross-platform integrity checks."
+}

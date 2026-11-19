@@ -1,0 +1,46 @@
+{
+  "identity": {
+    "input": {
+      "source_marker_sha256": "eb2b41faad2c33e3bc5939570d0f5c90db76170111d63878cdf5be061a22030c",
+      "identity": {
+        "checkpoint_path": "/content/mlwa_p0_e0_e1/checkpoints_ssd/lodo_V3_PlusOrdinalHead_H3_Champion_fold_0_aptos_best.pth",
+        "checkpoint_sha256": "2aec4e2360971c121e65c9c499fc8d46a54bf253228efb56aa838387a8171d8f",
+        "epoch": 77,
+        "manifest_sha256": "fb2b58806341923cff95b276453932ef3344dfa60ff290b983504064168ab589",
+        "runtime_manifest_sha256": "6f40cc4b0223aa7c7504c2e2993df657442b6362a13a7c4e7b739ce0d2082e98",
+        "code_sha256": "e6ec12131affc816d099a1ee324fee9b7f579e1f51c964690047cf98359addc8",
+        "variant": "V3",
+        "fold": 0,
+        "cohort": "aptos",
+        "split": "source_val",
+        "forward_id": "main_lodo_survival_fp32_clamp20_expm1_norm1e12",
+        "patch_cap": 256,
+        "patch_chunk": 1024,
+        "precision": "fp32_tf32_off",
+        "diagnostic_limit": 0,
+        "data_archive_sha256": "2317a83eeb1c58471af0529cd5e358d9441f29d2fe421e52266480d542f0ccd4",
+        "image_inputs": "cc8f2755e75f8cdf9d8c5d67d1ac3a42b9356cf15297a96020324817cac447de"
+      },
+      "files": {
+        "predictions.csv": "44cc4ca83c6b10ffa75827a81fe88c1e56a8bd44ea5fb70adb1d844980f37cf0",
+        "z.npy": "85e3db1233d1728be98431fc0e83a1101c280705c27118979ca720e0c216b3eb"
+      }
+    },
+    "model": "aa4db8fb06e1205d67beb49175cc0d8787435653ee335c86c0940b7447b87b92",
+    "C": 1000.0,
+    "control_seed": 2,
+    "code": "3405a3c94eebcbaa6b7b5e10f89516ceb4c498a46393116bfc613627a3c39805",
+    "versions": {
+      "numpy": "2.4.6",
+      "pandas": "2.2.3",
+      "scikit-learn": "1.6.1",
+      "scipy": "1.16.3",
+      "matplotlib": "3.10.0"
+    }
+  },
+  "files": {
+    "arrays.npz": "a698f9adc7056beb3330ef0eec5fce675985d0a8e6a125ce5de1ee612dbbcc74",
+    "predictions.csv": "65d386e49201c92bb80e27bb6af543d825121d4672c68ee2b329cd7ddd14a8b5",
+    "result.json": "8dc631f43d6a9cd32cefc4103be42225d6f03d0b83a73d3309794a4641cfd241"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "input": "/content/drive/MyDrive/mlwa_journals_p0_e0_e1/p0_fp32_main_lodo_v1",
+  "folds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "p0_g0": {
+    "status": "DIAGNOSTIC",
+    "folds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "reference_sha256": "92c0c7ac8b809bfb2fc8ea572687acd62d5b8cc3e91f9894b2c48b42399616b7",
+    "note": "No target tuning; missing references cannot pass"
+  },
+  "versions": {
+    "numpy": "2.4.6",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.6.1",
+    "scipy": "1.16.3",
+    "matplotlib": "3.10.0"
+  },
+  "code_sha256": "3405a3c94eebcbaa6b7b5e10f89516ceb4c498a46393116bfc613627a3c39805",
+  "plan_sha256": "0fd996e6eb1c69851492b739abd2543237ff3b5beae1a8c5fb6ea8957ffea967"
+}

@@ -1,0 +1,46 @@
+{
+  "identity": {
+    "input": {
+      "source_marker_sha256": "97708e3a486ffe8590c1036bd2cd7faa8a41cbcb6cda102520234da157794f4c",
+      "identity": {
+        "checkpoint_path": "/content/mlwa_p0_e0_e1/checkpoints_ssd/lodo_V2_PlusGlobalContext_H2_fold_4_eyepacs_best.pth",
+        "checkpoint_sha256": "b9c66fc665746ebb781e37d01caf5a3472acb1923239f6613af8c5afbe34d5d5",
+        "epoch": 16,
+        "manifest_sha256": "1f76f3289b5dba1d2eea8b89493c66a5ed35a640bc2a7c88bf3aa87817d268ee",
+        "runtime_manifest_sha256": "3a703bbaae93c05220402f30a52817812505ff155c84cefdfb5e4f9652fef929",
+        "code_sha256": "e6ec12131affc816d099a1ee324fee9b7f579e1f51c964690047cf98359addc8",
+        "variant": "V2",
+        "fold": 4,
+        "cohort": "eyepacs",
+        "split": "target",
+        "forward_id": "main_lodo_survival_fp32_clamp20_expm1_norm1e12",
+        "patch_cap": 256,
+        "patch_chunk": 1024,
+        "precision": "fp32_tf32_off",
+        "diagnostic_limit": 0,
+        "data_archive_sha256": "2317a83eeb1c58471af0529cd5e358d9441f29d2fe421e52266480d542f0ccd4",
+        "image_inputs": "3f0e2673280872a00ab7f009a9049ab549fa41ba6db85534908136f70ab6a7d9"
+      },
+      "files": {
+        "predictions.csv": "c3d5b46e6630f3efafd291c588caeb0f5d691360988abd5e39f206705e38d424",
+        "z.npy": "5bd6d70fbe55168acbb023523c47e6230d671b19e78b9f44f78523b0c8231193"
+      }
+    },
+    "model": "84dfc1683ab3150a516ba61c50ac84bc44bf817a430fb7e5427f3b31bca15a52",
+    "C": 0.001,
+    "control_seed": 1,
+    "code": "3405a3c94eebcbaa6b7b5e10f89516ceb4c498a46393116bfc613627a3c39805",
+    "versions": {
+      "numpy": "2.4.6",
+      "pandas": "2.2.3",
+      "scikit-learn": "1.6.1",
+      "scipy": "1.16.3",
+      "matplotlib": "3.10.0"
+    }
+  },
+  "files": {
+    "arrays.npz": "6e2fedec7b52c5c3664137561aed59f6e044643dce5936054f46c03526aac3bf",
+    "predictions.csv": "0280e4350917169f3e52c9acfdf347223abecf7b8f474e2f7feac7faa8b5afda",
+    "result.json": "3927c24234390a60ca1c291400f1b93873fe7f86aaf0dbd9b0adadd1c7470804"
+  }
+}

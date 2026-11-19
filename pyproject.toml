@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "diabetic-retinopathy-grading"
+version = "0.1.0"
+description = "Clinically Motivated Modeling for Diabetic Retinopathy Grading: A Grade-Level Cross-Domain Evaluation"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "torch>=2.0.0",
+    "torchvision>=0.15.0",
+    "albumentations>=1.3.0",
+    "opencv-python>=4.7.0",
+    "scikit-learn>=1.2.0",
+    "pandas>=2.0.0",
+    "numpy>=1.24.0",
+    "matplotlib>=3.7.0",
+    "seaborn>=0.12.0",
+    "scipy>=1.10.0",
+    "tqdm>=4.65.0",
+    "pillow>=9.5.0",
+    "threadpoolctl>=3",
+    "ipython>=8",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0", "nbformat>=5"]
+
+[tool.setuptools.package-data]
+"evaluation.checkpoint_reference" = ["SOURCE_PROVENANCE.json"]
+
+[tool.setuptools]
+py-modules = ["config", "paths"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = [
+    "data*",
+    "models*",
+    "losses*",
+    "training*",
+    "evaluation*",
+    "explainability*",
+    "visualization*",
+    "experiments*",
+    "utils*",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+

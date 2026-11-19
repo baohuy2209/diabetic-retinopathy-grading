@@ -1,0 +1,14 @@
+alpha,tau,q,fallback,status,count,frequency
+0.0,1.0,1,False,OK,8,0.008
+0.4,0.75,2,False,OK,3,0.003
+0.4,1.0,2,False,OK,35,0.035
+0.5,0.5,2,False,OK,3,0.003
+0.5,0.75,2,False,OK,30,0.03
+0.5,1.0,2,False,OK,254,0.254
+0.6,0.75,2,False,OK,2,0.002
+0.7,1.0,1,False,OK,1,0.001
+0.7,1.0,2,False,OK,17,0.017
+0.8,0.75,2,False,OK,49,0.049
+0.8,1.0,1,False,OK,5,0.005
+0.8,1.0,2,False,OK,589,0.589
+0.9,1.0,1,False,OK,4,0.004

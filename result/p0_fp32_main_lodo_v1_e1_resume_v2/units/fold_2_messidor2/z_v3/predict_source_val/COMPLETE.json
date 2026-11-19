@@ -1,0 +1,46 @@
+{
+  "identity": {
+    "input": {
+      "source_marker_sha256": "3fcc9e5c5966fc403db492ebc24d257fa3a404b2f4307557f3229a6b86ff7aa8",
+      "identity": {
+        "checkpoint_path": "/content/mlwa_p0_e0_e1/checkpoints_ssd/lodo_V3_PlusOrdinalHead_H3_Champion_fold_2_messidor2_best.pth",
+        "checkpoint_sha256": "da6bed0c9809ee2a56a4d4baf560c5f2b1fbd7b58984dacbb959f1cca640d600",
+        "epoch": 29,
+        "manifest_sha256": "75faa046252dbf1b0809151b26c5f184e576309cd662fe9c5369df2a0b3bb75d",
+        "runtime_manifest_sha256": "db392d97b137e2a3ea47a4b701800b63f06d3f7fe17c6fddae0dae9d2669d54f",
+        "code_sha256": "e6ec12131affc816d099a1ee324fee9b7f579e1f51c964690047cf98359addc8",
+        "variant": "V3",
+        "fold": 2,
+        "cohort": "messidor2",
+        "split": "source_val",
+        "forward_id": "main_lodo_survival_fp32_clamp20_expm1_norm1e12",
+        "patch_cap": 256,
+        "patch_chunk": 1024,
+        "precision": "fp32_tf32_off",
+        "diagnostic_limit": 0,
+        "data_archive_sha256": "2317a83eeb1c58471af0529cd5e358d9441f29d2fe421e52266480d542f0ccd4",
+        "image_inputs": "d896fe738984a82765b97488d964cbb30214c3f3a7a2babde2fafe5c7a5dfd19"
+      },
+      "files": {
+        "predictions.csv": "45b7695a4b27864a11f127d3b848477428b3d6fb514243159c37ff12c6f667bd",
+        "z.npy": "e23e66e3c85fdbf28b95316d8d318e494a61fa0f664eed5ee935c517eb886f2b"
+      }
+    },
+    "model": "c7f2179e906d94e5da762960fc1b27ef383b378111c752f96eb6b2ffaf85a088",
+    "C": 0.01,
+    "control_seed": null,
+    "code": "3405a3c94eebcbaa6b7b5e10f89516ceb4c498a46393116bfc613627a3c39805",
+    "versions": {
+      "numpy": "2.4.6",
+      "pandas": "2.2.3",
+      "scikit-learn": "1.6.1",
+      "scipy": "1.16.3",
+      "matplotlib": "3.10.0"
+    }
+  },
+  "files": {
+    "arrays.npz": "de52a66814dcd61fe8c07d6067d1907001a8572e47a28b1a2c4dff93626e5cf1",
+    "predictions.csv": "212f16708106cf43074df76632c94d1972e000d2bc2750a1f8098698342aea67",
+    "result.json": "9af12c3370047de31998e287bb941f876fd92ebedf02d7f7259a4f9b64d808a3"
+  }
+}

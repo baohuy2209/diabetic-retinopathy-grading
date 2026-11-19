@@ -1,0 +1,10 @@
+{
+  "aggregation": "equal-cohort macro-6 available",
+  "coverage": 6,
+  "v3_minus_v2_lower": -0.14966269112022793,
+  "v3_minus_v2_upper": -0.07986222588393165,
+  "unit": "paired true-G3 images within cohort",
+  "reps": 2000,
+  "seed": 42,
+  "limitation": "Historical image bootstrap; not patient CI or training-seed variability"
+}

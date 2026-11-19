@@ -1,0 +1,4 @@
+{
+  "status": "PENDING_ASSETS",
+  "reason": "RUN_POOLED=False; pooled checkpoints/splits chưa được audit"
+}

@@ -1,0 +1,6 @@
+{
+  "reps": 1000,
+  "unit": "legacy_grouping_key",
+  "seed_policy": "SeedSequence([42,batch_start]); fixed batch size",
+  "entropy": 2.1396340496409207
+}

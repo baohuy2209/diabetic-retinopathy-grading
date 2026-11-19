@@ -1,0 +1,32 @@
+{
+  "code_sha256": "e6ec12131affc816d099a1ee324fee9b7f579e1f51c964690047cf98359addc8",
+  "plan_sha256": "b78c337ac3310748532665040d80350e7bf34408b45bb1da8e14bb9e44bac09b",
+  "assets": {
+    "manifests/fold_0_aptos_test.csv": "8b850484cc598d705f9dea5c194fcad16037408cb495cce3d240058a8ffe8f17",
+    "manifests/fold_0_aptos_train.csv": "537bbbd73a85bafd3fd132c4911ff5ab42bf8cf3d1c5b5d2caed6dd8641c1d34",
+    "manifests/fold_0_aptos_val.csv": "fb2b58806341923cff95b276453932ef3344dfa60ff290b983504064168ab589",
+    "manifests/fold_1_idrid_test.csv": "6bb97f569a7ed0f310c7eb29d5a3d5f66972433fe403cbbd8bcc54fd667942c2",
+    "manifests/fold_1_idrid_train.csv": "a005e6a31a54b5462fb24c4ad5536cf876c2149fd1c9c2245852ef3ec2d8d300",
+    "manifests/fold_1_idrid_val.csv": "6a83c6478296bd0f65d1fb5d1c3477c80507ca067656366eee9e4c4da417faed",
+    "manifests/fold_2_messidor2_test.csv": "d91ad2701f1bf52a6f1e778a0639285a62357622a5edd4bcb9541d1659a3753b",
+    "manifests/fold_2_messidor2_train.csv": "03eb9321d1b11fa9aa2325f03bf14aabb9a026316a5d4f11c2d1d0903b5d125a",
+    "manifests/fold_2_messidor2_val.csv": "75faa046252dbf1b0809151b26c5f184e576309cd662fe9c5369df2a0b3bb75d",
+    "manifests/fold_3_ddr_test.csv": "3fd43a2153554a2bdf0b1c4ebea916c1212cc3ced69e4bc5e0f79e9a72e99316",
+    "manifests/fold_3_ddr_train.csv": "bca0b649dd5905e4833de45df01fe60f328ffaf53728bad28204ace17dedd6b6",
+    "manifests/fold_3_ddr_val.csv": "e511e32947b49fafcd2ac07e3f28b0db2653a68dcff1ff249bfe929f5891e512",
+    "manifests/fold_4_eyepacs_test.csv": "1f76f3289b5dba1d2eea8b89493c66a5ed35a640bc2a7c88bf3aa87817d268ee",
+    "manifests/fold_4_eyepacs_train.csv": "5753e5546978d1ec8632f85ecf52a7db76e88e8316a3ae1a114395de1e0532ca",
+    "manifests/fold_4_eyepacs_val.csv": "a82baf4f966dba87d41946236d79984d2ede4fc93398b74da991f28bb992f9ee",
+    "manifests/fold_5_deepdrid_test.csv": "db0d244e12e258ad9c627ac9a329ca149e1f71dd427518dee26707c6af50f804",
+    "manifests/fold_5_deepdrid_train.csv": "8ea2980012b88e01433f25c0a4c9500129e65ef3c1eeca04e43eab3da917db8b",
+    "manifests/fold_5_deepdrid_val.csv": "9def9032d68eec45a212c416df781c6e2cf764ab1c269a7c4638102e0ecfbdc9",
+    "reference_summary.json": "92c0c7ac8b809bfb2fc8ea572687acd62d5b8cc3e91f9894b2c48b42399616b7"
+  },
+  "source_notebooks": {
+    "notebooks\\dmip-conference\\diabetic_retinopathy\\pipeline\\model\\main_model_lodo.ipynb": "e88f73279488e5c6f407c7757dc7643f3ae67f33bfc74b879467c2e6cf4a284d",
+    "notebooks\\dmip-conference\\diabetic_retinopathy\\pipeline\\model\\main_model_head_ablation.ipynb": "898e842061ccf41a6732867e619b9c67819e3a140efe8a2bbc78c851e0cd72a1",
+    "camera_ready_analysis\\camera_ready_analysis_colab_L4.ipynb": "63f8ddbacdd9104edc04bd76813b1e81768f46ab78a73bb7e2ce2fd093a8e284",
+    "documents\\G-12.10.26.pdf": "baadd9834e1b3e005d1a3305fa8c5ea25aaf6d4a3fbf50b3672901d0f02b960a",
+    "paper-reference\\UEL___BaoHuy___DMIP_2026.pdf": "94a2d18a497596407d524642a5838ee7772f40838a0f6d87c6fb3ab27470c083"
+  }
+}

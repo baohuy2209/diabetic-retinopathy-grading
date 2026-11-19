@@ -1,0 +1,13 @@
+{
+  "status": "DIAGNOSTIC",
+  "folds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "reference_sha256": "92c0c7ac8b809bfb2fc8ea572687acd62d5b8cc3e91f9894b2c48b42399616b7",
+  "note": "No target tuning; missing references cannot pass"
+}

@@ -1,0 +1,46 @@
+{
+  "identity": {
+    "input": {
+      "source_marker_sha256": "20ea146019b56a06a3203c1fac3a09271a4a826afc62ae99272db7f73ca59852",
+      "identity": {
+        "checkpoint_path": "/content/mlwa_p0_e0_e1/checkpoints_ssd/lodo_V3_PlusOrdinalHead_H3_Champion_fold_4_eyepacs_best.pth",
+        "checkpoint_sha256": "881fe81f0fb0b6d958845ff0ca70e51698f8b9602df46413eb039c1c064764ae",
+        "epoch": 20,
+        "manifest_sha256": "1f76f3289b5dba1d2eea8b89493c66a5ed35a640bc2a7c88bf3aa87817d268ee",
+        "runtime_manifest_sha256": "3a703bbaae93c05220402f30a52817812505ff155c84cefdfb5e4f9652fef929",
+        "code_sha256": "e6ec12131affc816d099a1ee324fee9b7f579e1f51c964690047cf98359addc8",
+        "variant": "V3",
+        "fold": 4,
+        "cohort": "eyepacs",
+        "split": "target",
+        "forward_id": "main_lodo_survival_fp32_clamp20_expm1_norm1e12",
+        "patch_cap": 256,
+        "patch_chunk": 1024,
+        "precision": "fp32_tf32_off",
+        "diagnostic_limit": 0,
+        "data_archive_sha256": "2317a83eeb1c58471af0529cd5e358d9441f29d2fe421e52266480d542f0ccd4",
+        "image_inputs": "3f0e2673280872a00ab7f009a9049ab549fa41ba6db85534908136f70ab6a7d9"
+      },
+      "files": {
+        "predictions.csv": "d2d44e1070de9cb65fc3dd1df530acfaac0052d22462685587fef15a47db4e69",
+        "z.npy": "7842ae4805eccd21c749c33734cef90e0e05994c76171e55355952cc7cbbb862"
+      }
+    },
+    "model": "92e7c9edbb238aca9e1d54a63f41b7051716f09d522c318869fafb27b74ddb31",
+    "C": 1000.0,
+    "control_seed": 1,
+    "code": "3405a3c94eebcbaa6b7b5e10f89516ceb4c498a46393116bfc613627a3c39805",
+    "versions": {
+      "numpy": "2.4.6",
+      "pandas": "2.2.3",
+      "scikit-learn": "1.6.1",
+      "scipy": "1.16.3",
+      "matplotlib": "3.10.0"
+    }
+  },
+  "files": {
+    "arrays.npz": "1e08b55c9fdfe7e60fedbbf4d515d8ae5d349e30cca951738d797229a23bcccf",
+    "predictions.csv": "56987f0a1f410899568325225166f889edabfcbb0ff3f3af9c687e5a56509eef",
+    "result.json": "4f847a18a2588e20256919f58fbb70bd39ddc011897f0b6254f664f149706724"
+  }
+}

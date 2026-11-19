@@ -1,0 +1,49 @@
+fold_id,cohort,contrast,interpretation,metric,difference,lower,upper,valid,invalid,reps,unit,status
+0,aptos,z_v3-s_v3,same V3 encoder; probe family comparison,recall_g3,0.020725388601036232,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+0,aptos,z_v3-s_v3,same V3 encoder; probe family comparison,macro_recall,-0.003980926118271333,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+0,aptos,z_v3-s_v3,same V3 encoder; probe family comparison,within1,-0.011196067722555991,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+0,aptos,z_v3-s_v3,same V3 encoder; probe family comparison,qwk,-0.005975670061798,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+0,aptos,z_v2-z_v3,different learned encoder configurations,recall_g3,-0.1658031088082902,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+0,aptos,z_v2-z_v3,different learned encoder configurations,macro_recall,0.0423584044714862,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+0,aptos,z_v2-z_v3,different learned encoder configurations,within1,-0.027580557072637957,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+0,aptos,z_v2-z_v3,different learned encoder configurations,qwk,0.01774466771575145,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+1,idrid,z_v3-s_v3,same V3 encoder; probe family comparison,recall_g3,-0.043010752688172005,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+1,idrid,z_v3-s_v3,same V3 encoder; probe family comparison,macro_recall,0.02912288786482331,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+1,idrid,z_v3-s_v3,same V3 encoder; probe family comparison,within1,-0.005813953488372103,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+1,idrid,z_v3-s_v3,same V3 encoder; probe family comparison,qwk,0.02406080173757874,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+1,idrid,z_v2-z_v3,different learned encoder configurations,recall_g3,-0.20430107526881724,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+1,idrid,z_v2-z_v3,different learned encoder configurations,macro_recall,0.031552995391705085,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+1,idrid,z_v2-z_v3,different learned encoder configurations,within1,-0.013565891472868241,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+1,idrid,z_v2-z_v3,different learned encoder configurations,qwk,0.0023406334060802614,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+2,messidor2,z_v3-s_v3,same V3 encoder; probe family comparison,recall_g3,-0.09859154929577463,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+2,messidor2,z_v3-s_v3,same V3 encoder; probe family comparison,macro_recall,-0.03035346847032544,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+2,messidor2,z_v3-s_v3,same V3 encoder; probe family comparison,within1,0.009460737937559194,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+2,messidor2,z_v3-s_v3,same V3 encoder; probe family comparison,qwk,-0.02164902412523939,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+2,messidor2,z_v2-z_v3,different learned encoder configurations,recall_g3,0.05633802816901412,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+2,messidor2,z_v2-z_v3,different learned encoder configurations,macro_recall,0.03402628124105406,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+2,messidor2,z_v2-z_v3,different learned encoder configurations,within1,-0.022705771050141932,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+2,messidor2,z_v2-z_v3,different learned encoder configurations,qwk,0.008076943938664649,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+3,ddr,z_v3-s_v3,same V3 encoder; probe family comparison,recall_g3,-0.02966101694915252,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+3,ddr,z_v3-s_v3,same V3 encoder; probe family comparison,macro_recall,-0.002949751716137039,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+3,ddr,z_v3-s_v3,same V3 encoder; probe family comparison,within1,0.014773997763935509,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+3,ddr,z_v3-s_v3,same V3 encoder; probe family comparison,qwk,-0.0015598131984653207,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+3,ddr,z_v2-z_v3,different learned encoder configurations,recall_g3,0.01694915254237289,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+3,ddr,z_v2-z_v3,different learned encoder configurations,macro_recall,0.02984289872555096,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+3,ddr,z_v2-z_v3,different learned encoder configurations,within1,-0.02803066602779114,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+3,ddr,z_v2-z_v3,different learned encoder configurations,qwk,-0.015911268691506164,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+4,eyepacs,z_v3-s_v3,same V3 encoder; probe family comparison,recall_g3,-0.006872852233677007,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+4,eyepacs,z_v3-s_v3,same V3 encoder; probe family comparison,macro_recall,0.0025329681197049925,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+4,eyepacs,z_v3-s_v3,same V3 encoder; probe family comparison,within1,-0.00022775152308829316,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+4,eyepacs,z_v3-s_v3,same V3 encoder; probe family comparison,qwk,0.015051210869982623,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+4,eyepacs,z_v2-z_v3,different learned encoder configurations,recall_g3,-0.016036655211912942,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+4,eyepacs,z_v2-z_v3,different learned encoder configurations,macro_recall,0.014969980985065301,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+4,eyepacs,z_v2-z_v3,different learned encoder configurations,within1,-0.03612708534988329,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+4,eyepacs,z_v2-z_v3,different learned encoder configurations,qwk,-0.042677942978419425,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+5,deepdrid,z_v3-s_v3,same V3 encoder; probe family comparison,recall_g3,-0.022959183673469385,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+5,deepdrid,z_v3-s_v3,same V3 encoder; probe family comparison,macro_recall,0.0004975848017109707,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+5,deepdrid,z_v3-s_v3,same V3 encoder; probe family comparison,within1,-0.00550000000000006,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+5,deepdrid,z_v3-s_v3,same V3 encoder; probe family comparison,qwk,-0.002571429606307296,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+5,deepdrid,z_v2-z_v3,different learned encoder configurations,recall_g3,-0.07397959183673469,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+5,deepdrid,z_v2-z_v3,different learned encoder configurations,macro_recall,0.07681818045570282,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+5,deepdrid,z_v2-z_v3,different learned encoder configurations,within1,0.02300000000000002,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE
+5,deepdrid,z_v2-z_v3,different learned encoder configurations,qwk,0.03902183509423085,,,0,2000,2000,patient_cluster,NOT_ESTIMABLE

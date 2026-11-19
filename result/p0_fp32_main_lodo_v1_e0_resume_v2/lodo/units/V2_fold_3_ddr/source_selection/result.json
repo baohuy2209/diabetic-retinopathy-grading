@@ -1,0 +1,17 @@
+{
+  "selected": {
+    "alpha": 0.8,
+    "tau": 1.0,
+    "q": 2,
+    "fallback": false
+  },
+  "threshold": 0.3641979647800325,
+  "prior": [
+    0.3004010207801677,
+    0.20537124802527645,
+    0.19880908980435047,
+    0.16539069145704216,
+    0.13002794993316322
+  ],
+  "objective": "G3; Within1>=native-.01; ties macro,within1,qwk,lower tau,q,alpha"
+}
