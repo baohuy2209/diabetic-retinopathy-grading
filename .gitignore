@@ -36,3 +36,12 @@ specs
 /result/recomputed/
 /data/raw/
 /data/processed/
+
+.agents
+.specify
+specs
+skills
+skills-lock.json
+AGENTS.md
+/tests
+/result
