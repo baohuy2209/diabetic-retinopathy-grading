@@ -11,7 +11,9 @@
 # post hoc 0.5 pp $V_3$ CIBD contrast. All P0/E0/E1/supplementary caches are read-only inputs.
 
 # %%
-NOTEBOOK_CODE_SHA256 = 'a648b135a707c8bbb0997126718147cabce655d4bc086b905bf457d476fd0ebc'
+NOTEBOOK_CODE_SHA256 = (
+    "a648b135a707c8bbb0997126718147cabce655d4bc086b905bf457d476fd0ebc"
+)
 
 # %%
 import os
@@ -19,41 +21,56 @@ import sys
 from pathlib import Path
 
 IN_COLAB: bool = (
-    'COLAB_RELEASE_TAG' in os.environ
-    or 'COLAB_BACKEND_VERSION' in os.environ
-    or 'google.colab' in sys.modules
+    "COLAB_RELEASE_TAG" in os.environ
+    or "COLAB_BACKEND_VERSION" in os.environ
+    or "google.colab" in sys.modules
 )
 
 
 def _running_in_notebook() -> bool:
     """Return True only when executing inside an interactive IPython/Jupyter/Colab kernel."""
-    if 'ipykernel' not in sys.modules and 'google.colab' not in sys.modules:
+    if "ipykernel" not in sys.modules and "google.colab" not in sys.modules:
         return False
     try:
         from IPython import get_ipython
+
         ip = get_ipython()
-        return ip is not None and ip.__class__.__name__ != 'TerminalInteractiveShell'
+        return (
+            ip is not None
+            and ip.__class__.__name__ != "TerminalInteractiveShell"
+        )
     except Exception:
         return False
 
 
-if __name__ == '__main__' and _running_in_notebook():
+if __name__ == "__main__" and _running_in_notebook():
     import importlib.util
     import subprocess
 
     if IN_COLAB:
-        _deps = {'numpy': 'numpy', 'pandas': 'pandas', 'sklearn': 'scikit-learn', 'scipy': 'scipy'}
-        _missing = [pkg for mod, pkg in _deps.items() if importlib.util.find_spec(mod) is None]
+        _deps = {
+            "numpy": "numpy",
+            "pandas": "pandas",
+            "sklearn": "scikit-learn",
+            "scipy": "scipy",
+        }
+        _missing = [
+            pkg
+            for mod, pkg in _deps.items()
+            if importlib.util.find_spec(mod) is None
+        ]
         if _missing:
-            subprocess.check_call([sys.executable, '-m', 'pip', 'install', *_missing])
+            subprocess.check_call(
+                [sys.executable, "-m", "pip", "install", *_missing]
+            )
 
     P0_RUN = None
     E0_RUN = None
     E1_RUN = None
     SUPP_RUN = None
     OUTPUT_DIR = None
-    SEED = int(os.environ.get('DR_SEED', 42))
-    BOOTSTRAP_REPS = int(os.environ.get('DR_BOOTSTRAP_REPS', 2000))
+    SEED = int(os.environ.get("DR_SEED", 42))
+    BOOTSTRAP_REPS = int(os.environ.get("DR_BOOTSTRAP_REPS", 2000))
 
 # %%
 import argparse
@@ -68,23 +85,34 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics import cohen_kappa_score, confusion_matrix
 
-COHORTS: Tuple[str, ...] = ('aptos', 'idrid', 'messidor2', 'ddr', 'eyepacs', 'deepdrid')
+COHORTS: Tuple[str, ...] = (
+    "aptos",
+    "idrid",
+    "messidor2",
+    "ddr",
+    "eyepacs",
+    "deepdrid",
+)
 COHORT_LABELS: Dict[str, str] = {
-    'aptos': 'APTOS 2019',
-    'idrid': 'IDRiD',
-    'messidor2': 'Messidor-2',
-    'ddr': 'DDR',
-    'eyepacs': 'EyePACS',
-    'deepdrid': 'DeepDRiD',
+    "aptos": "APTOS 2019",
+    "idrid": "IDRiD",
+    "messidor2": "Messidor-2",
+    "ddr": "DDR",
+    "eyepacs": "EyePACS",
+    "deepdrid": "DeepDRiD",
 }
-PROB_COLS: List[str] = [f'p{k}' for k in range(5)]
+PROB_COLS: List[str] = [f"p{k}" for k in range(5)]
 TIE_TOL: float = 1e-12
 
-CONTRAST_ORDER: Tuple[str, ...] = ('cibd_1.0pp', 'probe_s3', 'cibd_0.5pp_posthoc')
+CONTRAST_ORDER: Tuple[str, ...] = (
+    "cibd_1.0pp",
+    "probe_s3",
+    "cibd_0.5pp_posthoc",
+)
 CONTRAST_LABELS: Dict[str, str] = {
-    'cibd_1.0pp': 'Primary $V_3$ CIBD (1.0 pp source allowance) vs. native $V_3$',
-    'probe_s3': 'Primary E1 scalar probe $s_3$ (macro-recall selected) vs. native $V_3$',
-    'cibd_0.5pp_posthoc': 'Post hoc $V_3$ CIBD (0.5 pp source allowance) vs. native $V_3$',
+    "cibd_1.0pp": "Primary $V_3$ CIBD (1.0 pp source allowance) vs. native $V_3$",
+    "probe_s3": "Primary E1 scalar probe $s_3$ (macro-recall selected) vs. native $V_3$",
+    "cibd_0.5pp_posthoc": "Post hoc $V_3$ CIBD (0.5 pp source allowance) vs. native $V_3$",
 }
 
 
@@ -93,11 +121,13 @@ def find_repo_root(start: Optional[Path] = None) -> Optional[Path]:
     if start is not None:
         cands.append(Path(start).resolve())
     cands.append(Path.cwd().resolve())
-    if '__file__' in globals():
+    if "__file__" in globals():
         cands.append(Path(__file__).resolve().parent)
     for base in cands:
         for cur in (base, *base.parents):
-            if (cur / 'pyproject.toml').is_file() and (cur / 'workflows' / 'mlwa').is_dir():
+            if (cur / "pyproject.toml").is_file() and (
+                cur / "workflows" / "mlwa"
+            ).is_dir():
                 return cur
     return None
 
@@ -116,47 +146,75 @@ def _first_existing(cands: Sequence[Optional[Path]]) -> Optional[Path]:
 
 def sha256_file(path: Path) -> str:
     h = hashlib.sha256()
-    with open(path, 'rb') as f:
-        for chunk in iter(lambda: f.read(4 * 1024 * 1024), b''):
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(4 * 1024 * 1024), b""):
             h.update(chunk)
     return h.hexdigest()
 
 
-def capture_code_provenance(repo_root: Optional[Path], execution_mode: str = 'module_api') -> Dict[str, Any]:
+def capture_code_provenance(
+    repo_root: Optional[Path], execution_mode: str = "module_api"
+) -> Dict[str, Any]:
     code_path: Optional[Path] = None
-    script_path: Optional[Path] = Path(__file__).resolve() if '__file__' in globals() else None
-    if execution_mode == 'notebook' and repo_root is not None:
-        nb_cand = repo_root / 'notebooks' / 'mlwa' / '05_within1_transition_decomposition.ipynb'
+    script_path: Optional[Path] = (
+        Path(__file__).resolve() if "__file__" in globals() else None
+    )
+    if execution_mode == "notebook" and repo_root is not None:
+        nb_cand = (
+            repo_root
+            / "notebooks"
+            / "mlwa"
+            / "05_within1_transition_decomposition.ipynb"
+        )
         if nb_cand.is_file():
             code_path = nb_cand.resolve()
     if code_path is None and script_path is not None and script_path.is_file():
         code_path = script_path
-    code_sha_start = sha256_file(code_path) if (code_path and code_path.is_file()) else NOTEBOOK_CODE_SHA256
+    code_sha_start = (
+        sha256_file(code_path)
+        if (code_path and code_path.is_file())
+        else NOTEBOOK_CODE_SHA256
+    )
 
     git_commit: Optional[str] = None
     git_dirty: Optional[bool] = None
-    if repo_root is not None and (repo_root / '.git').exists():
+    if repo_root is not None and (repo_root / ".git").exists():
         try:
             git_commit = subprocess.run(
-                ['git', 'rev-parse', 'HEAD'], cwd=str(repo_root),
-                capture_output=True, text=True, timeout=5, check=True,
+                ["git", "rev-parse", "HEAD"],
+                cwd=str(repo_root),
+                capture_output=True,
+                text=True,
+                timeout=5,
+                check=True,
             ).stdout.strip()
             st = subprocess.run(
-                ['git', 'status', '--porcelain', '--',
-                 'workflows/mlwa/05_within1_transition_decomposition.py',
-                 'notebooks/mlwa/05_within1_transition_decomposition.ipynb'],
-                cwd=str(repo_root), capture_output=True, text=True, timeout=5, check=True,
+                [
+                    "git",
+                    "status",
+                    "--porcelain",
+                    "--",
+                    "workflows/mlwa/05_within1_transition_decomposition.py",
+                    "notebooks/mlwa/05_within1_transition_decomposition.ipynb",
+                ],
+                cwd=str(repo_root),
+                capture_output=True,
+                text=True,
+                timeout=5,
+                check=True,
             )
-            git_dirty = bool([ln for ln in st.stdout.splitlines() if ln.strip()])
+            git_dirty = bool(
+                [ln for ln in st.stdout.splitlines() if ln.strip()]
+            )
         except Exception:
             pass
     return {
-        'execution_mode': execution_mode,
-        'code_path': str(code_path) if code_path else None,
-        'code_sha256_start': code_sha_start,
-        'notebook_embedded_code_sha256': NOTEBOOK_CODE_SHA256,
-        'git_commit': git_commit,
-        'git_dirty_relevant_files': git_dirty,
+        "execution_mode": execution_mode,
+        "code_path": str(code_path) if code_path else None,
+        "code_sha256_start": code_sha_start,
+        "notebook_embedded_code_sha256": NOTEBOOK_CODE_SHA256,
+        "git_commit": git_commit,
+        "git_dirty_relevant_files": git_dirty,
     }
 
 
@@ -170,7 +228,7 @@ class DecompContext:
     output_dir: Path
     seed: int = 42
     bootstrap_reps: int = 2000
-    execution_mode: str = 'module_api'
+    execution_mode: str = "module_api"
     code_provenance: Dict[str, Any] = field(default_factory=dict)
 
 
@@ -183,42 +241,71 @@ def build_context(
     output_dir: Optional[Path] = None,
     seed: int = 42,
     bootstrap_reps: int = 2000,
-    execution_mode: str = 'module_api',
+    execution_mode: str = "module_api",
 ) -> DecompContext:
     root = find_repo_root(repo_root)
-    ext_mlwa = Path(r'D:\Github\deep-learning-for-computer-vision\notebooks\mlwa-journals\outputs')
+    ext_mlwa = Path(
+        r"D:\Github\deep-learning-for-computer-vision\notebooks\mlwa-journals\outputs"
+    )
 
-    res_p0 = _first_existing([
-        p0_dir, _env_path('DR_P0_RUN'),
-        (root / 'result' / 'p0_fp32_main_lodo_v1') if root else None,
-        ext_mlwa / 'p0_fp32_main_lodo_v1',
-    ])
-    res_e0 = _first_existing([
-        e0_dir, _env_path('DR_E0_RUN'),
-        (root / 'result' / 'p0_fp32_main_lodo_v1_e0_resume_v2') if root else None,
-        ext_mlwa / 'p0_fp32_main_lodo_v1_e0_resume_v2',
-    ])
-    res_e1 = _first_existing([
-        e1_dir, _env_path('DR_E1_RUN'),
-        (root / 'result' / 'p0_fp32_main_lodo_v1_e1_resume_v2') if root else None,
-        ext_mlwa / 'p0_fp32_main_lodo_v1_e1_resume_v2',
-    ])
-    res_supp = _first_existing([
-        supp_dir, _env_path('DR_SUPP_RUN'),
-        (root / 'result' / 'thesis_supplementary_v1') if root else None,
-    ])
-    for name, p in [('P0', res_p0), ('E0', res_e0), ('E1', res_e1), ('SUPP', res_supp)]:
+    res_p0 = _first_existing(
+        [
+            p0_dir,
+            _env_path("DR_P0_RUN"),
+            (root / "result" / "p0_fp32_main_lodo_v1") if root else None,
+            ext_mlwa / "p0_fp32_main_lodo_v1",
+        ]
+    )
+    res_e0 = _first_existing(
+        [
+            e0_dir,
+            _env_path("DR_E0_RUN"),
+            (
+                (root / "result" / "p0_fp32_main_lodo_v1_e0_resume_v2")
+                if root
+                else None
+            ),
+            ext_mlwa / "p0_fp32_main_lodo_v1_e0_resume_v2",
+        ]
+    )
+    res_e1 = _first_existing(
+        [
+            e1_dir,
+            _env_path("DR_E1_RUN"),
+            (
+                (root / "result" / "p0_fp32_main_lodo_v1_e1_resume_v2")
+                if root
+                else None
+            ),
+            ext_mlwa / "p0_fp32_main_lodo_v1_e1_resume_v2",
+        ]
+    )
+    res_supp = _first_existing(
+        [
+            supp_dir,
+            _env_path("DR_SUPP_RUN"),
+            (root / "result" / "thesis_supplementary_v1") if root else None,
+        ]
+    )
+    for name, p in [
+        ("P0", res_p0),
+        ("E0", res_e0),
+        ("E1", res_e1),
+        ("SUPP", res_supp),
+    ]:
         if p is None:
-            raise FileNotFoundError(f'Required read-only {name} directory not found.')
+            raise FileNotFoundError(
+                f"Required read-only {name} directory not found."
+            )
 
     if output_dir is not None:
         out = Path(output_dir).expanduser().resolve()
-    elif _env_path('DR_W1_OUTPUT') is not None:
-        out = _env_path('DR_W1_OUTPUT').expanduser().resolve()  # type: ignore[union-attr]
+    elif _env_path("DR_W1_OUTPUT") is not None:
+        out = _env_path("DR_W1_OUTPUT").expanduser().resolve()  # type: ignore[union-attr]
     elif root is not None:
-        out = (root / 'result' / 'thesis_within1_decomposition_v1').resolve()
+        out = (root / "result" / "thesis_within1_decomposition_v1").resolve()
     else:
-        out = (Path.cwd() / 'thesis_within1_decomposition_v1').resolve()
+        out = (Path.cwd() / "thesis_within1_decomposition_v1").resolve()
     out.mkdir(parents=True, exist_ok=True)
     return DecompContext(
         repo_root=root,
@@ -237,35 +324,45 @@ def build_context(
 # %% [markdown]
 # ## Exact E0 CIBD Decoder & Core Paired Transition Calculations
 
+
 # %%
 def validate_probs(p: np.ndarray) -> np.ndarray:
     arr = np.asarray(p, dtype=np.float64)
     if arr.ndim != 2 or arr.shape[1] != 5 or not len(arr):
-        raise ValueError('Need nonempty N x 5 posterior array')
+        raise ValueError("Need nonempty N x 5 posterior array")
     if not np.isfinite(arr).all() or (arr < 0).any() or (arr > 1 + 1e-6).any():
-        raise ValueError('Invalid posterior values; no silent repair')
+        raise ValueError("Invalid posterior values; no silent repair")
     if not np.allclose(arr.sum(axis=1), 1.0, atol=1e-6, rtol=0.0):
-        raise ValueError('Posterior rows do not sum to 1')
+        raise ValueError("Posterior rows do not sum to 1")
     return arr
 
 
 def prior_from_labels(y: np.ndarray, smoothing: float = 1.0) -> np.ndarray:
-    counts = np.bincount(np.asarray(y, dtype=int), minlength=5).astype(np.float64) + smoothing
+    counts = (
+        np.bincount(np.asarray(y, dtype=int), minlength=5).astype(np.float64)
+        + smoothing
+    )
     return counts / counts.sum()
 
 
-def cibd(p: np.ndarray, prior: np.ndarray, alpha: float, tau: float, q: int) -> np.ndarray:
+def cibd(
+    p: np.ndarray, prior: np.ndarray, alpha: float, tau: float, q: int
+) -> np.ndarray:
     """Exact copy of E0 cibd() decision rule (01_E0_decision_optimization_resume_v2.py)."""
     arr = validate_probs(p)
     pr = np.asarray(prior, dtype=np.float64)
     if (pr <= 0).any():
-        raise ValueError('Use the prespecified smoothed SOURCE TRAIN prior')
+        raise ValueError("Use the prespecified smoothed SOURCE TRAIN prior")
     r = arr / (pr[None, :] ** tau)
     r /= r.sum(axis=1, keepdims=True)
     d = np.abs(np.arange(5)[:, None] - np.arange(5)[None, :])
-    cost = alpha * (d ** q) + (1.0 - alpha) * (d != 0)
+    cost = alpha * (d**q) + (1.0 - alpha) * (d != 0)
     risk = r @ cost.T
-    return (risk <= risk.min(axis=1, keepdims=True) + TIE_TOL).argmax(axis=1).astype(int)
+    return (
+        (risk <= risk.min(axis=1, keepdims=True) + TIE_TOL)
+        .argmax(axis=1)
+        .astype(int)
+    )
 
 
 def compute_metrics(y: np.ndarray, pred: np.ndarray) -> Dict[str, Any]:
@@ -273,22 +370,32 @@ def compute_metrics(y: np.ndarray, pred: np.ndarray) -> Dict[str, Any]:
     p_arr = np.asarray(pred, dtype=int)
     cm = confusion_matrix(y_arr, p_arr, labels=np.arange(5))
     support = cm.sum(axis=1)
-    recall = np.divide(np.diag(cm), support, out=np.full(5, np.nan), where=support > 0)
+    recall = np.divide(
+        np.diag(cm), support, out=np.full(5, np.nan), where=support > 0
+    )
     pred3 = int(cm[:, 3].sum())
     true3 = int(support[3])
-    qwk = cohen_kappa_score(y_arr, p_arr, labels=np.arange(5), weights='quadratic') if len(np.unique(y_arr)) > 1 else np.nan
+    qwk = (
+        cohen_kappa_score(
+            y_arr, p_arr, labels=np.arange(5), weights="quadratic"
+        )
+        if len(np.unique(y_arr)) > 1
+        else np.nan
+    )
     return {
-        'n': int(len(y_arr)),
-        'qwk': float(qwk),
-        'within1': float(np.mean(np.abs(y_arr - p_arr) <= 1)),
-        'mae': float(np.mean(np.abs(y_arr - p_arr))),
-        'macro_recall': float(np.nanmean(recall)),
-        'recall_g3': float(recall[3]),
-        'g3_precision': float(cm[3, 3] / pred3) if pred3 > 0 else np.nan,
-        'true_g3': true3,
-        'predicted_g3': pred3,
-        'predicted_true_g3_ratio': float(pred3 / true3) if true3 > 0 else np.nan,
-        'correct_g3': int(cm[3, 3]),
+        "n": int(len(y_arr)),
+        "qwk": float(qwk),
+        "within1": float(np.mean(np.abs(y_arr - p_arr) <= 1)),
+        "mae": float(np.mean(np.abs(y_arr - p_arr))),
+        "macro_recall": float(np.nanmean(recall)),
+        "recall_g3": float(recall[3]),
+        "g3_precision": float(cm[3, 3] / pred3) if pred3 > 0 else np.nan,
+        "true_g3": true3,
+        "predicted_g3": pred3,
+        "predicted_true_g3_ratio": (
+            float(pred3 / true3) if true3 > 0 else np.nan
+        ),
+        "correct_g3": int(cm[3, 3]),
     }
 
 
@@ -300,29 +407,53 @@ def strict_join_by_image_key(
     check_native_col: Optional[str] = None,
 ) -> pd.DataFrame:
     """Strict 1-to-1 join by image_key verifying uniqueness, full coverage, y_true, and native parity."""
-    for side, df in [('left', left), ('right', right)]:
-        if 'image_key' not in df.columns:
-            raise ValueError(f'Missing image_key column on {side} ({label})')
-        if df['image_key'].isna().any() or df['image_key'].astype(str).str.strip().eq('').any():
-            raise ValueError(f'Null/empty image_key on {side} ({label})')
-        if df['image_key'].duplicated().any():
-            dup = df.loc[df['image_key'].duplicated(), 'image_key'].iloc[0]
+    for side, df in [("left", left), ("right", right)]:
+        if "image_key" not in df.columns:
+            raise ValueError(f"Missing image_key column on {side} ({label})")
+        if (
+            df["image_key"].isna().any()
+            or df["image_key"].astype(str).str.strip().eq("").any()
+        ):
+            raise ValueError(f"Null/empty image_key on {side} ({label})")
+        if df["image_key"].duplicated().any():
+            dup = df.loc[df["image_key"].duplicated(), "image_key"].iloc[0]
             raise ValueError(f'Duplicate image_key "{dup}" on {side} ({label})')
 
-    cols_rhs = ['image_key', 'y_true', *right_cols]
-    merged = left.merge(right[cols_rhs], on='image_key', how='inner', suffixes=('', '_rhs'))
+    cols_rhs = ["image_key", "y_true", *right_cols]
+    merged = left.merge(
+        right[cols_rhs], on="image_key", how="inner", suffixes=("", "_rhs")
+    )
     if len(merged) != len(left) or len(merged) != len(right):
         raise ValueError(
-            f'Coverage mismatch in {label}: left={len(left)}, right={len(right)}, merged={len(merged)}'
+            f"Coverage mismatch in {label}: left={len(left)}, right={len(right)}, merged={len(merged)}"
         )
-    if not np.array_equal(merged['y_true'].to_numpy(int), merged['y_true_rhs'].to_numpy(int)):
-        n_mis = int((merged['y_true'].to_numpy(int) != merged['y_true_rhs'].to_numpy(int)).sum())
-        raise ValueError(f'Reference label mismatch on {n_mis} images in {label}')
+    if not np.array_equal(
+        merged["y_true"].to_numpy(int), merged["y_true_rhs"].to_numpy(int)
+    ):
+        n_mis = int(
+            (
+                merged["y_true"].to_numpy(int)
+                != merged["y_true_rhs"].to_numpy(int)
+            ).sum()
+        )
+        raise ValueError(
+            f"Reference label mismatch on {n_mis} images in {label}"
+        )
     if check_native_col is not None:
-        if not np.array_equal(merged['pred_native'].to_numpy(int), merged[check_native_col].to_numpy(int)):
-            n_mis = int((merged['pred_native'].to_numpy(int) != merged[check_native_col].to_numpy(int)).sum())
-            raise ValueError(f'Native prediction mismatch on {n_mis} images in {label}')
-    return merged.drop(columns=['y_true_rhs'])
+        if not np.array_equal(
+            merged["pred_native"].to_numpy(int),
+            merged[check_native_col].to_numpy(int),
+        ):
+            n_mis = int(
+                (
+                    merged["pred_native"].to_numpy(int)
+                    != merged[check_native_col].to_numpy(int)
+                ).sum()
+            )
+            raise ValueError(
+                f"Native prediction mismatch on {n_mis} images in {label}"
+            )
+    return merged.drop(columns=["y_true_rhs"])
 
 
 def classify_paired_within1(
@@ -331,8 +462,8 @@ def classify_paired_within1(
     alt_col: str,
 ) -> pd.DataFrame:
     """Compute exact per-image Within-1 indicators and mutually exclusive transition categories."""
-    y = df['y_true'].to_numpy(int)
-    p_nat = df['pred_native'].to_numpy(int)
+    y = df["y_true"].to_numpy(int)
+    p_nat = df["pred_native"].to_numpy(int)
     p_alt = df[alt_col].to_numpy(int)
 
     err_nat = np.abs(p_nat - y)
@@ -348,30 +479,41 @@ def classify_paired_within1(
     changed = p_nat != p_alt
 
     # Sanity: every image falls into exactly one of the four exhaustive states
-    total_flags = lost_w1.astype(int) + gained_w1.astype(int) + neut_within.astype(int) + neut_outside.astype(int)
+    total_flags = (
+        lost_w1.astype(int)
+        + gained_w1.astype(int)
+        + neut_within.astype(int)
+        + neut_outside.astype(int)
+    )
     if not np.all(total_flags == 1):
-        raise AssertionError(f'Within-1 state partition failed for {contrast}')
+        raise AssertionError(f"Within-1 state partition failed for {contrast}")
 
-    out = pd.DataFrame({
-        'contrast': contrast,
-        'fold_id': df['fold_id'].to_numpy(int),
-        'cohort': df['cohort'].astype(str).to_numpy(),
-        'image_key': df['image_key'].astype(str).to_numpy(),
-        'patient_key': df['patient_key'].astype(str).to_numpy() if 'patient_key' in df.columns else '',
-        'y_true': y,
-        'pred_native': p_nat,
-        'pred_alternative': p_alt,
-        'error_native': err_nat,
-        'error_alternative': err_alt,
-        'within1_native': w1_nat,
-        'within1_alternative': w1_alt,
-        'lost_within1': lost_w1,
-        'gained_within1': gained_w1,
-        'neutral_within1': neutral,
-        'neutral_within_both': neut_within,
-        'neutral_outside_both': neut_outside,
-        'prediction_changed': changed,
-    })
+    out = pd.DataFrame(
+        {
+            "contrast": contrast,
+            "fold_id": df["fold_id"].to_numpy(int),
+            "cohort": df["cohort"].astype(str).to_numpy(),
+            "image_key": df["image_key"].astype(str).to_numpy(),
+            "patient_key": (
+                df["patient_key"].astype(str).to_numpy()
+                if "patient_key" in df.columns
+                else ""
+            ),
+            "y_true": y,
+            "pred_native": p_nat,
+            "pred_alternative": p_alt,
+            "error_native": err_nat,
+            "error_alternative": err_alt,
+            "within1_native": w1_nat,
+            "within1_alternative": w1_alt,
+            "lost_within1": lost_w1,
+            "gained_within1": gained_w1,
+            "neutral_within1": neutral,
+            "neutral_within_both": neut_within,
+            "neutral_outside_both": neut_outside,
+            "prediction_changed": changed,
+        }
+    )
     return out
 
 
@@ -380,133 +522,184 @@ def summarize_within1_transitions(
 ) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """Return (by_cohort_transitions, cohort_totals, pooled_transitions, equal_cohort_summary)."""
     # 1. Full counts grouped by contrast, cohort, y_true, pred_native, pred_alternative
-    grp_cols = ['contrast', 'fold_id', 'cohort', 'y_true', 'pred_native', 'pred_alternative']
-    by_cohort = (
-        paired_df.groupby(grp_cols, as_index=False)
-        .agg(
-            n_images=('image_key', 'size'),
-            lost_within1=('lost_within1', 'sum'),
-            gained_within1=('gained_within1', 'sum'),
-            neutral_within_both=('neutral_within_both', 'sum'),
-            neutral_outside_both=('neutral_outside_both', 'sum'),
-            prediction_changed=('prediction_changed', 'sum'),
-        )
+    grp_cols = [
+        "contrast",
+        "fold_id",
+        "cohort",
+        "y_true",
+        "pred_native",
+        "pred_alternative",
+    ]
+    by_cohort = paired_df.groupby(grp_cols, as_index=False).agg(
+        n_images=("image_key", "size"),
+        lost_within1=("lost_within1", "sum"),
+        gained_within1=("gained_within1", "sum"),
+        neutral_within_both=("neutral_within_both", "sum"),
+        neutral_outside_both=("neutral_outside_both", "sum"),
+        prediction_changed=("prediction_changed", "sum"),
     )
-    by_cohort['net_within1_images'] = by_cohort['gained_within1'] - by_cohort['lost_within1']
-    by_cohort['cohort_label'] = by_cohort['cohort'].map(COHORT_LABELS).fillna(by_cohort['cohort'])
+    by_cohort["net_within1_images"] = (
+        by_cohort["gained_within1"] - by_cohort["lost_within1"]
+    )
+    by_cohort["cohort_label"] = (
+        by_cohort["cohort"].map(COHORT_LABELS).fillna(by_cohort["cohort"])
+    )
 
     # 2. Within-1 totals by contrast and cohort with exact reconciliation
     tot_rows: List[Dict[str, Any]] = []
-    for (contrast, fold_id, cohort), grp in paired_df.groupby(['contrast', 'fold_id', 'cohort'], sort=False):
+    for (contrast, fold_id, cohort), grp in paired_df.groupby(
+        ["contrast", "fold_id", "cohort"], sort=False
+    ):
         n = int(len(grp))
-        lost = int(grp['lost_within1'].sum())
-        gained = int(grp['gained_within1'].sum())
+        lost = int(grp["lost_within1"].sum())
+        gained = int(grp["gained_within1"].sum())
         net = gained - lost
-        neut_in = int(grp['neutral_within_both'].sum())
-        neut_out = int(grp['neutral_outside_both'].sum())
-        changed = int(grp['prediction_changed'].sum())
-        w1_nat = float(grp['within1_native'].mean())
-        w1_alt = float(grp['within1_alternative'].mean())
+        neut_in = int(grp["neutral_within_both"].sum())
+        neut_out = int(grp["neutral_outside_both"].sum())
+        changed = int(grp["prediction_changed"].sum())
+        w1_nat = float(grp["within1_native"].mean())
+        w1_alt = float(grp["within1_alternative"].mean())
         direct_pp = (w1_alt - w1_nat) * 100.0
         trans_pp = 100.0 * net / n
         if abs(direct_pp - trans_pp) > 1e-12:
             raise ValueError(
-                f'Within-1 reconciliation failed for {contrast}/{cohort}: direct={direct_pp} vs trans={trans_pp}'
+                f"Within-1 reconciliation failed for {contrast}/{cohort}: direct={direct_pp} vs trans={trans_pp}"
             )
         if lost + gained + neut_in + neut_out != n:
-            raise ValueError(f'Count partition mismatch for {contrast}/{cohort}')
+            raise ValueError(
+                f"Count partition mismatch for {contrast}/{cohort}"
+            )
 
-        m_nat = compute_metrics(grp['y_true'].to_numpy(int), grp['pred_native'].to_numpy(int))
-        m_alt = compute_metrics(grp['y_true'].to_numpy(int), grp['pred_alternative'].to_numpy(int))
-        tot_rows.append({
-            'contrast': contrast,
-            'fold_id': int(fold_id),
-            'cohort': str(cohort),
-            'cohort_label': COHORT_LABELS.get(str(cohort), str(cohort)),
-            'n_images': n,
-            'prediction_changed': changed,
-            'prediction_unchanged': n - changed,
-            'within1_native_pct': w1_nat * 100.0,
-            'within1_alternative_pct': w1_alt * 100.0,
-            'lost_within1': lost,
-            'gained_within1': gained,
-            'net_within1_images': net,
-            'neutral_within_both': neut_in,
-            'neutral_outside_both': neut_out,
-            'delta_within1_pp_transition': trans_pp,
-            'delta_within1_pp_direct': direct_pp,
-            'abs_reconciliation_error_pp': abs(direct_pp - trans_pp),
-            'recall_g3_native_pct': m_nat['recall_g3'] * 100.0,
-            'recall_g3_alternative_pct': m_alt['recall_g3'] * 100.0,
-            'delta_recall_g3_pp': (m_alt['recall_g3'] - m_nat['recall_g3']) * 100.0,
-            'g3_precision_alternative_pct': m_alt['g3_precision'] * 100.0,
-            'predicted_true_g3_ratio_alternative': m_alt['predicted_true_g3_ratio'],
-            'qwk_alternative': m_alt['qwk'],
-            'mae_alternative': m_alt['mae'],
-            'units': 'percentage_points_and_image_counts',
-            'aggregation': 'per_cohort',
-        })
+        m_nat = compute_metrics(
+            grp["y_true"].to_numpy(int), grp["pred_native"].to_numpy(int)
+        )
+        m_alt = compute_metrics(
+            grp["y_true"].to_numpy(int), grp["pred_alternative"].to_numpy(int)
+        )
+        tot_rows.append(
+            {
+                "contrast": contrast,
+                "fold_id": int(fold_id),
+                "cohort": str(cohort),
+                "cohort_label": COHORT_LABELS.get(str(cohort), str(cohort)),
+                "n_images": n,
+                "prediction_changed": changed,
+                "prediction_unchanged": n - changed,
+                "within1_native_pct": w1_nat * 100.0,
+                "within1_alternative_pct": w1_alt * 100.0,
+                "lost_within1": lost,
+                "gained_within1": gained,
+                "net_within1_images": net,
+                "neutral_within_both": neut_in,
+                "neutral_outside_both": neut_out,
+                "delta_within1_pp_transition": trans_pp,
+                "delta_within1_pp_direct": direct_pp,
+                "abs_reconciliation_error_pp": abs(direct_pp - trans_pp),
+                "recall_g3_native_pct": m_nat["recall_g3"] * 100.0,
+                "recall_g3_alternative_pct": m_alt["recall_g3"] * 100.0,
+                "delta_recall_g3_pp": (m_alt["recall_g3"] - m_nat["recall_g3"])
+                * 100.0,
+                "g3_precision_alternative_pct": m_alt["g3_precision"] * 100.0,
+                "predicted_true_g3_ratio_alternative": m_alt[
+                    "predicted_true_g3_ratio"
+                ],
+                "qwk_alternative": m_alt["qwk"],
+                "mae_alternative": m_alt["mae"],
+                "units": "percentage_points_and_image_counts",
+                "aggregation": "per_cohort",
+            }
+        )
     cohort_totals = pd.DataFrame(tot_rows)
 
     # 3. Pooled transition counts across cohorts
-    pooled = (
-        by_cohort.groupby(['contrast', 'y_true', 'pred_native', 'pred_alternative'], as_index=False)
-        .agg(
-            n_images=('n_images', 'sum'),
-            lost_within1=('lost_within1', 'sum'),
-            gained_within1=('gained_within1', 'sum'),
-            neutral_within_both=('neutral_within_both', 'sum'),
-            neutral_outside_both=('neutral_outside_both', 'sum'),
-            prediction_changed=('prediction_changed', 'sum'),
-            net_within1_images=('net_within1_images', 'sum'),
-        )
+    pooled = by_cohort.groupby(
+        ["contrast", "y_true", "pred_native", "pred_alternative"],
+        as_index=False,
+    ).agg(
+        n_images=("n_images", "sum"),
+        lost_within1=("lost_within1", "sum"),
+        gained_within1=("gained_within1", "sum"),
+        neutral_within_both=("neutral_within_both", "sum"),
+        neutral_outside_both=("neutral_outside_both", "sum"),
+        prediction_changed=("prediction_changed", "sum"),
+        net_within1_images=("net_within1_images", "sum"),
     )
-    pooled['aggregation'] = 'pooled_image_counts_across_cohorts'
+    pooled["aggregation"] = "pooled_image_counts_across_cohorts"
 
     # 4. Equal-cohort summaries keeping pooled image counts strictly separate from 1/6 equal-cohort pp
     eq_rows: List[Dict[str, Any]] = []
-    for contrast, grp in cohort_totals.groupby('contrast', sort=False):
-        p_sub = pooled[pooled['contrast'] == contrast]
-        is_2to3 = (p_sub['pred_native'] == 2) & (p_sub['pred_alternative'] == 3)
-        lost_2to3 = int(p_sub.loc[is_2to3, 'lost_within1'].sum())
-        gained_2to3 = int(p_sub.loc[is_2to3, 'gained_within1'].sum())
+    for contrast, grp in cohort_totals.groupby("contrast", sort=False):
+        p_sub = pooled[pooled["contrast"] == contrast]
+        is_2to3 = (p_sub["pred_native"] == 2) & (p_sub["pred_alternative"] == 3)
+        lost_2to3 = int(p_sub.loc[is_2to3, "lost_within1"].sum())
+        gained_2to3 = int(p_sub.loc[is_2to3, "gained_within1"].sum())
         net_2to3 = gained_2to3 - lost_2to3
-        lost_other = int(p_sub.loc[~is_2to3, 'lost_within1'].sum())
-        gained_other = int(p_sub.loc[~is_2to3, 'gained_within1'].sum())
+        lost_other = int(p_sub.loc[~is_2to3, "lost_within1"].sum())
+        gained_other = int(p_sub.loc[~is_2to3, "gained_within1"].sum())
         net_other = gained_other - lost_other
-        tot_lost = int(grp['lost_within1'].sum())
-        tot_gained = int(grp['gained_within1'].sum())
+        tot_lost = int(grp["lost_within1"].sum())
+        tot_gained = int(grp["gained_within1"].sum())
         tot_net = tot_gained - tot_lost
-        tot_n = int(grp['n_images'].sum())
-        eq_rows.append({
-            'contrast': contrast,
-            'contrast_label': CONTRAST_LABELS.get(str(contrast), str(contrast)),
-            'n_cohorts': int(len(grp)),
-            'pooled_n_images': tot_n,
-            'pooled_prediction_changed': int(grp['prediction_changed'].sum()),
-            'pooled_lost_within1': tot_lost,
-            'pooled_gained_within1': tot_gained,
-            'pooled_net_within1_images': tot_net,
-            'pooled_neutral_within_both': int(grp['neutral_within_both'].sum()),
-            'pooled_neutral_outside_both': int(grp['neutral_outside_both'].sum()),
-            'pooled_delta_within1_pp_image_weighted': 100.0 * tot_net / tot_n,
-            'equal_cohort_delta_within1_pp': float(grp['delta_within1_pp_transition'].mean()),
-            'equal_cohort_delta_recall_g3_pp': float(grp['delta_recall_g3_pp'].mean()),
-            'equal_cohort_recall_g3_alternative_pct': float(grp['recall_g3_alternative_pct'].mean()),
-            'equal_cohort_g3_precision_alternative_pct': float(grp['g3_precision_alternative_pct'].mean()),
-            'equal_cohort_predicted_true_g3_ratio_alternative': float(grp['predicted_true_g3_ratio_alternative'].mean()),
-            'equal_cohort_qwk_alternative': float(grp['qwk_alternative'].mean()),
-            'equal_cohort_mae_alternative': float(grp['mae_alternative'].mean()),
-            'pooled_2to3_lost_within1': lost_2to3,
-            'pooled_2to3_gained_within1': gained_2to3,
-            'pooled_2to3_net_within1': net_2to3,
-            'pooled_non_2to3_lost_within1': lost_other,
-            'pooled_non_2to3_gained_within1': gained_other,
-            'pooled_non_2to3_net_within1': net_other,
-            'non_2to3_share_of_total_lost_pct': 100.0 * lost_other / tot_lost if tot_lost > 0 else np.nan,
-            'max_abs_reconciliation_error_pp': float(grp['abs_reconciliation_error_pp'].max()),
-            'aggregation_note': 'equal_cohort_delta_within1_pp is unweighted 1/6 mean; pooled_* fields sum images across 6 targets',
-        })
+        tot_n = int(grp["n_images"].sum())
+        eq_rows.append(
+            {
+                "contrast": contrast,
+                "contrast_label": CONTRAST_LABELS.get(
+                    str(contrast), str(contrast)
+                ),
+                "n_cohorts": int(len(grp)),
+                "pooled_n_images": tot_n,
+                "pooled_prediction_changed": int(
+                    grp["prediction_changed"].sum()
+                ),
+                "pooled_lost_within1": tot_lost,
+                "pooled_gained_within1": tot_gained,
+                "pooled_net_within1_images": tot_net,
+                "pooled_neutral_within_both": int(
+                    grp["neutral_within_both"].sum()
+                ),
+                "pooled_neutral_outside_both": int(
+                    grp["neutral_outside_both"].sum()
+                ),
+                "pooled_delta_within1_pp_image_weighted": 100.0
+                * tot_net
+                / tot_n,
+                "equal_cohort_delta_within1_pp": float(
+                    grp["delta_within1_pp_transition"].mean()
+                ),
+                "equal_cohort_delta_recall_g3_pp": float(
+                    grp["delta_recall_g3_pp"].mean()
+                ),
+                "equal_cohort_recall_g3_alternative_pct": float(
+                    grp["recall_g3_alternative_pct"].mean()
+                ),
+                "equal_cohort_g3_precision_alternative_pct": float(
+                    grp["g3_precision_alternative_pct"].mean()
+                ),
+                "equal_cohort_predicted_true_g3_ratio_alternative": float(
+                    grp["predicted_true_g3_ratio_alternative"].mean()
+                ),
+                "equal_cohort_qwk_alternative": float(
+                    grp["qwk_alternative"].mean()
+                ),
+                "equal_cohort_mae_alternative": float(
+                    grp["mae_alternative"].mean()
+                ),
+                "pooled_2to3_lost_within1": lost_2to3,
+                "pooled_2to3_gained_within1": gained_2to3,
+                "pooled_2to3_net_within1": net_2to3,
+                "pooled_non_2to3_lost_within1": lost_other,
+                "pooled_non_2to3_gained_within1": gained_other,
+                "pooled_non_2to3_net_within1": net_other,
+                "non_2to3_share_of_total_lost_pct": (
+                    100.0 * lost_other / tot_lost if tot_lost > 0 else np.nan
+                ),
+                "max_abs_reconciliation_error_pp": float(
+                    grp["abs_reconciliation_error_pp"].max()
+                ),
+                "aggregation_note": "equal_cohort_delta_within1_pp is unweighted 1/6 mean; pooled_* fields sum images across 6 targets",
+            }
+        )
     eq_summary = pd.DataFrame(eq_rows)
     return by_cohort, cohort_totals, pooled, eq_summary
 
@@ -514,10 +707,17 @@ def summarize_within1_transitions(
 # %% [markdown]
 # ## Paired Recorded-Grouping-Key Bootstrap for Post Hoc 0.5 pp CIBD
 
+
 # %%
-def _group_cm_vectors(y: np.ndarray, pred: np.ndarray, group_codes: np.ndarray, n_groups: int) -> np.ndarray:
+def _group_cm_vectors(
+    y: np.ndarray, pred: np.ndarray, group_codes: np.ndarray, n_groups: int
+) -> np.ndarray:
     bins = group_codes * 25 + y * 5 + pred
-    return np.bincount(bins, minlength=n_groups * 25).reshape(n_groups, 25).astype(np.float64)
+    return (
+        np.bincount(bins, minlength=n_groups * 25)
+        .reshape(n_groups, 25)
+        .astype(np.float64)
+    )
 
 
 def _metrics_from_cm_batch(cm_batch: np.ndarray) -> Dict[str, np.ndarray]:
@@ -526,8 +726,15 @@ def _metrics_from_cm_batch(cm_batch: np.ndarray) -> Dict[str, np.ndarray]:
     col_sum = cm_batch.sum(axis=1)
     n3 = row_sum[:, 3]
     pred3 = col_sum[:, 3]
-    recall_g3 = np.divide(cm_batch[:, 3, 3], n3, out=np.full(len(cm_batch), np.nan), where=n3 > 0)
-    g3_precision = np.divide(cm_batch[:, 3, 3], pred3, out=np.full(len(cm_batch), np.nan), where=pred3 > 0)
+    recall_g3 = np.divide(
+        cm_batch[:, 3, 3], n3, out=np.full(len(cm_batch), np.nan), where=n3 > 0
+    )
+    g3_precision = np.divide(
+        cm_batch[:, 3, 3],
+        pred3,
+        out=np.full(len(cm_batch), np.nan),
+        where=pred3 > 0,
+    )
 
     idx = np.arange(5)
     dist = np.abs(idx[:, None] - idx[None, :])
@@ -535,16 +742,18 @@ def _metrics_from_cm_batch(cm_batch: np.ndarray) -> Dict[str, np.ndarray]:
     mae = (cm_batch * dist[None, :, :]).sum(axis=(1, 2)) / total
     w = ((idx[:, None] - idx[None, :]) ** 2) / 16.0
     obs = (cm_batch * w[None, :, :]).sum(axis=(1, 2)) / total
-    exp_m = (row_sum[:, :, None] * col_sum[:, None, :]) / np.maximum(total[:, None, None], 1.0)
+    exp_m = (row_sum[:, :, None] * col_sum[:, None, :]) / np.maximum(
+        total[:, None, None], 1.0
+    )
     exp = (exp_m * w[None, :, :]).sum(axis=(1, 2)) / total
     # Quadratic weighted kappa is 1 - observed / expected disagreement.
     qwk = np.where(exp > 1e-12, 1.0 - obs / exp, np.nan)
     return {
-        'recall_g3_pp': recall_g3 * 100.0,
-        'within1_pp': within1 * 100.0,
-        'g3_precision_pp': g3_precision * 100.0,
-        'qwk': qwk,
-        'mae': mae,
+        "recall_g3_pp": recall_g3 * 100.0,
+        "within1_pp": within1 * 100.0,
+        "g3_precision_pp": g3_precision * 100.0,
+        "qwk": qwk,
+        "mae": mae,
     }
 
 
@@ -555,21 +764,31 @@ def run_05pp_grouping_key_bootstrap(
 ) -> Tuple[pd.DataFrame, pd.DataFrame]:
     """Paired recorded-grouping-key bootstrap for post hoc 0.5 pp V3 CIBD vs native V3."""
     rng = np.random.default_rng(seed)
-    metric_keys = ('recall_g3_pp', 'within1_pp', 'g3_precision_pp', 'qwk', 'mae')
+    metric_keys = (
+        "recall_g3_pp",
+        "within1_pp",
+        "g3_precision_pp",
+        "qwk",
+        "mae",
+    )
     n_folds = len(fold_frames)
-    macro_diffs: Dict[str, np.ndarray] = {k: np.zeros(reps, dtype=np.float64) for k in metric_keys}
+    macro_diffs: Dict[str, np.ndarray] = {
+        k: np.zeros(reps, dtype=np.float64) for k in metric_keys
+    }
     per_fold_pts: Dict[str, List[float]] = {k: [] for k in metric_keys}
     out_rows: List[Dict[str, Any]] = []
     diag_rows: List[Dict[str, Any]] = []
 
     for b in fold_frames:
-        df = b['df']
-        y = df['y_true'].to_numpy(int)
-        p_nat = df['pred_native'].to_numpy(int)
-        p_alt = df['pred_cibd_05pp'].to_numpy(int)
-        codes, uniques = pd.factorize(df['patient_key'].astype(str), sort=True)
+        df = b["df"]
+        y = df["y_true"].to_numpy(int)
+        p_nat = df["pred_native"].to_numpy(int)
+        p_alt = df["pred_cibd_05pp"].to_numpy(int)
+        codes, uniques = pd.factorize(df["patient_key"].astype(str), sort=True)
         n_groups = int(len(uniques))
-        id_statuses = sorted(df['patient_identity_status'].astype(str).unique().tolist())
+        id_statuses = sorted(
+            df["patient_identity_status"].astype(str).unique().tolist()
+        )
 
         cm_nat_g = _group_cm_vectors(y, p_nat, codes, n_groups)
         cm_alt_g = _group_cm_vectors(y, p_alt, codes, n_groups)
@@ -588,11 +807,15 @@ def run_05pp_grouping_key_bootstrap(
         m_nat_pt = compute_metrics(y, p_nat)
         m_alt_pt = compute_metrics(y, p_alt)
         pt_map = {
-            'recall_g3_pp': (m_alt_pt['recall_g3'] - m_nat_pt['recall_g3']) * 100.0,
-            'within1_pp': (m_alt_pt['within1'] - m_nat_pt['within1']) * 100.0,
-            'g3_precision_pp': (m_alt_pt['g3_precision'] - m_nat_pt['g3_precision']) * 100.0,
-            'qwk': m_alt_pt['qwk'] - m_nat_pt['qwk'],
-            'mae': m_alt_pt['mae'] - m_nat_pt['mae'],
+            "recall_g3_pp": (m_alt_pt["recall_g3"] - m_nat_pt["recall_g3"])
+            * 100.0,
+            "within1_pp": (m_alt_pt["within1"] - m_nat_pt["within1"]) * 100.0,
+            "g3_precision_pp": (
+                m_alt_pt["g3_precision"] - m_nat_pt["g3_precision"]
+            )
+            * 100.0,
+            "qwk": m_alt_pt["qwk"] - m_nat_pt["qwk"],
+            "mae": m_alt_pt["mae"] - m_nat_pt["mae"],
         }
 
         for mk in metric_keys:
@@ -605,59 +828,78 @@ def run_05pp_grouping_key_bootstrap(
             per_fold_pts[mk].append(pt_map[mk])
             macro_diffs[mk] = macro_diffs[mk] + dvec / float(n_folds)
 
-            out_rows.append({
-                'contrast': 'cibd_0.5pp_v3_minus_native_v3_posthoc',
-                'scope': f"fold_{b['fold_id']}_{b['cohort']}",
-                'fold_id': int(b['fold_id']),
-                'cohort': str(b['cohort']),
-                'metric': mk,
-                'point_estimate': pt_map[mk],
-                'ci_low_95': lo,
-                'ci_high_95': hi,
-                'n_images': int(len(y)),
-                'n_groups': n_groups,
-                'reps_total': reps,
-                'valid_reps': n_val,
-                'undefined_reps': n_und,
-                'resampling_unit': 'recorded_grouping_key_sensitivity_posthoc',
-                'primary_patient_cluster_status': 'NOT_ESTIMABLE',
-                'seed': seed,
-            })
-            diag_rows.append({
-                'contrast': 'cibd_0.5pp_v3_minus_native_v3_posthoc',
-                'cohort': str(b['cohort']),
-                'metric': mk,
-                'n_images': int(len(y)),
-                'n_groups': n_groups,
-                'identity_status': ','.join(id_statuses),
-                'valid_reps': n_val,
-                'undefined_reps': n_und,
-                'resampling_definition': 'Sample recorded grouping keys with replacement within each cohort; retain all images and group multiplicity; identical draws for native V3 and post hoc 0.5 pp CIBD.',
-            })
+            out_rows.append(
+                {
+                    "contrast": "cibd_0.5pp_v3_minus_native_v3_posthoc",
+                    "scope": f"fold_{b['fold_id']}_{b['cohort']}",
+                    "fold_id": int(b["fold_id"]),
+                    "cohort": str(b["cohort"]),
+                    "metric": mk,
+                    "point_estimate": pt_map[mk],
+                    "ci_low_95": lo,
+                    "ci_high_95": hi,
+                    "n_images": int(len(y)),
+                    "n_groups": n_groups,
+                    "reps_total": reps,
+                    "valid_reps": n_val,
+                    "undefined_reps": n_und,
+                    "resampling_unit": "recorded_grouping_key_sensitivity_posthoc",
+                    "primary_patient_cluster_status": "NOT_ESTIMABLE",
+                    "seed": seed,
+                }
+            )
+            diag_rows.append(
+                {
+                    "contrast": "cibd_0.5pp_v3_minus_native_v3_posthoc",
+                    "cohort": str(b["cohort"]),
+                    "metric": mk,
+                    "n_images": int(len(y)),
+                    "n_groups": n_groups,
+                    "identity_status": ",".join(id_statuses),
+                    "valid_reps": n_val,
+                    "undefined_reps": n_und,
+                    "resampling_definition": "Sample recorded grouping keys with replacement within each cohort; retain all images and group multiplicity; identical draws for native V3 and post hoc 0.5 pp CIBD.",
+                }
+            )
 
     for mk in metric_keys:
         mvec = macro_diffs[mk]
         fin = np.isfinite(mvec)
         n_val = int(fin.sum())
         n_und = int((~fin).sum())
-        out_rows.append({
-            'contrast': 'cibd_0.5pp_v3_minus_native_v3_posthoc',
-            'scope': f'equal_cohort_mean_{n_folds}',
-            'fold_id': -2,
-            'cohort': f'equal_cohort_mean_{n_folds}',
-            'metric': mk,
-            'point_estimate': float(np.mean(per_fold_pts[mk])),
-            'ci_low_95': float(np.percentile(mvec[fin], 2.5)) if n_val > 0 else np.nan,
-            'ci_high_95': float(np.percentile(mvec[fin], 97.5)) if n_val > 0 else np.nan,
-            'n_images': int(sum(len(b['df']) for b in fold_frames)),
-            'n_groups': int(sum(int(b['df']['patient_key'].astype(str).nunique()) for b in fold_frames)),
-            'reps_total': reps,
-            'valid_reps': n_val,
-            'undefined_reps': n_und,
-            'resampling_unit': f'recorded_grouping_key_sensitivity_macro{n_folds}_posthoc',
-            'primary_patient_cluster_status': 'NOT_ESTIMABLE',
-            'seed': seed,
-        })
+        out_rows.append(
+            {
+                "contrast": "cibd_0.5pp_v3_minus_native_v3_posthoc",
+                "scope": f"equal_cohort_mean_{n_folds}",
+                "fold_id": -2,
+                "cohort": f"equal_cohort_mean_{n_folds}",
+                "metric": mk,
+                "point_estimate": float(np.mean(per_fold_pts[mk])),
+                "ci_low_95": (
+                    float(np.percentile(mvec[fin], 2.5))
+                    if n_val > 0
+                    else np.nan
+                ),
+                "ci_high_95": (
+                    float(np.percentile(mvec[fin], 97.5))
+                    if n_val > 0
+                    else np.nan
+                ),
+                "n_images": int(sum(len(b["df"]) for b in fold_frames)),
+                "n_groups": int(
+                    sum(
+                        int(b["df"]["patient_key"].astype(str).nunique())
+                        for b in fold_frames
+                    )
+                ),
+                "reps_total": reps,
+                "valid_reps": n_val,
+                "undefined_reps": n_und,
+                "resampling_unit": f"recorded_grouping_key_sensitivity_macro{n_folds}_posthoc",
+                "primary_patient_cluster_status": "NOT_ESTIMABLE",
+                "seed": seed,
+            }
+        )
 
     return pd.DataFrame(out_rows), pd.DataFrame(diag_rows)
 
@@ -665,19 +907,20 @@ def run_05pp_grouping_key_bootstrap(
 # %% [markdown]
 # ## Compact 3-Panel Appendix E LaTeX Table Builder
 
+
 # %%
 def _fmt_signed_tex(val: int) -> str:
     if val > 0:
-        return f'$+{val:,}$'
+        return f"$+{val:,}$"
     if val < 0:
-        return f'$-{abs(val):,}$'
-    return '$0$'
+        return f"$-{abs(val):,}$"
+    return "$0$"
 
 
 def _fmt_signed_pp_tex(val: float) -> str:
     if val >= 0:
-        return f'$+{val:.2f}$~pp'
-    return f'$-{abs(val):.2f}$~pp'
+        return f"$+{val:.2f}$~pp"
+    return f"$-{abs(val):.2f}$~pp"
 
 
 def build_appendix_e_latex_table(
@@ -688,44 +931,66 @@ def build_appendix_e_latex_table(
 ) -> str:
     """Build compact three-panel LaTeX table (tab:app-e-w1-transitions) from exact pooled transitions."""
     panel_titles = {
-        'cibd_1.0pp': 'Panel A: Primary $V_3$ CIBD (1.0~pp source allowance) vs.\\ native $V_3$',
-        'probe_s3': 'Panel B: Primary E1 scalar probe $s_3$ (macro-recall selected) vs.\\ native $V_3$',
-        'cibd_0.5pp_posthoc': 'Panel C: Post hoc $V_3$ CIBD (0.5~pp source allowance) vs.\\ native $V_3$',
+        "cibd_1.0pp": "Panel A: Primary $V_3$ CIBD (1.0~pp source allowance) vs.\\ native $V_3$",
+        "probe_s3": "Panel B: Primary E1 scalar probe $s_3$ (macro-recall selected) vs.\\ native $V_3$",
+        "cibd_0.5pp_posthoc": "Panel C: Post hoc $V_3$ CIBD (0.5~pp source allowance) vs.\\ native $V_3$",
     }
     body_lines: List[str] = []
     any_omitted = False
 
     for idx_p, contrast in enumerate(CONTRAST_ORDER):
-        sub = pooled_df[pooled_df['contrast'] == contrast].copy()
-        eq_r = eq_summary[eq_summary['contrast'] == contrast].iloc[0]
+        sub = pooled_df[pooled_df["contrast"] == contrast].copy()
+        eq_r = eq_summary[eq_summary["contrast"] == contrast].iloc[0]
         # Keep transitions that affect Within-1 (lost > 0 or gained > 0)
-        nonzero = sub[(sub['lost_within1'] > 0) | (sub['gained_within1'] > 0)].copy()
+        nonzero = sub[
+            (sub["lost_within1"] > 0) | (sub["gained_within1"] > 0)
+        ].copy()
         # Rank losses first (most negative net first), plus include primary 2->3 rows if present
-        losses = nonzero[nonzero['net_within1_images'] < 0].sort_values(
-            ['net_within1_images', 'lost_within1', 'y_true', 'pred_native', 'pred_alternative'],
+        losses = nonzero[nonzero["net_within1_images"] < 0].sort_values(
+            [
+                "net_within1_images",
+                "lost_within1",
+                "y_true",
+                "pred_native",
+                "pred_alternative",
+            ],
             ascending=[True, False, True, True, True],
         )
-        gains = nonzero[nonzero['net_within1_images'] > 0].sort_values(
-            ['net_within1_images', 'gained_within1', 'y_true', 'pred_native', 'pred_alternative'],
+        gains = nonzero[nonzero["net_within1_images"] > 0].sort_values(
+            [
+                "net_within1_images",
+                "gained_within1",
+                "y_true",
+                "pred_native",
+                "pred_alternative",
+            ],
             ascending=[False, False, True, True, True],
         )
-        selected_idx = list(losses.head(top_n_loss).index) + list(gains.head(top_n_gain).index)
+        selected_idx = list(losses.head(top_n_loss).index) + list(
+            gains.head(top_n_gain).index
+        )
         # Ensure Grade 1 (2->3) and Grade 4 (2->3) are explicitly visible when nonzero
         for y_req in (1, 4):
-            req_rows = nonzero[(nonzero['y_true'] == y_req) & (nonzero['pred_native'] == 2) & (nonzero['pred_alternative'] == 3)]
+            req_rows = nonzero[
+                (nonzero["y_true"] == y_req)
+                & (nonzero["pred_native"] == 2)
+                & (nonzero["pred_alternative"] == 3)
+            ]
             for r_i in req_rows.index:
                 if r_i not in selected_idx:
                     selected_idx.append(r_i)
         shown = nonzero.loc[selected_idx].sort_values(
-            ['net_within1_images', 'lost_within1', 'y_true', 'pred_native'],
+            ["net_within1_images", "lost_within1", "y_true", "pred_native"],
             ascending=[True, False, True, True],
         )
         omitted = nonzero.drop(index=shown.index)
 
         if idx_p > 0:
-            body_lines.append(r'\midrule')
-        body_lines.append(rf'\multicolumn{{5}}{{@{{}}l}}{{\textbf{{{panel_titles[contrast]}}}}} \\')
-        body_lines.append(r'\addlinespace[2pt]')
+            body_lines.append(r"\midrule")
+        body_lines.append(
+            rf"\multicolumn{{5}}{{@{{}}l}}{{\textbf{{{panel_titles[contrast]}}}}} \\"
+        )
+        body_lines.append(r"\addlinespace[2pt]")
         for _, r in shown.iterrows():
             body_lines.append(
                 f"Grade~{int(r['y_true'])} & {int(r['pred_native'])} $\\rightarrow$ {int(r['pred_alternative'])} "
@@ -733,19 +998,19 @@ def build_appendix_e_latex_table(
             )
         if not omitted.empty:
             any_omitted = True
-            o_lost = int(omitted['lost_within1'].sum())
-            o_gain = int(omitted['gained_within1'].sum())
+            o_lost = int(omitted["lost_within1"].sum())
+            o_gain = int(omitted["gained_within1"].sum())
             o_net = o_gain - o_lost
-            cell_word = 'cell' if len(omitted) == 1 else 'cells'
+            cell_word = "cell" if len(omitted) == 1 else "cells"
             body_lines.append(
                 f"Other transitions ({len(omitted)} {cell_word}) & Multiple & {o_lost:,} & {o_gain:,} & {_fmt_signed_tex(o_net)} \\\\"
             )
-        tot_l = int(eq_r['pooled_lost_within1'])
-        tot_g = int(eq_r['pooled_gained_within1'])
-        tot_n = int(eq_r['pooled_net_within1_images'])
-        eq_pp = float(eq_r['equal_cohort_delta_within1_pp'])
-        pool_pp = float(eq_r['pooled_delta_within1_pp_image_weighted'])
-        body_lines.append(r'\addlinespace[2pt]')
+        tot_l = int(eq_r["pooled_lost_within1"])
+        tot_g = int(eq_r["pooled_gained_within1"])
+        tot_n = int(eq_r["pooled_net_within1_images"])
+        eq_pp = float(eq_r["equal_cohort_delta_within1_pp"])
+        pool_pp = float(eq_r["pooled_delta_within1_pp_image_weighted"])
+        body_lines.append(r"\addlinespace[2pt]")
         body_lines.append(
             f"\\textbf{{Pooled total (54,883 images)}} & All transitions & \\textbf{{{tot_l:,}}} & \\textbf{{{tot_g:,}}} & \\textbf{{{_fmt_signed_tex(tot_n)}}} \\\\"
         )
@@ -755,43 +1020,52 @@ def build_appendix_e_latex_table(
         )
 
     order_note = (
-        r'    Rows are ordered by net Within-1 change within each panel, with omitted non-zero transition cells summed into \emph{Other transitions}.'
+        r"    Rows are ordered by net Within-1 change within each panel, with omitted non-zero transition cells summed into \emph{Other transitions}."
         if any_omitted
-        else r'    All non-zero Within-1 transition cells are listed and ordered by net Within-1 change within each panel.'
+        else r"    All non-zero Within-1 transition cells are listed and ordered by net Within-1 change within each panel."
     )
-    lines: List[str] = [
-        r'\begin{table}[htbp]',
-        r'\centering\small',
-        r'\setlength{\tabcolsep}{5pt}',
-        r'\caption[Paired Within-1 transitions (post hoc)]{%',
-        r'    Post hoc decomposition of changes in Within-1 accuracy relative to native $V_3$ decoding across all 54,883 held-out target images.',
-        r'    Losses count images moving from absolute error $\leq 1$ to $\geq 2$; gains count the reverse.',
-        order_note,
-        r'    Image counts are pooled across the six targets; equal-cohort mean percentage-point changes give each cohort weight $1/6$.}',
-        r'\label{tab:app-e-w1-transitions}',
-        r'\begin{tabular}{@{}llrrr@{}}',
-        r'\toprule',
-        r'Reference grade & Native $\rightarrow$ alternative & Lost Within-1 & Gained Within-1 & Net change in images \\',
-        r'\midrule',
-    ] + body_lines + [
-        r'\bottomrule',
-        r'\end{tabular}',
-        r'\end{table}',
-    ]
-    return '\n'.join(lines) + '\n'
+    lines: List[str] = (
+        [
+            r"\begin{table}[htbp]",
+            r"\centering\small",
+            r"\setlength{\tabcolsep}{5pt}",
+            r"\caption[Paired Within-1 transitions (post hoc)]{%",
+            r"    Post hoc decomposition of changes in Within-1 accuracy relative to native $V_3$ decoding across all 54,883 held-out target images.",
+            r"    Losses count images moving from absolute error $\leq 1$ to $\geq 2$; gains count the reverse.",
+            order_note,
+            r"    Image counts are pooled across the six targets; equal-cohort mean percentage-point changes give each cohort weight $1/6$.}",
+            r"\label{tab:app-e-w1-transitions}",
+            r"\begin{tabular}{@{}llrrr@{}}",
+            r"\toprule",
+            r"Reference grade & Native $\rightarrow$ alternative & Lost Within-1 & Gained Within-1 & Net change in images \\",
+            r"\midrule",
+        ]
+        + body_lines
+        + [
+            r"\bottomrule",
+            r"\end{tabular}",
+            r"\end{table}",
+        ]
+    )
+    return "\n".join(lines) + "\n"
 
 
 # %% [markdown]
 # ## Full Pipeline Runner
 
+
 # %%
 def run_decomposition(ctx: DecompContext) -> Dict[str, Any]:
     """Execute full paired Within-1 decomposition, checkpoint verification, and 0.5 pp bootstrap."""
-    ag_path = ctx.supp_dir / 'analysis_g_cibd_05pp_per_fold.csv'
+    ag_path = ctx.supp_dir / "analysis_g_cibd_05pp_per_fold.csv"
     ag_df = pd.read_csv(ag_path)
-    ag_v3_05 = ag_df[(ag_df['variant'] == 'V3') & (ag_df['rule'] == 'cibd_0.5pp_budget')].copy()
+    ag_v3_05 = ag_df[
+        (ag_df["variant"] == "V3") & (ag_df["rule"] == "cibd_0.5pp_budget")
+    ].copy()
     if len(ag_v3_05) != 6:
-        raise ValueError(f'Expected 6 V3 0.5 pp rows in {ag_path}, got {len(ag_v3_05)}')
+        raise ValueError(
+            f"Expected 6 V3 0.5 pp rows in {ag_path}, got {len(ag_v3_05)}"
+        )
 
     paired_chunks: List[pd.DataFrame] = []
     fold_bundles_05pp: List[Dict[str, Any]] = []
@@ -799,112 +1073,217 @@ def run_decomposition(ctx: DecompContext) -> Dict[str, Any]:
     input_digests: Dict[str, str] = {str(ag_path): sha256_file(ag_path)}
 
     for fold, cohort in enumerate(COHORTS):
-        p0_tgt_path = ctx.p0_dir / 'lodo' / f'V3_fold_{fold}_{cohort}' / 'target' / 'predictions.csv'
-        p0_tr_path = ctx.p0_dir / 'lodo' / f'V3_fold_{fold}_{cohort}' / 'source_train' / 'predictions.csv'
-        e0_unit = ctx.e0_dir / 'lodo' / 'units' / f'V3_fold_{fold}_{cohort}' / 'fold_report'
-        e0_dec_path = e0_unit / 'target_decisions.csv'
-        e0_sel_path = e0_unit / 'selected_params.json'
-        e0_tgrid_path = e0_unit / 'target_grid_EXPLORATORY.csv'
-        e1_s3_path = ctx.e1_dir / 'units' / f'fold_{fold}_{cohort}' / 's_v3' / 'predict_target' / 'predictions.csv'
+        p0_tgt_path = (
+            ctx.p0_dir
+            / "lodo"
+            / f"V3_fold_{fold}_{cohort}"
+            / "target"
+            / "predictions.csv"
+        )
+        p0_tr_path = (
+            ctx.p0_dir
+            / "lodo"
+            / f"V3_fold_{fold}_{cohort}"
+            / "source_train"
+            / "predictions.csv"
+        )
+        e0_unit = (
+            ctx.e0_dir
+            / "lodo"
+            / "units"
+            / f"V3_fold_{fold}_{cohort}"
+            / "fold_report"
+        )
+        e0_dec_path = e0_unit / "target_decisions.csv"
+        e0_sel_path = e0_unit / "selected_params.json"
+        e0_tgrid_path = e0_unit / "target_grid_EXPLORATORY.csv"
+        e1_s3_path = (
+            ctx.e1_dir
+            / "units"
+            / f"fold_{fold}_{cohort}"
+            / "s_v3"
+            / "predict_target"
+            / "predictions.csv"
+        )
 
-        for fp in (p0_tgt_path, e0_dec_path, e0_sel_path, e0_tgrid_path, e1_s3_path):
+        for fp in (
+            p0_tgt_path,
+            e0_dec_path,
+            e0_sel_path,
+            e0_tgrid_path,
+            e1_s3_path,
+        ):
             if not fp.is_file():
-                raise FileNotFoundError(f'Missing required artifact: {fp}')
+                raise FileNotFoundError(f"Missing required artifact: {fp}")
             input_digests[str(fp)] = sha256_file(fp)
 
-        p0_df = pd.read_csv(p0_tgt_path, dtype={'image_key': str, 'image_id': str, 'patient_key': str})
-        e0_df = pd.read_csv(e0_dec_path, dtype={'image_key': str, 'image_id': str, 'patient_key': str})
-        e1_df = pd.read_csv(e1_s3_path, dtype={'image_key': str, 'patient_key': str})
-        sel_meta = json.loads(e0_sel_path.read_text(encoding='utf-8'))
+        p0_df = pd.read_csv(
+            p0_tgt_path,
+            dtype={"image_key": str, "image_id": str, "patient_key": str},
+        )
+        e0_df = pd.read_csv(
+            e0_dec_path,
+            dtype={"image_key": str, "image_id": str, "patient_key": str},
+        )
+        e1_df = pd.read_csv(
+            e1_s3_path, dtype={"image_key": str, "patient_key": str}
+        )
+        sel_meta = json.loads(e0_sel_path.read_text(encoding="utf-8"))
         tgrid_df = pd.read_csv(e0_tgrid_path)
 
         # Verify source-training prior matches selected_params.json
-        prior = np.asarray(sel_meta['prior'], dtype=np.float64)
+        prior = np.asarray(sel_meta["prior"], dtype=np.float64)
         if p0_tr_path.is_file():
             input_digests[str(p0_tr_path)] = sha256_file(p0_tr_path)
-            tr_y = pd.read_csv(p0_tr_path, usecols=['y_true'])['y_true'].to_numpy(int)
+            tr_y = pd.read_csv(p0_tr_path, usecols=["y_true"])[
+                "y_true"
+            ].to_numpy(int)
             prior_calc = prior_from_labels(tr_y, smoothing=1.0)
             if not np.allclose(prior, prior_calc, atol=1e-12):
-                raise ValueError(f'Source-training prior mismatch on fold {fold} ({cohort})')
+                raise ValueError(
+                    f"Source-training prior mismatch on fold {fold} ({cohort})"
+                )
 
         # Strict image_key joins across P0, E0, and E1
-        base = p0_df[['image_key', 'patient_key', 'patient_identity_status', 'y_true', 'pred_native', *PROB_COLS]].copy()
-        base['fold_id'] = fold
-        base['cohort'] = cohort
-        merged = strict_join_by_image_key(base, e0_df, ['native_replay', 'cibd_selected'], f'E0_V3_{cohort}', check_native_col='native_replay')
-        merged = strict_join_by_image_key(merged, e1_df, ['prediction'], f'E1_s3_{cohort}').rename(columns={'prediction': 'pred_probe_s3'})
+        base = p0_df[
+            [
+                "image_key",
+                "patient_key",
+                "patient_identity_status",
+                "y_true",
+                "pred_native",
+                *PROB_COLS,
+            ]
+        ].copy()
+        base["fold_id"] = fold
+        base["cohort"] = cohort
+        merged = strict_join_by_image_key(
+            base,
+            e0_df,
+            ["native_replay", "cibd_selected"],
+            f"E0_V3_{cohort}",
+            check_native_col="native_replay",
+        )
+        merged = strict_join_by_image_key(
+            merged, e1_df, ["prediction"], f"E1_s3_{cohort}"
+        ).rename(columns={"prediction": "pred_probe_s3"})
 
         # Reconstruct locked 0.5 pp V3 CIBD image-level predictions using exact E0 cibd()
-        g_row = ag_v3_05[ag_v3_05['fold_id'] == fold].iloc[0]
-        if bool(g_row['fallback']):
-            pred_05 = merged['pred_native'].to_numpy(int)
+        g_row = ag_v3_05[ag_v3_05["fold_id"] == fold].iloc[0]
+        if bool(g_row["fallback"]):
+            pred_05 = merged["pred_native"].to_numpy(int)
             alpha_05, tau_05, q_05 = np.nan, np.nan, -1
         else:
-            alpha_05 = float(g_row['alpha'])
-            tau_05 = float(g_row['tau'])
-            q_05 = int(g_row['q'])
-            pred_05 = cibd(merged[PROB_COLS].to_numpy(np.float64), prior, alpha_05, tau_05, q_05)
+            alpha_05 = float(g_row["alpha"])
+            tau_05 = float(g_row["tau"])
+            q_05 = int(g_row["q"])
+            pred_05 = cibd(
+                merged[PROB_COLS].to_numpy(np.float64),
+                prior,
+                alpha_05,
+                tau_05,
+                q_05,
+            )
 
             # Validate reconstructed metrics against E0 target_grid_EXPLORATORY.csv and Analysis G
-            m_rec = compute_metrics(merged['y_true'].to_numpy(int), pred_05)
+            m_rec = compute_metrics(merged["y_true"].to_numpy(int), pred_05)
             tg_match = tgrid_df[
-                np.isclose(tgrid_df['alpha'], alpha_05)
-                & np.isclose(tgrid_df['tau'], tau_05)
-                & (tgrid_df['q'].astype(int) == q_05)
+                np.isclose(tgrid_df["alpha"], alpha_05)
+                & np.isclose(tgrid_df["tau"], tau_05)
+                & (tgrid_df["q"].astype(int) == q_05)
             ]
             if len(tg_match) != 1:
-                raise ValueError(f'Expected unique target_grid match for 0.5 pp params on {cohort}, found {len(tg_match)}')
+                raise ValueError(
+                    f"Expected unique target_grid match for 0.5 pp params on {cohort}, found {len(tg_match)}"
+                )
             tg_r = tg_match.iloc[0]
-            w1_err = abs(m_rec['within1'] - float(tg_r['within1']))
-            g3_err = abs(m_rec['recall_g3'] - float(tg_r['recall_g3']))
-            qwk_err = abs(m_rec['qwk'] - float(tg_r['qwk']))
+            w1_err = abs(m_rec["within1"] - float(tg_r["within1"]))
+            g3_err = abs(m_rec["recall_g3"] - float(tg_r["recall_g3"]))
+            qwk_err = abs(m_rec["qwk"] - float(tg_r["qwk"]))
             if max(w1_err, g3_err, qwk_err) > 1e-12:
                 raise ValueError(
-                    f'Reconstructed 0.5 pp predictions disagree with target_grid on {cohort}: '
-                    f'w1_err={w1_err}, g3_err={g3_err}, qwk_err={qwk_err}'
+                    f"Reconstructed 0.5 pp predictions disagree with target_grid on {cohort}: "
+                    f"w1_err={w1_err}, g3_err={g3_err}, qwk_err={qwk_err}"
                 )
-            reconstructed_checks.append({
-                'fold_id': fold,
-                'cohort': cohort,
-                'alpha_05pp': alpha_05,
-                'tau_05pp': tau_05,
-                'q_05pp': q_05,
-                'max_metric_diff_vs_target_grid': float(max(w1_err, g3_err, qwk_err)),
-            })
+            reconstructed_checks.append(
+                {
+                    "fold_id": fold,
+                    "cohort": cohort,
+                    "alpha_05pp": alpha_05,
+                    "tau_05pp": tau_05,
+                    "q_05pp": q_05,
+                    "max_metric_diff_vs_target_grid": float(
+                        max(w1_err, g3_err, qwk_err)
+                    ),
+                }
+            )
 
-        merged['pred_cibd_05pp'] = pred_05
-        fold_bundles_05pp.append({'fold_id': fold, 'cohort': cohort, 'df': merged})
+        merged["pred_cibd_05pp"] = pred_05
+        fold_bundles_05pp.append(
+            {"fold_id": fold, "cohort": cohort, "df": merged}
+        )
 
         for contrast, col in [
-            ('cibd_1.0pp', 'cibd_selected'),
-            ('probe_s3', 'pred_probe_s3'),
-            ('cibd_0.5pp_posthoc', 'pred_cibd_05pp'),
+            ("cibd_1.0pp", "cibd_selected"),
+            ("probe_s3", "pred_probe_s3"),
+            ("cibd_0.5pp_posthoc", "pred_cibd_05pp"),
         ]:
             paired_chunks.append(classify_paired_within1(merged, contrast, col))
 
     paired_all = pd.concat(paired_chunks, ignore_index=True)
-    by_cohort, cohort_totals, pooled, eq_summary = summarize_within1_transitions(paired_all)
+    by_cohort, cohort_totals, pooled, eq_summary = (
+        summarize_within1_transitions(paired_all)
+    )
 
     # Verify primary 1.0 pp CIBD regression checkpoints (reported dynamically, never hardcoded in outputs)
-    p_cibd10 = paired_all[paired_all['contrast'] == 'cibd_1.0pp']
-    g2to3 = p_cibd10[(p_cibd10['pred_native'] == 2) & (p_cibd10['pred_alternative'] == 3)]
-    g2to3_ref_counts = {int(g): int((g2to3['y_true'] == g).sum()) for g in range(5)}
-    g3_true = p_cibd10[p_cibd10['y_true'] == 3]
-    g3_gained_exact = int(((g3_true['pred_native'] != 3) & (g3_true['pred_alternative'] == 3)).sum())
-    g3_lost_exact = int(((g3_true['pred_native'] == 3) & (g3_true['pred_alternative'] != 3)).sum())
+    p_cibd10 = paired_all[paired_all["contrast"] == "cibd_1.0pp"]
+    g2to3 = p_cibd10[
+        (p_cibd10["pred_native"] == 2) & (p_cibd10["pred_alternative"] == 3)
+    ]
+    g2to3_ref_counts = {
+        int(g): int((g2to3["y_true"] == g).sum()) for g in range(5)
+    }
+    g3_true = p_cibd10[p_cibd10["y_true"] == 3]
+    g3_gained_exact = int(
+        (
+            (g3_true["pred_native"] != 3) & (g3_true["pred_alternative"] == 3)
+        ).sum()
+    )
+    g3_lost_exact = int(
+        (
+            (g3_true["pred_native"] == 3) & (g3_true["pred_alternative"] != 3)
+        ).sum()
+    )
 
     checkpoints = {
-        'cibd_1.0pp_mean_w1_pp': float(eq_summary.loc[eq_summary['contrast'] == 'cibd_1.0pp', 'equal_cohort_delta_within1_pp'].iloc[0]),
-        'probe_s3_mean_w1_pp': float(eq_summary.loc[eq_summary['contrast'] == 'probe_s3', 'equal_cohort_delta_within1_pp'].iloc[0]),
-        'cibd_0.5pp_mean_w1_pp': float(eq_summary.loc[eq_summary['contrast'] == 'cibd_0.5pp_posthoc', 'equal_cohort_delta_within1_pp'].iloc[0]),
-        'cibd_1.0pp_2to3_count': int(len(g2to3)),
-        'cibd_1.0pp_2to3_ref_grade_counts': g2to3_ref_counts,
-        'cibd_1.0pp_2to3_lost_w1': int(g2to3['lost_within1'].sum()),
-        'cibd_1.0pp_2to3_gained_w1': int(g2to3['gained_within1'].sum()),
-        'cibd_1.0pp_2to3_net_w1': int(g2to3['gained_within1'].sum() - g2to3['lost_within1'].sum()),
-        'cibd_1.0pp_g3_exact_gained': g3_gained_exact,
-        'cibd_1.0pp_g3_exact_lost': g3_lost_exact,
-        'cibd_1.0pp_g3_exact_net': g3_gained_exact - g3_lost_exact,
+        "cibd_1.0pp_mean_w1_pp": float(
+            eq_summary.loc[
+                eq_summary["contrast"] == "cibd_1.0pp",
+                "equal_cohort_delta_within1_pp",
+            ].iloc[0]
+        ),
+        "probe_s3_mean_w1_pp": float(
+            eq_summary.loc[
+                eq_summary["contrast"] == "probe_s3",
+                "equal_cohort_delta_within1_pp",
+            ].iloc[0]
+        ),
+        "cibd_0.5pp_mean_w1_pp": float(
+            eq_summary.loc[
+                eq_summary["contrast"] == "cibd_0.5pp_posthoc",
+                "equal_cohort_delta_within1_pp",
+            ].iloc[0]
+        ),
+        "cibd_1.0pp_2to3_count": int(len(g2to3)),
+        "cibd_1.0pp_2to3_ref_grade_counts": g2to3_ref_counts,
+        "cibd_1.0pp_2to3_lost_w1": int(g2to3["lost_within1"].sum()),
+        "cibd_1.0pp_2to3_gained_w1": int(g2to3["gained_within1"].sum()),
+        "cibd_1.0pp_2to3_net_w1": int(
+            g2to3["gained_within1"].sum() - g2to3["lost_within1"].sum()
+        ),
+        "cibd_1.0pp_g3_exact_gained": g3_gained_exact,
+        "cibd_1.0pp_g3_exact_lost": g3_lost_exact,
+        "cibd_1.0pp_g3_exact_net": g3_gained_exact - g3_lost_exact,
     }
 
     # Bootstrap for post hoc 0.5 pp V3 CIBD
@@ -913,106 +1292,162 @@ def run_decomposition(ctx: DecompContext) -> Dict[str, Any]:
     )
 
     # Export all files into fresh output_dir
-    paired_all.to_csv(ctx.output_dir / 'paired_image_records.csv', index=False)
-    by_cohort.to_csv(ctx.output_dir / 'transition_counts_by_cohort.csv', index=False)
-    cohort_totals.to_csv(ctx.output_dir / 'within1_totals_by_cohort.csv', index=False)
-    pooled.to_csv(ctx.output_dir / 'transition_counts_pooled.csv', index=False)
-    eq_summary.to_csv(ctx.output_dir / 'equal_cohort_summary.csv', index=False)
-    boot_df.to_csv(ctx.output_dir / 'bootstrap_05pp_grouping_key.csv', index=False)
-    boot_diag.to_csv(ctx.output_dir / 'bootstrap_05pp_diagnostics.csv', index=False)
+    paired_all.to_csv(ctx.output_dir / "paired_image_records.csv", index=False)
+    by_cohort.to_csv(
+        ctx.output_dir / "transition_counts_by_cohort.csv", index=False
+    )
+    cohort_totals.to_csv(
+        ctx.output_dir / "within1_totals_by_cohort.csv", index=False
+    )
+    pooled.to_csv(ctx.output_dir / "transition_counts_pooled.csv", index=False)
+    eq_summary.to_csv(ctx.output_dir / "equal_cohort_summary.csv", index=False)
+    boot_df.to_csv(
+        ctx.output_dir / "bootstrap_05pp_grouping_key.csv", index=False
+    )
+    boot_diag.to_csv(
+        ctx.output_dir / "bootstrap_05pp_diagnostics.csv", index=False
+    )
 
     tex_table = build_appendix_e_latex_table(pooled, eq_summary)
-    (ctx.output_dir / 'appendix_e_w1_transitions_table.tex').write_text(tex_table, encoding='utf-8')
+    (ctx.output_dir / "appendix_e_w1_transitions_table.tex").write_text(
+        tex_table, encoding="utf-8"
+    )
 
     # Finish start/end code provenance
-    code_path_str = ctx.code_provenance.get('code_path')
+    code_path_str = ctx.code_provenance.get("code_path")
     code_path_obj = Path(code_path_str) if code_path_str else None
-    code_sha_end = sha256_file(code_path_obj) if (code_path_obj and code_path_obj.is_file()) else NOTEBOOK_CODE_SHA256
-    code_sha_start = ctx.code_provenance.get('code_sha256_start', code_sha_end)
-    versions = {pkg: package_metadata.version(pkg) for pkg in ('numpy', 'pandas', 'scikit-learn', 'scipy')}
+    code_sha_end = (
+        sha256_file(code_path_obj)
+        if (code_path_obj and code_path_obj.is_file())
+        else NOTEBOOK_CODE_SHA256
+    )
+    code_sha_start = ctx.code_provenance.get("code_sha256_start", code_sha_end)
+    versions = {
+        pkg: package_metadata.version(pkg)
+        for pkg in ("numpy", "pandas", "scikit-learn", "scipy")
+    }
 
     prov = {
-        'execution_mode': ctx.execution_mode,
-        'repo_root': str(ctx.repo_root) if ctx.repo_root else None,
-        'output_dir': str(ctx.output_dir),
-        'seed': ctx.seed,
-        'bootstrap_reps': ctx.bootstrap_reps,
-        'code_path': code_path_str,
-        'code_sha256_start': code_sha_start,
-        'code_sha256_end': code_sha_end,
-        'code_modified_during_run': bool(code_sha_start != code_sha_end),
-        'git_commit': ctx.code_provenance.get('git_commit'),
-        'git_dirty_relevant_files': ctx.code_provenance.get('git_dirty_relevant_files'),
-        'versions': versions,
-        'inputs': {
-            'p0_dir': str(ctx.p0_dir),
-            'e0_dir': str(ctx.e0_dir),
-            'e1_dir': str(ctx.e1_dir),
-            'supp_dir': str(ctx.supp_dir),
+        "execution_mode": ctx.execution_mode,
+        "repo_root": str(ctx.repo_root) if ctx.repo_root else None,
+        "output_dir": str(ctx.output_dir),
+        "seed": ctx.seed,
+        "bootstrap_reps": ctx.bootstrap_reps,
+        "code_path": code_path_str,
+        "code_sha256_start": code_sha_start,
+        "code_sha256_end": code_sha_end,
+        "code_modified_during_run": bool(code_sha_start != code_sha_end),
+        "git_commit": ctx.code_provenance.get("git_commit"),
+        "git_dirty_relevant_files": ctx.code_provenance.get(
+            "git_dirty_relevant_files"
+        ),
+        "versions": versions,
+        "inputs": {
+            "p0_dir": str(ctx.p0_dir),
+            "e0_dir": str(ctx.e0_dir),
+            "e1_dir": str(ctx.e1_dir),
+            "supp_dir": str(ctx.supp_dir),
         },
-        'reconstructed_05pp_checks': reconstructed_checks,
-        'regression_checkpoints': checkpoints,
-        'input_file_sha256': input_digests,
+        "reconstructed_05pp_checks": reconstructed_checks,
+        "regression_checkpoints": checkpoints,
+        "input_file_sha256": input_digests,
     }
-    (ctx.output_dir / 'provenance.json').write_text(json.dumps(prov, indent=2, ensure_ascii=False), encoding='utf-8')
+    (ctx.output_dir / "provenance.json").write_text(
+        json.dumps(prov, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
     return {
-        'by_cohort': by_cohort,
-        'cohort_totals': cohort_totals,
-        'pooled': pooled,
-        'eq_summary': eq_summary,
-        'bootstrap': boot_df,
-        'bootstrap_diag': boot_diag,
-        'checkpoints': checkpoints,
-        'latex_table': tex_table,
+        "by_cohort": by_cohort,
+        "cohort_totals": cohort_totals,
+        "pooled": pooled,
+        "eq_summary": eq_summary,
+        "bootstrap": boot_df,
+        "bootstrap_diag": boot_diag,
+        "checkpoints": checkpoints,
+        "latex_table": tex_table,
     }
 
 
 def build_parser() -> argparse.ArgumentParser:
-    p = argparse.ArgumentParser(description='Run paired Within-1 transition decomposition and 0.5 pp bootstrap (CPU-only).')
-    p.add_argument('--p0-dir', type=Path, default=None)
-    p.add_argument('--e0-dir', type=Path, default=None)
-    p.add_argument('--e1-dir', type=Path, default=None)
-    p.add_argument('--supp-dir', type=Path, default=None)
-    p.add_argument('--output-dir', type=Path, default=None)
-    p.add_argument('--seed', type=int, default=42)
-    p.add_argument('--bootstrap-reps', type=int, default=2000)
+    p = argparse.ArgumentParser(
+        description="Run paired Within-1 transition decomposition and 0.5 pp bootstrap (CPU-only)."
+    )
+    p.add_argument("--p0-dir", type=Path, default=None)
+    p.add_argument("--e0-dir", type=Path, default=None)
+    p.add_argument("--e1-dir", type=Path, default=None)
+    p.add_argument("--supp-dir", type=Path, default=None)
+    p.add_argument("--output-dir", type=Path, default=None)
+    p.add_argument("--seed", type=int, default=42)
+    p.add_argument("--bootstrap-reps", type=int, default=2000)
     return p
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
     args = build_parser().parse_args(argv)
     ctx = build_context(
-        p0_dir=args.p0_dir, e0_dir=args.e0_dir, e1_dir=args.e1_dir,
-        supp_dir=args.supp_dir, output_dir=args.output_dir,
-        seed=args.seed, bootstrap_reps=args.bootstrap_reps,
-        execution_mode='cli_script',
+        p0_dir=args.p0_dir,
+        e0_dir=args.e0_dir,
+        e1_dir=args.e1_dir,
+        supp_dir=args.supp_dir,
+        output_dir=args.output_dir,
+        seed=args.seed,
+        bootstrap_reps=args.bootstrap_reps,
+        execution_mode="cli_script",
     )
     res = run_decomposition(ctx)
-    print(f'Output directory: {ctx.output_dir}')
-    print('\n=== Equal-Cohort & Pooled Summary ===')
-    cols = ['contrast', 'pooled_lost_within1', 'pooled_gained_within1', 'pooled_net_within1_images',
-            'equal_cohort_delta_within1_pp', 'pooled_delta_within1_pp_image_weighted', 'non_2to3_share_of_total_lost_pct']
-    print(res['eq_summary'][cols].to_string(index=False))
-    print('\n=== 0.5 pp Post Hoc Bootstrap (Equal-Cohort Mean) ===')
-    b_eq = res['bootstrap'][res['bootstrap']['scope'].str.startswith('equal_cohort_mean')]
-    print(b_eq[['metric', 'point_estimate', 'ci_low_95', 'ci_high_95', 'valid_reps', 'n_groups']].to_string(index=False))
+    print(f"Output directory: {ctx.output_dir}")
+    print("\n=== Equal-Cohort & Pooled Summary ===")
+    cols = [
+        "contrast",
+        "pooled_lost_within1",
+        "pooled_gained_within1",
+        "pooled_net_within1_images",
+        "equal_cohort_delta_within1_pp",
+        "pooled_delta_within1_pp_image_weighted",
+        "non_2to3_share_of_total_lost_pct",
+    ]
+    print(res["eq_summary"][cols].to_string(index=False))
+    print("\n=== 0.5 pp Post Hoc Bootstrap (Equal-Cohort Mean) ===")
+    b_eq = res["bootstrap"][
+        res["bootstrap"]["scope"].str.startswith("equal_cohort_mean")
+    ]
+    print(
+        b_eq[
+            [
+                "metric",
+                "point_estimate",
+                "ci_low_95",
+                "ci_high_95",
+                "valid_reps",
+                "n_groups",
+            ]
+        ].to_string(index=False)
+    )
     return 0
 
 
 # %%
-if __name__ == '__main__' and _running_in_notebook():
+if __name__ == "__main__" and _running_in_notebook():
     from IPython.display import display
+
     CTX = build_context(
         repo_root=find_repo_root(),
-        p0_dir=P0_RUN, e0_dir=E0_RUN, e1_dir=E1_RUN, supp_dir=SUPP_RUN,
-        output_dir=OUTPUT_DIR, seed=SEED, bootstrap_reps=BOOTSTRAP_REPS,
-        execution_mode='notebook',
+        p0_dir=P0_RUN,
+        e0_dir=E0_RUN,
+        e1_dir=E1_RUN,
+        supp_dir=SUPP_RUN,
+        output_dir=OUTPUT_DIR,
+        seed=SEED,
+        bootstrap_reps=BOOTSTRAP_REPS,
+        execution_mode="notebook",
     )
     RES = run_decomposition(CTX)
-    print('Output directory:', CTX.output_dir)
-    display(RES['eq_summary'])
-    display(RES['bootstrap'][RES['bootstrap']['scope'].str.startswith('equal_cohort_mean')])
+    print("Output directory:", CTX.output_dir)
+    display(RES["eq_summary"])
+    display(
+        RES["bootstrap"][
+            RES["bootstrap"]["scope"].str.startswith("equal_cohort_mean")
+        ]
+    )
 
-# %%
-if __name__ == '__main__' and not _running_in_notebook():
+if __name__ == "__main__" and not _running_in_notebook():
     raise SystemExit(main())
