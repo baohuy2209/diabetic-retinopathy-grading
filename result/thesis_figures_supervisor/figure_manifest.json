@@ -1,0 +1,115 @@
+{
+  "execution_mode": "cli_script",
+  "git_commit": "fe81c9c07f50b9c840b741be3f9c08f4bfacdab2",
+  "script_sha256": "51147acf696984ae64eec8f4715b76c370e2e5eab144b08061ae10719daae6a5",
+  "inputs": {
+    "p0_dir": "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1",
+    "e0_dir": "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e0_resume_v2",
+    "e1_dir": "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e1_resume_v2",
+    "supp_dir": "D:\\Github\\diabetic-retinopathy-grading\\result\\thesis_supplementary_v1",
+    "localization_asset": "D:\\Github\\diabetic-retinopathy-grading\\result\\figure_8_xai_qualitative_grid.pdf"
+  },
+  "output_dir": "D:\\Github\\diabetic-retinopathy-grading\\result\\thesis_figures_supervisor",
+  "charts": {
+    "tradeoff": {
+      "pdf": "figures/chapter05/tradeoff.pdf",
+      "png": "figures/chapter05/tradeoff.png",
+      "csv": "figures/chapter05/tradeoff_data.csv",
+      "pdf_sha256": "0991c1564404410985a492763ed8183ec25aa223398e906ad2987d41546d42b8",
+      "n_rows": 14,
+      "means_pp": {
+        "recall_g3": -11.97907226244818,
+        "within1": 1.4568181891128316
+      }
+    },
+    "latent_regions": {
+      "pdf": "figures/chapter05/latent-regions.pdf",
+      "png": "figures/chapter05/latent-regions.png",
+      "csv": "figures/chapter05/latent-regions_data.csv",
+      "pdf_sha256": "cebb2f7fc7edc27c3a0dcbaf3bd209bd4d33771cdcebd4b1a3555b558befec3b",
+      "n_rows": 516,
+      "peak_p3_grid": 0.3360143567406183,
+      "obs_max_p3": 0.3360101282596588,
+      "overlap_pct_of_cutpoint": 46.78700361010833,
+      "n_images": 516
+    },
+    "latent_regions_folds": {
+      "pdf": "figures/appendix/latent-regions-folds.pdf",
+      "png": "figures/appendix/latent-regions-folds.png",
+      "csv": "figures/appendix/latent-regions-folds_data.csv",
+      "pdf_sha256": "9d525c3294a03918131fe6c6c7f478fd2ec92fcfbe59b0b78f5269b7510fbfba",
+      "n_rows": 6
+    },
+    "source_target_g3": {
+      "pdf": "figures/chapter05/source-target-g3.pdf",
+      "png": "figures/chapter05/source-target-g3.png",
+      "csv": "figures/chapter05/source-target-g3_data.csv",
+      "pdf_sha256": "7404cb2ff66d7cf8e9e5dd56ffa911e6251981454cb82e82042463461c925f34",
+      "n_rows": 4,
+      "means": [
+        {
+          "variant": "V2",
+          "split": "source_val",
+          "recall_g3_pct": 61.88805216936375,
+          "aggregation": "equal_cohort_mean_6"
+        },
+        {
+          "variant": "V2",
+          "split": "target",
+          "recall_g3_pct": 43.62596814085429,
+          "aggregation": "equal_cohort_mean_6"
+        },
+        {
+          "variant": "V3",
+          "split": "source_val",
+          "recall_g3_pct": 30.8761149635326,
+          "aggregation": "equal_cohort_mean_6"
+        },
+        {
+          "variant": "V3",
+          "split": "target",
+          "recall_g3_pct": 32.216511846914514,
+          "aggregation": "equal_cohort_mean_6"
+        }
+      ]
+    },
+    "source_target_folds": {
+      "pdf": "figures/appendix/source-target-folds.pdf",
+      "png": "figures/appendix/source-target-folds.png",
+      "csv": "figures/appendix/source-target-folds_data.csv",
+      "pdf_sha256": "039a34d91dc2b496d5ee5c23308bfa76d6e82d9b17cbd2203f8aaa6a704086b1",
+      "n_rows": 24
+    },
+    "decoding": {
+      "pdf": "figures/chapter05/decoding.pdf",
+      "png": "figures/chapter05/decoding.png",
+      "csv": "figures/chapter05/decoding_data.csv",
+      "pdf_sha256": "71ea46b253d5b83b0e7fbd416db31a3f77709ddce92bc5b2f65c001812fc407b",
+      "n_rows": 14,
+      "v2_met": 4,
+      "v3_met": 3
+    },
+    "decoding_05pp": {
+      "pdf": "figures/appendix/decoding-05pp.pdf",
+      "png": "figures/appendix/decoding-05pp.png",
+      "csv": "figures/appendix/decoding-05pp_data.csv",
+      "pdf_sha256": "18be9fd64c161149d9e062d4407e8f93f66b8af940aa70753a3b8a4f5349bff1",
+      "n_rows": 12
+    },
+    "probing": {
+      "pdf": "figures/chapter05/probing.pdf",
+      "png": "figures/chapter05/probing.png",
+      "csv": "figures/chapter05/probing_data.csv",
+      "pdf_sha256": "2f262aa3d300146c3d6fde210bae2fc72031bb678cec05f1bc071fc6402b0378",
+      "n_rows": 30
+    },
+    "operating_points": {
+      "pdf": "figures/chapter05/operating-points.pdf",
+      "png": "figures/chapter05/operating-points.png",
+      "csv": "figures/chapter05/operating-points_data.csv",
+      "pdf_sha256": "e7fb8b4f1720e76cd10eb1c866f7e5aa236a0ac69e0a6b52b0d4b985be72e7f9",
+      "n_rows": 12
+    }
+  },
+  "integration_guide": "FIGURE_INTEGRATION.md"
+}

@@ -1,0 +1,15 @@
+fold_id,cohort,metric,V2,V3,delta_pp,cohort_label,split,source_kind,units,aggregation,model_contrast
+0,aptos,recall_g3,0.6321243523316062,0.6010362694300518,-3.1088082901554404,APTOS 2019,target,archived_reference,percentage_points,per_cohort,V3_minus_V2
+0,aptos,within1,0.931185144729656,0.958219552157291,2.7034407427635077,APTOS 2019,target,archived_reference,percentage_points,per_cohort,V3_minus_V2
+1,idrid,recall_g3,0.3333333333333333,0.2150537634408602,-11.827956989247312,IDRiD,target,archived_reference,percentage_points,per_cohort,V3_minus_V2
+1,idrid,within1,0.9457364341085271,0.9573643410852714,1.1627906976744207,IDRiD,target,archived_reference,percentage_points,per_cohort,V3_minus_V2
+2,messidor2,recall_g3,0.676056338028169,0.4084507042253521,-26.76056338028169,Messidor-2,target,archived_reference,percentage_points,per_cohort,V3_minus_V2
+2,messidor2,within1,0.9299905392620624,0.9479659413434248,1.797540208136239,Messidor-2,target,archived_reference,percentage_points,per_cohort,V3_minus_V2
+3,ddr,recall_g3,0.3940677966101695,0.3389830508474576,-5.508474576271189,DDR,target,archived_reference,percentage_points,per_cohort,V3_minus_V2
+3,ddr,within1,0.7903689506468615,0.8145663632007667,2.4197412553905173,DDR,target,archived_reference,percentage_points,per_cohort,V3_minus_V2
+4,eyepacs,recall_g3,0.2554410080183276,0.0801832760595647,-17.525773195876287,EyePACS,target,archived_reference,percentage_points,per_cohort,V3_minus_V2
+4,eyepacs,within1,0.9082161361954108,0.9352900985025338,2.7073962307123,EyePACS,target,archived_reference,percentage_points,per_cohort,V3_minus_V2
+5,deepdrid,recall_g3,0.3392857142857143,0.2678571428571428,-7.142857142857151,DeepDRiD,target,archived_reference,percentage_points,per_cohort,V3_minus_V2
+5,deepdrid,within1,0.94,0.9195,-2.0499999999999963,DeepDRiD,target,archived_reference,percentage_points,per_cohort,V3_minus_V2
+-1,equal_cohort_mean,recall_g3,0.43838475710122,0.31859403447673823,-11.97907226244818,Equal-cohort mean (1/6),target,archived_reference,percentage_points,equal_cohort_mean_6,V3_minus_V2
+-1,equal_cohort_mean,within1,0.9075828674904196,0.922151049381548,1.4568181891128316,Equal-cohort mean (1/6),target,archived_reference,percentage_points,equal_cohort_mean_6,V3_minus_V2

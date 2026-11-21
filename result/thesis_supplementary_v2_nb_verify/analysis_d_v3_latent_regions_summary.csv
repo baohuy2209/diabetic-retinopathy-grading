@@ -1,0 +1,2 @@
+n_folds,max_p3_grid_min,max_p3_grid_max,max_p3_grid_mean,max_p3_target_images_min,max_p3_target_images_max,overlap_ratio_grid_min,overlap_ratio_grid_max,overlap_ratio_grid_mean,n_folds_upward_shift,n_folds_touching_grid_edge,idrid_overlap_ratio_grid,idrid_max_p3_grid
+6,0.24275260509885288,0.4815826610618055,0.31681833410494253,0.2427526712417602,0.4815826416015625,0.22171945701357532,0.6301538461538457,0.3763942781842336,6,0,0.4678700361010833,0.3360143567406183

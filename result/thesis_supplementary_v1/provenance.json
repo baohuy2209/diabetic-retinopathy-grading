@@ -1,0 +1,20 @@
+{
+  "repo_root": "D:\\Github\\diabetic-retinopathy-grading",
+  "in_colab": false,
+  "p0_dir": "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1",
+  "e0_dir": "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e0_resume_v2",
+  "e1_dir": "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e1_resume_v2",
+  "reference_json": "D:\\Github\\DR-evaluation-study2026\\result\\reference\\lodo_summary_with_calibrated_screening.json",
+  "archived_preds_dir": "D:\\Github\\DR-evaluation-study2026\\result\\raw_preds",
+  "folds_dir": "D:\\Github\\deep-learning-for-computer-vision\\data\\processed\\lodo_folds",
+  "output_dir": "D:\\Github\\diabetic-retinopathy-grading\\result\\thesis_supplementary_v1",
+  "seed": 42,
+  "bootstrap_reps": 2000,
+  "code_sha256": "084f21679314387ae52eac8138f9f0987dc059dffa61265c41ec76ec6a2ba929",
+  "versions": {
+    "numpy": "2.4.6",
+    "pandas": "3.0.1",
+    "scikit-learn": "1.8.0",
+    "scipy": "1.17.1"
+  }
+}

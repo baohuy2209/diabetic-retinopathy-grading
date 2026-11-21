@@ -1,0 +1,2 @@
+analysis_id,title,status,reason,output_files,source_paths
+G,CIBD with 0.5 pp source-validation Within-1 loss budget,COMPLETE,"Verified 12/12 exact reproduction of 1.0 pp baseline, then evaluated locked 0.5 pp source selections on target.",analysis_g_cibd_05pp_per_fold.csv; analysis_g_cibd_05pp_summary.csv,D:\Github\diabetic-retinopathy-grading\result\p0_fp32_main_lodo_v1_e0_resume_v2

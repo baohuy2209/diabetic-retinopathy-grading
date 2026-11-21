@@ -1,0 +1,7 @@
+check,observed,expected,matched
+P0 G0 audit counts,118 PASS / 74 DISCREPANCY (total 192),118 PASS / 74 DISCREPANCY (total 192),True
+V3 native target G3 / Within-1 (%),32.2165% / 92.3376%,32.22% / 92.34%,True
+V3 CIBD target G3 / Within-1 (%),41.0691% / 91.1763%,41.07% / 91.18%,True
+E1 probe z_v2 target G3 recall (%),44.6396%,44.64%,True
+E1 probe z_v3 target G3 recall (%),51.0868%,51.09%,True
+E1 probe s_v3 target G3 recall (%),54.0930%,54.09%,True

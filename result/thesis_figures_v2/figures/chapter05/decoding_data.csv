@@ -1,0 +1,15 @@
+variant,fold_id,cohort,cohort_label,split,rule_pair,delta_g3_recall_pp,delta_within1_pp,improves_both_endpoints,meets_margin_g3_3pp,meets_margin_w1_minus1pp,meets_both_margins,units,aggregation
+V2,0,aptos,APTOS 2019,target,cibd_selected_minus_native_replay,8.290155440414503,0.5188421627525974,True,True,True,True,percentage_points,per_cohort
+V2,1,idrid,IDRiD,target,cibd_selected_minus_native_replay,29.03225806451613,0.9689922480620172,True,True,True,True,percentage_points,per_cohort
+V2,2,messidor2,Messidor-2,target,cibd_selected_minus_native_replay,1.4084507042253502,0.8514664143803197,True,False,True,False,percentage_points,per_cohort
+V2,3,ddr,DDR,target,cibd_selected_minus_native_replay,2.11864406779661,1.517329500079856,True,False,True,False,percentage_points,per_cohort
+V2,4,eyepacs,EyePACS,target,cibd_selected_minus_native_replay,8.018327605956472,1.150145191595997,True,True,True,True,percentage_points,per_cohort
+V2,5,deepdrid,DeepDRiD,target,cibd_selected_minus_native_replay,11.734693877551011,0.9499999999999953,True,True,True,True,percentage_points,per_cohort
+V3,0,aptos,APTOS 2019,target,cibd_selected_minus_native_replay,7.253886010362698,-1.3380666302566846,False,True,False,False,percentage_points,per_cohort
+V3,1,idrid,IDRiD,target,cibd_selected_minus_native_replay,22.58064516129032,0.19379844961240345,True,True,True,True,percentage_points,per_cohort
+V3,2,messidor2,Messidor-2,target,cibd_selected_minus_native_replay,15.492957746478876,-0.9460737937558972,False,True,True,True,percentage_points,per_cohort
+V3,3,ddr,DDR,target,cibd_selected_minus_native_replay,-6.779661016949151,-2.6034179843475447,False,False,False,False,percentage_points,per_cohort
+V3,4,eyepacs,EyePACS,target,cibd_selected_minus_native_replay,10.99656357388316,-1.6739736946990824,False,True,False,False,percentage_points,per_cohort
+V3,5,deepdrid,DeepDRiD,target,cibd_selected_minus_native_replay,3.5714285714285756,-0.6000000000000005,False,True,True,True,percentage_points,per_cohort
+V2,-1,equal_cohort_mean,V2 equal-cohort mean,target,cibd_selected_minus_native_replay,10.100421626743346,0.9927959194784638,True,True,True,True,percentage_points,equal_cohort_mean_6
+V3,-1,equal_cohort_mean,V3 equal-cohort mean,target,cibd_selected_minus_native_replay,8.852636674415747,-1.1612889422411343,False,True,False,False,percentage_points,equal_cohort_mean_6

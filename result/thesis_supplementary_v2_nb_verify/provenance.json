@@ -1,0 +1,43 @@
+{
+  "repo_root": "D:\\Github\\diabetic-retinopathy-grading",
+  "in_colab": false,
+  "execution_mode": "notebook",
+  "selected_analyses": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G"
+  ],
+  "p0_dir": "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1",
+  "e0_dir": "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e0_resume_v2",
+  "e1_dir": "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e1_resume_v2",
+  "reference_json": "D:\\Github\\DR-evaluation-study2026\\result\\reference\\lodo_summary_with_calibrated_screening.json",
+  "archived_preds_dir": "D:\\Github\\DR-evaluation-study2026\\result\\raw_preds",
+  "folds_dir": "D:\\Github\\deep-learning-for-computer-vision\\data\\processed\\lodo_folds",
+  "output_dir": "D:\\Github\\diabetic-retinopathy-grading\\result\\thesis_supplementary_v2_nb_verify",
+  "seed": 42,
+  "bootstrap_reps": 2000,
+  "code_path": "D:\\Github\\diabetic-retinopathy-grading\\notebooks\\mlwa\\03_thesis_supplementary_analyses.ipynb",
+  "code_sha256": "a4f661adafb183e7b234ef6e69e2dc0bfb80a1432beff0d5d72b9640d41253d7",
+  "code_sha256_start": "a4f661adafb183e7b234ef6e69e2dc0bfb80a1432beff0d5d72b9640d41253d7",
+  "code_sha256_end": "a4f661adafb183e7b234ef6e69e2dc0bfb80a1432beff0d5d72b9640d41253d7",
+  "code_modified_during_run": false,
+  "script_sha256_start": null,
+  "script_sha256_end": null,
+  "notebook_embedded_code_sha256": "acc2565e07e4b096a8d41479bbcc47e9a3dd22cf0b2d931866c52a8e10111168",
+  "git_commit": "fe81c9c07f50b9c840b741be3f9c08f4bfacdab2",
+  "git_dirty_relevant_files": true,
+  "git_dirty_paths": [
+    "?? notebooks/mlwa/03_thesis_supplementary_analyses.ipynb",
+    "?? workflows/mlwa/03_thesis_supplementary_analyses.py"
+  ],
+  "versions": {
+    "numpy": "2.4.6",
+    "pandas": "3.0.1",
+    "scikit-learn": "1.8.0",
+    "scipy": "1.17.1"
+  }
+}

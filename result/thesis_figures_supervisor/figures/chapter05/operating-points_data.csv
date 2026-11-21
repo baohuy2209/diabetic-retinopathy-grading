@@ -1,0 +1,13 @@
+model,method_family,rule,label,source,within1_pct,recall_g3_pct,g3_precision_pct,highlight,split,units,aggregation
+V2,Native,argmax,$V_2$ Native (= argmax),analysis_a_summary,90.63764334851614,43.62596814085429,39.64634943441704,False,target,percent,equal_cohort_mean_6
+V3,Conventional_E0,argmax,$V_3$ Argmax,analysis_a_summary,84.44810281158114,30.08104969713084,31.48320750924557,False,target,percent,equal_cohort_mean_6
+V2,Conventional_E0,posterior_median,$V_2$ Posterior median,analysis_a_summary,91.0835005988625,47.55787490512975,38.448760435069325,False,target,percent,equal_cohort_mean_6
+V3,Conventional_E0,posterior_median,$V_3$ Posterior median,analysis_a_summary,91.0183830298572,33.30046905764873,32.43448303961668,False,target,percent,equal_cohort_mean_6
+V2,Conventional_E0,rounded_expectation,$V_2$ Rounded expectation,analysis_a_summary,91.71221404282588,51.78851987056073,34.84484107486242,True,target,percent,equal_cohort_mean_6
+V3,Native,rounded_expectation,$V_3$ Native (= rounded exp.),analysis_a_summary,92.33755454884717,32.21651184691451,31.70670169999943,False,target,percent,equal_cohort_mean_6
+V2,CIBD,cibd_selected,$V_2$ CIBD (source-selected),analysis_a_summary,91.6304392679946,53.726389767597645,35.39480218517296,False,target,percent,equal_cohort_mean_6
+V3,CIBD,cibd_selected,$V_3$ CIBD (source-selected),analysis_a_summary,91.17626560660602,41.06914852133026,32.1602139012231,True,target,percent,equal_cohort_mean_6
+V3,Conventional_E0,cutpoint_latent,$V_3$ Latent cutpoints,analysis_a_summary,89.46391625552245,45.83956729818994,30.516450402087333,False,target,percent,equal_cohort_mean_6
+V2,E1_Probe_Vector,probe_z_v2,Probe $\mathbf{z}_2$ (E1),e1_equal_cohort_means,89.73413762740498,44.6395718412359,39.57195229414603,False,target,percent,equal_cohort_mean_6
+V3,E1_Probe_Vector,probe_z_v3,Probe $\mathbf{z}_3$ (E1),e1_equal_cohort_means,91.48430381029368,51.08679268147536,32.52250203081149,False,target,percent,equal_cohort_mean_6
+V3,E1_Probe_Scalar,probe_s_v3,Probe $s_3$ (E1 scalar),e1_equal_cohort_means,91.45935442750238,54.09295878546217,31.41422452632685,True,target,percent,equal_cohort_mean_6

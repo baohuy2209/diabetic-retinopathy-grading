@@ -11,7 +11,7 @@
 # post hoc 0.5 pp $V_3$ CIBD contrast. All P0/E0/E1/supplementary caches are read-only inputs.
 
 # %%
-NOTEBOOK_CODE_SHA256 = '2eaab078efdca8f9f347d422e604c80bae22fd2b4b416cbaf0c7fd9ad7ca1293'
+NOTEBOOK_CODE_SHA256 = 'a648b135a707c8bbb0997126718147cabce655d4bc086b905bf457d476fd0ebc'
 
 # %%
 import os
@@ -537,8 +537,7 @@ def _metrics_from_cm_batch(cm_batch: np.ndarray) -> Dict[str, np.ndarray]:
     obs = (cm_batch * w[None, :, :]).sum(axis=(1, 2)) / total
     exp_m = (row_sum[:, :, None] * col_sum[:, None, :]) / np.maximum(total[:, None, None], 1.0)
     exp = (exp_m * w[None, :, :]).sum(axis=(1, 2)) / total
-    qwk = np.divide(1.0 - obs, 1.0 - exp, out=np.full(len(cm_batch), np.nan), where=np.abs(exp) > 1e-12)
-    # Exact formula: 1 - obs / exp
+    # Quadratic weighted kappa is 1 - observed / expected disagreement.
     qwk = np.where(exp > 1e-12, 1.0 - obs / exp, np.nan)
     return {
         'recall_g3_pp': recall_g3 * 100.0,
@@ -822,6 +821,7 @@ def run_decomposition(ctx: DecompContext) -> Dict[str, Any]:
         # Verify source-training prior matches selected_params.json
         prior = np.asarray(sel_meta['prior'], dtype=np.float64)
         if p0_tr_path.is_file():
+            input_digests[str(p0_tr_path)] = sha256_file(p0_tr_path)
             tr_y = pd.read_csv(p0_tr_path, usecols=['y_true'])['y_true'].to_numpy(int)
             prior_calc = prior_from_labels(tr_y, smoothing=1.0)
             if not np.allclose(prior, prior_calc, atol=1e-12):

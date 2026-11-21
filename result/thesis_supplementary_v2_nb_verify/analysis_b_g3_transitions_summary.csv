@@ -1,0 +1,6 @@
+method,baseline,n_native_pred_g3,n_method_pred_g3,n_kept_pred_g3,n_newly_pred_g3,n_dropped_pred_g3,true_g3_gained_correct,true_g3_lost_correct,true_g3_net_gain,new_g3_true_g0,new_g3_prev_pred_g0,new_g3_true_g1,new_g3_prev_pred_g1,new_g3_true_g2,new_g3_prev_pred_g2,new_g3_true_g3,new_g3_true_g4,new_g3_prev_pred_g4,aggregation
+cibd_v2,native_v2,2057,2971,2027,944,30,165,0,165,178,1,48,2,412,545,165,141,396,"sum of paired image counts across 6 target cohorts (54,883 images)"
+cibd_v3,native_v3,1928,2703,1368,1335,560,224,84,140,109,0,57,0,775,1335,224,170,0,"sum of paired image counts across 6 target cohorts (54,883 images)"
+probe_z_v2,native_v2,2057,2106,1862,244,195,39,34,5,5,3,20,3,165,232,39,15,6,"sum of paired image counts across 6 target cohorts (54,883 images)"
+probe_z_v3,native_v3,1928,3148,1483,1665,445,369,52,317,89,4,79,30,901,1523,369,227,108,"sum of paired image counts across 6 target cohorts (54,883 images)"
+probe_s_v3,native_v3,1928,3576,1572,2004,356,392,46,346,193,0,66,0,1111,1966,392,242,38,"sum of paired image counts across 6 target cohorts (54,883 images)"

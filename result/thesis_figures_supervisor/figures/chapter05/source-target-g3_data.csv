@@ -1,0 +1,5 @@
+variant,split,recall_g3_pct,aggregation
+V2,source_val,61.88805216936375,equal_cohort_mean_6
+V2,target,43.62596814085429,equal_cohort_mean_6
+V3,source_val,30.8761149635326,equal_cohort_mean_6
+V3,target,32.216511846914514,equal_cohort_mean_6

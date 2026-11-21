@@ -1,0 +1,127 @@
+{
+  "execution_mode": "cli_script",
+  "repo_root": "D:\\Github\\diabetic-retinopathy-grading",
+  "output_dir": "D:\\Github\\diabetic-retinopathy-grading\\result\\thesis_within1_decomposition_v1",
+  "seed": 42,
+  "bootstrap_reps": 2000,
+  "code_path": "D:\\Github\\diabetic-retinopathy-grading\\workflows\\mlwa\\05_within1_transition_decomposition.py",
+  "code_sha256_start": "1ee1ec04e0377ae403b9b76c5ea20df860f4615cf109e49250693bd484381795",
+  "code_sha256_end": "1ee1ec04e0377ae403b9b76c5ea20df860f4615cf109e49250693bd484381795",
+  "code_modified_during_run": false,
+  "git_commit": "4d961f08662e8aaa1fc5d4ebd864c62782861f42",
+  "git_dirty_relevant_files": true,
+  "versions": {
+    "numpy": "2.4.6",
+    "pandas": "3.0.1",
+    "scikit-learn": "1.8.0",
+    "scipy": "1.17.1"
+  },
+  "inputs": {
+    "p0_dir": "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1",
+    "e0_dir": "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e0_resume_v2",
+    "e1_dir": "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e1_resume_v2",
+    "supp_dir": "D:\\Github\\diabetic-retinopathy-grading\\result\\thesis_supplementary_v1"
+  },
+  "reconstructed_05pp_checks": [
+    {
+      "fold_id": 0,
+      "cohort": "aptos",
+      "alpha_05pp": 0.5,
+      "tau_05pp": 0.75,
+      "q_05pp": 2,
+      "max_metric_diff_vs_target_grid": 0.0
+    },
+    {
+      "fold_id": 1,
+      "cohort": "idrid",
+      "alpha_05pp": 0.8,
+      "tau_05pp": 1.0,
+      "q_05pp": 2,
+      "max_metric_diff_vs_target_grid": 1.1102230246251565e-16
+    },
+    {
+      "fold_id": 2,
+      "cohort": "messidor2",
+      "alpha_05pp": 1.0,
+      "tau_05pp": 1.0,
+      "q_05pp": 2,
+      "max_metric_diff_vs_target_grid": 1.1102230246251565e-16
+    },
+    {
+      "fold_id": 3,
+      "cohort": "ddr",
+      "alpha_05pp": 0.7,
+      "tau_05pp": 1.0,
+      "q_05pp": 1,
+      "max_metric_diff_vs_target_grid": 0.0
+    },
+    {
+      "fold_id": 4,
+      "cohort": "eyepacs",
+      "alpha_05pp": 1.0,
+      "tau_05pp": 0.75,
+      "q_05pp": 2,
+      "max_metric_diff_vs_target_grid": 1.1102230246251565e-16
+    },
+    {
+      "fold_id": 5,
+      "cohort": "deepdrid",
+      "alpha_05pp": 0.9,
+      "tau_05pp": 1.0,
+      "q_05pp": 2,
+      "max_metric_diff_vs_target_grid": 0.0
+    }
+  ],
+  "regression_checkpoints": {
+    "cibd_1.0pp_mean_w1_pp": -1.1612889422411385,
+    "probe_s3_mean_w1_pp": -0.8782001213447733,
+    "cibd_0.5pp_mean_w1_pp": -0.7098898780983675,
+    "cibd_1.0pp_2to3_count": 1335,
+    "cibd_1.0pp_2to3_ref_grade_counts": {
+      "0": 109,
+      "1": 57,
+      "2": 775,
+      "3": 224,
+      "4": 170
+    },
+    "cibd_1.0pp_2to3_lost_w1": 57,
+    "cibd_1.0pp_2to3_gained_w1": 170,
+    "cibd_1.0pp_2to3_net_w1": 113,
+    "cibd_1.0pp_g3_exact_gained": 224,
+    "cibd_1.0pp_g3_exact_lost": 84,
+    "cibd_1.0pp_g3_exact_net": 140
+  },
+  "input_file_sha256": {
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\thesis_supplementary_v1\\analysis_g_cibd_05pp_per_fold.csv": "e22a781888d16286ebb9c414a12570ba4364105d162987e566ae98aa72f37e39",
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1\\lodo\\V3_fold_0_aptos\\target\\predictions.csv": "41acc5e0a1ee2e031c0ee00df785238a814a4525231cf067e13925ebe181cc57",
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e0_resume_v2\\lodo\\units\\V3_fold_0_aptos\\fold_report\\target_decisions.csv": "1610509e702d939e37974b515a56eb8050041f082a65394de5865205f4d04565",
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e0_resume_v2\\lodo\\units\\V3_fold_0_aptos\\fold_report\\selected_params.json": "ce41aae4938d919c5d1c68ff757a782521c9ab72ef8dd239935e5f005afcfe1c",
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e0_resume_v2\\lodo\\units\\V3_fold_0_aptos\\fold_report\\target_grid_EXPLORATORY.csv": "6b7fd2550501bed3fe1eed71bd52f30aa7450f1feacccea7a416e72e42b6ec67",
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e1_resume_v2\\units\\fold_0_aptos\\s_v3\\predict_target\\predictions.csv": "d275ba5c7894ed1befe28d8f6088a1882d99702956c6bdbf9f8e58e4444f6047",
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1\\lodo\\V3_fold_1_idrid\\target\\predictions.csv": "480a93777c4118e199763bcacb6105f10edee01a8c249d9fac68457fa7e72e57",
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e0_resume_v2\\lodo\\units\\V3_fold_1_idrid\\fold_report\\target_decisions.csv": "019d79a283ff79bbf64bba15ef84c716b291e6952170fcfc62d54f759e7edff8",
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e0_resume_v2\\lodo\\units\\V3_fold_1_idrid\\fold_report\\selected_params.json": "fc85ff17c617f9c72fc15e6cffa1d8eac0eaf6f026b404c363901351dbe878a2",
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e0_resume_v2\\lodo\\units\\V3_fold_1_idrid\\fold_report\\target_grid_EXPLORATORY.csv": "ae9bfebbe62da99c3cc67cad6d8fb6f8511f6ecf579002ccdeff6bd1a6c8e894",
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e1_resume_v2\\units\\fold_1_idrid\\s_v3\\predict_target\\predictions.csv": "b2a18c9b8611c37057e7a20c57cdacc8d38496cdb54ac7d2fd467a3df783ea0f",
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1\\lodo\\V3_fold_2_messidor2\\target\\predictions.csv": "1f347188eb3abd9454f296f9b59aae982b05ba9e9c3219e634aa87d4c7c312aa",
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e0_resume_v2\\lodo\\units\\V3_fold_2_messidor2\\fold_report\\target_decisions.csv": "808cb613c11366e5fd316aa39fc105cdcf9a2acbb2a2f6d74ce5f24303bff565",
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e0_resume_v2\\lodo\\units\\V3_fold_2_messidor2\\fold_report\\selected_params.json": "d9bc5f5745242f3c1915ba5484ffc7f43060da4d465d3a01e09bef5a5fad0258",
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e0_resume_v2\\lodo\\units\\V3_fold_2_messidor2\\fold_report\\target_grid_EXPLORATORY.csv": "12e2e6cd92336c14b008255af840d50f74ea6a9ecbbb4784162f58af566df571",
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e1_resume_v2\\units\\fold_2_messidor2\\s_v3\\predict_target\\predictions.csv": "bd7622c35cf8c2c903df89dfa66c0e9763787efee4bae1e797f9702c2b98eee4",
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1\\lodo\\V3_fold_3_ddr\\target\\predictions.csv": "22cb2f637582fe421f95312addbc2ec53e53d5c506625d5ca7d6a8a3cde8546f",
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e0_resume_v2\\lodo\\units\\V3_fold_3_ddr\\fold_report\\target_decisions.csv": "125d2a607345630c837e766aa90a20bff5cc86ab9984aa2858f48d1cec9e24ca",
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e0_resume_v2\\lodo\\units\\V3_fold_3_ddr\\fold_report\\selected_params.json": "41dc736b9463d91dc369c47c6396514f6c16e12cdcc1e0710126a6f1f1c61624",
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e0_resume_v2\\lodo\\units\\V3_fold_3_ddr\\fold_report\\target_grid_EXPLORATORY.csv": "be781305c7de6bad8dd4be0435080981b81e298ea0bf161c7875ac9f443f4c48",
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e1_resume_v2\\units\\fold_3_ddr\\s_v3\\predict_target\\predictions.csv": "d9e665750f8057d7383485d6d0c64d2bdcafcb28f0275505c779684f26f1fb1f",
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1\\lodo\\V3_fold_4_eyepacs\\target\\predictions.csv": "d2d44e1070de9cb65fc3dd1df530acfaac0052d22462685587fef15a47db4e69",
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e0_resume_v2\\lodo\\units\\V3_fold_4_eyepacs\\fold_report\\target_decisions.csv": "b5de39d69bb18596c03ea09811d9e2a3d03adea7bd16e75eccbfcc62d88dc966",
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e0_resume_v2\\lodo\\units\\V3_fold_4_eyepacs\\fold_report\\selected_params.json": "04eb2005ed245489fe6f0ab61ce7f25fe22db4b5ba8e620f26fc37d683e3090c",
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e0_resume_v2\\lodo\\units\\V3_fold_4_eyepacs\\fold_report\\target_grid_EXPLORATORY.csv": "54cc881182a6b5da46847fc1a225c25d28d5e348a0fa038b4c695a1c3551e061",
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e1_resume_v2\\units\\fold_4_eyepacs\\s_v3\\predict_target\\predictions.csv": "b85998615f655a1a0227ea01f74160b29d2c0f2f22723919ca4df25b1c35a47c",
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1\\lodo\\V3_fold_5_deepdrid\\target\\predictions.csv": "ba9287192a4d2adbce4ed88f0e42fc2887be95ead2f8cd890230e16c5bc44349",
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e0_resume_v2\\lodo\\units\\V3_fold_5_deepdrid\\fold_report\\target_decisions.csv": "e03be74a94c824ce9a94a6adc4b8796b14e257be30a7a6bd4545e43a39e45323",
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e0_resume_v2\\lodo\\units\\V3_fold_5_deepdrid\\fold_report\\selected_params.json": "22f48b5c67c9da277e06fe52a963fbb0a2bb601b5fe377478dc91acd6fa48f4d",
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e0_resume_v2\\lodo\\units\\V3_fold_5_deepdrid\\fold_report\\target_grid_EXPLORATORY.csv": "9769b15121a288117471044bb60c0257d2682f0edc229cef546cb926aa9933f7",
+    "D:\\Github\\diabetic-retinopathy-grading\\result\\p0_fp32_main_lodo_v1_e1_resume_v2\\units\\fold_5_deepdrid\\s_v3\\predict_target\\predictions.csv": "cbf064bfeab0193d4ab92a7595ce852165f17182e06e2d98baab39a342a8c564"
+  }
+}

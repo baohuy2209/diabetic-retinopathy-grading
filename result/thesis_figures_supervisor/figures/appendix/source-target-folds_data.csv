@@ -1,0 +1,25 @@
+fold_id,cohort,cohort_label,variant,split,decoder,recall_g3_pct,units,aggregation
+0,aptos,APTOS 2019,V2,source_val,native_replay,59.93150684931506,percent,per_fold_source_mixture_vs_heldout_target
+0,aptos,APTOS 2019,V2,target,native_replay,62.69430051813472,percent,per_fold_source_mixture_vs_heldout_target
+1,idrid,IDRiD,V2,source_val,native_replay,70.93425605536332,percent,per_fold_source_mixture_vs_heldout_target
+1,idrid,IDRiD,V2,target,native_replay,34.40860215053763,percent,per_fold_source_mixture_vs_heldout_target
+2,messidor2,Messidor-2,V2,source_val,native_replay,53.52112676056338,percent,per_fold_source_mixture_vs_heldout_target
+2,messidor2,Messidor-2,V2,target,native_replay,66.19718309859155,percent,per_fold_source_mixture_vs_heldout_target
+3,ddr,DDR,V2,source_val,native_replay,63.74045801526718,percent,per_fold_source_mixture_vs_heldout_target
+3,ddr,DDR,V2,target,native_replay,38.983050847457626,percent,per_fold_source_mixture_vs_heldout_target
+4,eyepacs,EyePACS,V2,source_val,native_replay,60.46511627906976,percent,per_fold_source_mixture_vs_heldout_target
+4,eyepacs,EyePACS,V2,target,native_replay,25.54410080183276,percent,per_fold_source_mixture_vs_heldout_target
+5,deepdrid,DeepDRiD,V2,source_val,native_replay,62.735849056603776,percent,per_fold_source_mixture_vs_heldout_target
+5,deepdrid,DeepDRiD,V2,target,native_replay,33.92857142857143,percent,per_fold_source_mixture_vs_heldout_target
+0,aptos,APTOS 2019,V3,source_val,native_replay,47.26027397260274,percent,per_fold_source_mixture_vs_heldout_target
+0,aptos,APTOS 2019,V3,target,native_replay,61.13989637305699,percent,per_fold_source_mixture_vs_heldout_target
+1,idrid,IDRiD,V3,source_val,native_replay,37.0242214532872,percent,per_fold_source_mixture_vs_heldout_target
+1,idrid,IDRiD,V3,target,native_replay,23.65591397849462,percent,per_fold_source_mixture_vs_heldout_target
+2,messidor2,Messidor-2,V3,source_val,native_replay,28.169014084507037,percent,per_fold_source_mixture_vs_heldout_target
+2,messidor2,Messidor-2,V3,target,native_replay,40.845070422535215,percent,per_fold_source_mixture_vs_heldout_target
+3,ddr,DDR,V3,source_val,native_replay,12.213740458015259,percent,per_fold_source_mixture_vs_heldout_target
+3,ddr,DDR,V3,target,native_replay,32.20338983050847,percent,per_fold_source_mixture_vs_heldout_target
+4,eyepacs,EyePACS,V3,source_val,native_replay,29.457364341085267,percent,per_fold_source_mixture_vs_heldout_target
+4,eyepacs,EyePACS,V3,target,native_replay,7.903780068728521,percent,per_fold_source_mixture_vs_heldout_target
+5,deepdrid,DeepDRiD,V3,source_val,native_replay,31.132075471698112,percent,per_fold_source_mixture_vs_heldout_target
+5,deepdrid,DeepDRiD,V3,target,native_replay,27.55102040816326,percent,per_fold_source_mixture_vs_heldout_target
