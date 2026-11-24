@@ -144,13 +144,19 @@ def pad_collate_fn(batch: List[Dict[str, Any]]) -> Dict[str, Any]:
 
 
 def get_code_identity() -> str:
-    """Compute SHA-256 fingerprint across core experiments/mlwa modules."""
-    root = Path(__file__).resolve().parent
-    h = hashlib.sha256()
-    for p in sorted(root.glob("*.py")):
-        h.update(p.name.encode("utf-8"))
-        h.update(p.read_bytes())
-    return h.hexdigest()
+    """Compute SHA-256 fingerprint across core experiments/mlwa modules or standalone notebook code."""
+    nb_sha = globals().get("NOTEBOOK_CODE_SHA256")
+    if isinstance(nb_sha, str) and len(nb_sha) == 64 and nb_sha != "0" * 64:
+        return nb_sha
+    if "__file__" in globals():
+        root = Path(__file__).resolve().parent
+        if (root / "constants.py").is_file():
+            h = hashlib.sha256()
+            for p in sorted(root.glob("*.py")):
+                h.update(p.name.encode("utf-8"))
+                h.update(p.read_bytes())
+            return h.hexdigest()
+    return str(nb_sha or "standalone_notebook")
 
 
 def run_smoke_training_job(

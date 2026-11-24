@@ -89,12 +89,15 @@ def find_repo_root(start: Optional[Path] = None) -> Path:
     if start is not None:
         cands.append(Path(start).resolve())
     cands.append(Path.cwd().resolve())
-    cands.append(Path(__file__).resolve().parents[2])
+    if "__file__" in globals():
+        cands.append(Path(__file__).resolve().parents[2])
     for base in cands:
         for cur in (base, *base.parents):
             if (cur / "pyproject.toml").is_file() and (cur / "experiments" / "mlwa").is_dir():
                 return cur
-    return Path(__file__).resolve().parents[2]
+    if "__file__" in globals():
+        return Path(__file__).resolve().parents[2]
+    return Path.cwd().resolve()
 
 
 def resolve_runtime_paths(repo_root: Optional[Path] = None) -> Dict[str, Path]:

@@ -48,17 +48,20 @@ $env:DR_P0_RUN = "$env:DR_ROOT\result\p0_fp32_main_lodo_v1"
 $env:DR_JOURNAL_OUTPUTS = "$env:DR_ROOT\outputs\mlwa_journal_runs"
 ```
 
-### Google Colab (Drive + Standalone Bundle)
+### Google Colab (Standalone Single-File Notebooks, Zero Bundle Required)
 
-1. Build the deterministic source bundle locally (re-run whenever `experiments/` changes):
+Every workflow notebook under `notebooks/mlwa/06_...ipynb`–`15_...ipynb` is **100% self-contained**: all required classes and functions are embedded directly as readable code cells inside the single `.ipynb` file (zero `git clone`, zero `mlwa_journal_bundle.zip`, zero local repository imports).
+
+1. Upload only the desired `notebooks/mlwa/0X_...ipynb` file directly to Google Colab (or Drive).
+2. In Cell 2, verify/adjust `MODE` / `SMOKE` / `FOLDS` / `SEEDS` / `OUTPUT_DIR` (or set `DR_ROOT` / `DR_FOLDS` / `DR_IMAGES` / `DR_JOURNAL_OUTPUTS` environment variables pointing to your Drive folders).
+3. Run `Runtime -> Run all`: `_setup_colab_environment()` installs any missing PyPI dependencies (`numpy`, `pandas`, `scipy`, `scikit-learn`, `pyarrow`, `matplotlib`, and `torch`/`torchvision`/`albumentations`/`opencv-python-headless` where needed), mounts `/content/drive`, and saves outputs atomically.
+
+To regenerate standalone workflows and notebooks after editing any shared module under `experiments/mlwa/` or driver under `tools/mlwa_drivers/`:
 
 ```powershell
-python tools/build_mlwa_bundle.py
-# Produces dist/mlwa_journal_bundle.zip and dist/mlwa_journal_bundle.sha256
+python tools/inline_mlwa_workflows.py
+python tools/build_notebooks.py
 ```
-
-2. Upload `dist/mlwa_journal_bundle.zip` to Google Drive at `/content/drive/MyDrive/dr_thesis/inputs/mlwa_journal_bundle.zip` (or set `DR_MLWA_BUNDLE`), along with extracted/zipped fundus images and `lodo_folds` manifests.
-3. Open any companion notebook under `notebooks/mlwa/06_...ipynb`–`15_...ipynb`. Each notebook executes `_bootstrap_colab_repo()` to mount Drive, extract `mlwa_journal_bundle.zip` to local fast scratch (`$DR_WORK/mlwa_pkg`), add it to `sys.path`, and save checkpoints atomically under `DR_JOURNAL_OUTPUTS`.
 
 ---
 
@@ -178,6 +181,7 @@ python workflows/mlwa/15_journal_reports.py --smoke --output-dir outputs/mlwa_sm
 Notebook synchronization and full test suite:
 
 ```powershell
+python tools/inline_mlwa_workflows.py --check
 python tools/build_notebooks.py --check
 python -m pytest -q tests/test_smoke.py tests/test_camera_ready.py
 python -m pytest -q
