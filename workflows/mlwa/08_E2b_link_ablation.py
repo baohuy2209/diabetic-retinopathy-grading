@@ -2,7 +2,7 @@
 # # 08 · E2b CLM Link Ablation (logit vs. cloglog, reusing E2-D)
 
 # %%
-NOTEBOOK_CODE_SHA256 = 'bb4c7f2b0ee784b135e7aadc1bfd53b3638c8f99099e4f4d38f3c2c458b6d144'
+NOTEBOOK_CODE_SHA256 = 'd943083cbec772afdd03d597dc3667f06eaf831812ae12b99cc600010de0b7ca'
 
 # %%
 import os
@@ -56,6 +56,12 @@ def _bootstrap_colab_repo() -> Path:
     if str(repo) not in sys.path:
         sys.path.insert(0, str(repo))
     return repo
+
+
+if not _running_in_notebook() and '__file__' in globals():
+    _REPO_ROOT = Path(__file__).resolve().parents[2]
+    if str(_REPO_ROOT) not in sys.path:
+        sys.path.insert(0, str(_REPO_ROOT))
 
 
 if __name__ == '__main__' and _running_in_notebook():
@@ -182,6 +188,12 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
 
 # %%
+if not _running_in_notebook() and '__file__' in globals():
+    _REPO_ROOT = Path(__file__).resolve().parents[2]
+    if str(_REPO_ROOT) not in sys.path:
+        sys.path.insert(0, str(_REPO_ROOT))
+
+
 if __name__ == '__main__' and _running_in_notebook():
     _paths = resolve_runtime_paths()
     print(run_e2b_logit_jobs(_paths['outputs'] / 'mlwa_journal_e2b', folds=[0] if SMOKE else FOLDS, seeds=[0] if SMOKE else SEEDS, smoke=SMOKE))

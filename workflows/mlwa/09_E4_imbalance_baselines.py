@@ -2,7 +2,7 @@
 # # 09 · E4 Mandatory Imbalance Baselines (Cui Effective-Number CB-CE & Menon Logit Adjustment)
 
 # %%
-NOTEBOOK_CODE_SHA256 = '49fab0eff3a2b70e792ffefbc628fe99ef36628d8595a034cf2ce5dd1418d54c'
+NOTEBOOK_CODE_SHA256 = '9c8c33dfc6a83c369ab3a3e99f16a9acb22db4df487953b0f734c8feaceb753d'
 
 # %%
 import os
@@ -56,6 +56,12 @@ def _bootstrap_colab_repo() -> Path:
     if str(repo) not in sys.path:
         sys.path.insert(0, str(repo))
     return repo
+
+
+if not _running_in_notebook() and '__file__' in globals():
+    _REPO_ROOT = Path(__file__).resolve().parents[2]
+    if str(_REPO_ROOT) not in sys.path:
+        sys.path.insert(0, str(_REPO_ROOT))
 
 
 if __name__ == '__main__' and _running_in_notebook():
@@ -192,6 +198,12 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
 
 # %%
+if not _running_in_notebook() and '__file__' in globals():
+    _REPO_ROOT = Path(__file__).resolve().parents[2]
+    if str(_REPO_ROOT) not in sys.path:
+        sys.path.insert(0, str(_REPO_ROOT))
+
+
 if __name__ == '__main__' and _running_in_notebook():
     _paths = resolve_runtime_paths()
     print(run_e4_jobs(_paths['outputs'] / 'mlwa_journal_e4', baselines=BASELINES, folds=[0] if SMOKE else FOLDS, seeds=[0] if SMOKE else SEEDS, smoke=SMOKE))

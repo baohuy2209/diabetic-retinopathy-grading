@@ -2,7 +2,7 @@
 # # 10 · Historical Pooled Five-Head Audit & Strict Reconstruction (`PENDING_ASSETS` Aware)
 
 # %%
-NOTEBOOK_CODE_SHA256 = '58c216c4f8cc3d9904fa2e09fbf88c718b84feaad98a3da7e68ef4acdcd61c16'
+NOTEBOOK_CODE_SHA256 = '2ee124a79fca3d32f488109cd8b25f4cc58a08d2de96c7cdd43da53374eb6039'
 
 # %%
 import os
@@ -56,6 +56,12 @@ def _bootstrap_colab_repo() -> Path:
     if str(repo) not in sys.path:
         sys.path.insert(0, str(repo))
     return repo
+
+
+if not _running_in_notebook() and '__file__' in globals():
+    _REPO_ROOT = Path(__file__).resolve().parents[2]
+    if str(_REPO_ROOT) not in sys.path:
+        sys.path.insert(0, str(_REPO_ROOT))
 
 
 if __name__ == '__main__' and _running_in_notebook():
@@ -201,6 +207,12 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
 
 # %%
+if not _running_in_notebook() and '__file__' in globals():
+    _REPO_ROOT = Path(__file__).resolve().parents[2]
+    if str(_REPO_ROOT) not in sys.path:
+        sys.path.insert(0, str(_REPO_ROOT))
+
+
 if __name__ == '__main__' and _running_in_notebook():
     _paths = resolve_runtime_paths()
     print(audit_pooled_assets(_paths['pooled_checkpoints'], _paths['pooled_metadata'], _paths['outputs'] / 'mlwa_pooled_heads'))

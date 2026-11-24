@@ -2,7 +2,7 @@
 # # 13 · E5 Opt-In Unlabelled Target Prior Adaptation (Saerens EM & BBSE)
 
 # %%
-NOTEBOOK_CODE_SHA256 = 'c53c6435a822fc404cd3c846c97c7ee8713b93aa8b2d0c2873cb8cac2824fb90'
+NOTEBOOK_CODE_SHA256 = '0b2f7cbc96987c2d573139c88a664b5adcde51ab792e2c69dfce8d09aae6ef19'
 
 # %%
 import os
@@ -56,6 +56,12 @@ def _bootstrap_colab_repo() -> Path:
     if str(repo) not in sys.path:
         sys.path.insert(0, str(repo))
     return repo
+
+
+if not _running_in_notebook() and '__file__' in globals():
+    _REPO_ROOT = Path(__file__).resolve().parents[2]
+    if str(_REPO_ROOT) not in sys.path:
+        sys.path.insert(0, str(_REPO_ROOT))
 
 
 if __name__ == '__main__' and _running_in_notebook():
@@ -207,6 +213,12 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
 
 # %%
+if not _running_in_notebook() and '__file__' in globals():
+    _REPO_ROOT = Path(__file__).resolve().parents[2]
+    if str(_REPO_ROOT) not in sys.path:
+        sys.path.insert(0, str(_REPO_ROOT))
+
+
 if __name__ == '__main__' and _running_in_notebook():
     _out = resolve_runtime_paths()['outputs'] / 'mlwa_e5_prior_adaptation_nb'
     print(run_e5_smoke(_out) if globals().get('SMOKE', True) else {'status': 'OPT_IN_NOT_ENABLED'})

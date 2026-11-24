@@ -2,7 +2,7 @@
 # # 11 · Journal Decoders (E0 / CIBD) & Frozen-Encoder Representation Probes (E1)
 
 # %%
-NOTEBOOK_CODE_SHA256 = '981b3dcc9a8b3ce5054132877295a4586185f6d6d0a5c8a1c4a2c7f96b25436c'
+NOTEBOOK_CODE_SHA256 = 'c372b9d6d726584dfcf972aafc4682b8404c43d04b88ee4619a5aebc180d738d'
 
 # %%
 import os
@@ -56,6 +56,12 @@ def _bootstrap_colab_repo() -> Path:
     if str(repo) not in sys.path:
         sys.path.insert(0, str(repo))
     return repo
+
+
+if not _running_in_notebook() and '__file__' in globals():
+    _REPO_ROOT = Path(__file__).resolve().parents[2]
+    if str(_REPO_ROOT) not in sys.path:
+        sys.path.insert(0, str(_REPO_ROOT))
 
 
 if __name__ == '__main__' and _running_in_notebook():
@@ -370,6 +376,12 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
 
 # %%
+if not _running_in_notebook() and '__file__' in globals():
+    _REPO_ROOT = Path(__file__).resolve().parents[2]
+    if str(_REPO_ROOT) not in sys.path:
+        sys.path.insert(0, str(_REPO_ROOT))
+
+
 if __name__ == '__main__' and _running_in_notebook():
     _out = resolve_runtime_paths()['outputs'] / 'mlwa_e0_e1_refreshed_nb'
     print(run_synthetic_smoke(_out) if globals().get('SMOKE', True) else {'status': 'SET_INPUTS_FOR_RUN'})

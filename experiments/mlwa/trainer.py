@@ -11,6 +11,7 @@ from typing import Any, Dict, List, Optional, Sequence, Tuple
 from uuid import uuid4
 
 import numpy as np
+import pandas as pd
 import torch
 import torch.nn as nn
 from torch.optim import AdamW
@@ -83,7 +84,7 @@ def restore_rng_states(state: Dict[str, Any], loader_generator: Optional[torch.G
 
 
 def initialize_shared_encoder_state(model: JournalGradingModel, seed_train: int) -> str:
-    """Re-initialize shared encoder+fusion deterministically from seed_train across A/B/C/D."""
+    """Re-initialize non-pretrained encoder+fusion state deterministically per seed_train across A/B/C/D."""
     streams = RNGStreams.from_seed_train(seed_train)
     cpu_state = torch.get_rng_state()
     np_state = np.random.get_state()
@@ -94,9 +95,48 @@ def initialize_shared_encoder_state(model: JournalGradingModel, seed_train: int)
             torch.cuda.manual_seed_all(streams.model_init_seed)
         np.random.seed(streams.model_init_seed)
         random.seed(streams.model_init_seed)
-        for mod in model.encoder.modules():
-            if hasattr(mod, "reset_parameters") and not isinstance(mod, nn.ModuleList):
-                mod.reset_parameters()
+
+        if not model.spec.pretrained:
+            fresh = type(model.encoder)(model.spec)
+            model.encoder.load_state_dict(fresh.state_dict(), strict=True)
+        else:
+            # Preserve ImageNet-pretrained backbones; re-seed randomly initialized fusion & attention modules.
+            from models.attention.cbam import CBAM
+            from models.attention.non_local import NonLocalBlock2D
+            from models.attention.quadrant_tokens import QuadrantTokenAggregator
+            from models.fusion import DualBranchFusion
+            from models.streams.local_mil import GatedAttentionPool
+
+            custom_classes = (CBAM, NonLocalBlock2D, QuadrantTokenAggregator, DualBranchFusion, GatedAttentionPool)
+            enc = model.encoder
+            if hasattr(enc, "global_branch"):
+                gb = enc.global_branch
+                if getattr(gb, "use_nonlocal", False):
+                    gb.non_local.load_state_dict(NonLocalBlock2D(in_channels=2048).state_dict(), strict=True)
+                if getattr(gb, "use_cbam", False):
+                    gb.cbam.load_state_dict(CBAM(in_channels=2048, reduction_ratio=16).state_dict(), strict=True)
+                if getattr(gb, "use_quadrant_tokens", False):
+                    gb.quadrant_agg.load_state_dict(QuadrantTokenAggregator(in_channels=2048).state_dict(), strict=True)
+            if hasattr(enc, "local_mil_branch") and enc.local_mil_branch is not None and getattr(enc.local_mil_branch, "use_dual_pooling", False):
+                enc.local_mil_branch.gated_pool.load_state_dict(
+                    GatedAttentionPool(in_features=enc.local_mil_branch.patch_dim, hidden_dim=128).state_dict(),
+                    strict=True,
+                )
+            if hasattr(enc, "fusion"):
+                enc.fusion.load_state_dict(
+                    DualBranchFusion(
+                        global_dim=enc.global_branch.out_dim,
+                        local_dim=enc.local_mil_branch.out_dim if enc.local_mil_branch is not None else 0,
+                        fusion_dim=model.spec.fusion_dim,
+                        use_local_branch=model.spec.use_local_branch,
+                        dropout_rate=model.spec.dropout,
+                    ).state_dict(),
+                    strict=True,
+                )
+            if hasattr(enc, "proj"):
+                for mod in enc.proj.modules():
+                    if hasattr(mod, "reset_parameters") and not isinstance(mod, custom_classes):
+                        mod.reset_parameters()
     finally:
         torch.set_rng_state(cpu_state)
         np.random.set_state(np_state)
@@ -363,6 +403,13 @@ def train_single_unit(
         history = list(ckpt["history"])
         restore_rng_states(ckpt["rng_states"], loader_generator=loader_generator)
         resumed_from_boundary = True
+    else:
+        streams = RNGStreams.from_seed_train(cfg.seeds.seed_train)
+        random.seed(streams.aug_seed)
+        np.random.seed(streams.aug_seed)
+        torch.manual_seed(streams.aug_seed)
+        if torch.cuda.is_available():
+            torch.cuda.manual_seed_all(streams.aug_seed)
 
     atomic_write_json(unit_dir / "RUN_STATUS.json", {"status": STATUS_RUNNING, "identity": expected_identity})
 

@@ -143,8 +143,8 @@ python workflows/mlwa/09_E4_imbalance_baselines.py `
 ```
 
 #### Atomic Resume & Integrity Behavior
-- Each epoch atomically writes `resume_latest.pt` (model, optimizer, LR scheduler, RNG states, best metrics, epoch history), `epoch_metrics.csv`, `epoch_history/epoch_XXX/source_val.{parquet|csv}`, and `last_checkpoint.sha256`.
-- Resuming verifies exact match on `config_id`, `fold_id`, `seed_train`, `source_train_manifest_sha256`, `source_val_manifest_sha256`, `plan_sha256`, and `code_sha256` before continuing, and skips units that already possess a verified `COMPLETE.json`.
+- Each epoch atomically writes `checkpoint_last.pth` (model, optimizer, LR scheduler, AMP scaler, RNG/loader states, best metrics, epoch history), `checkpoint_best.pth` (on best val QWK), and `source_val_epochs/source_val_epoch_XXX.csv`; final completion writes `checkpoint_params.json`, `training_history.csv`, `RUN_STATUS.json`, and `COMPLETE.json`.
+- Resuming verifies exact match on `schema_version`, `config_hash`, `source_train_manifest_sha256`, `source_val_manifest_sha256`, `plan_sha256`, and `code_sha256` before continuing, and skips units that already possess a verified `COMPLETE.json`.
 
 ### Step 4: Downstream Decoders, Probes, Gated/Opt-In Studies & Final Reports (CPU)
 

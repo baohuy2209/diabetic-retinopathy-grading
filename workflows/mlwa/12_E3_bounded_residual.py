@@ -2,7 +2,7 @@
 # # 12 · E3 Gated Bounded Residual Correction (H3 Gate & Controls)
 
 # %%
-NOTEBOOK_CODE_SHA256 = '142226c133d2a1721785dbf83aad29d1ff64d10d79bf4fb11306f23e2539e313'
+NOTEBOOK_CODE_SHA256 = '2f862b36fd69734c83c90013681eaf3588f894bd6402f652f612f3ebb55a49e6'
 
 # %%
 import os
@@ -56,6 +56,12 @@ def _bootstrap_colab_repo() -> Path:
     if str(repo) not in sys.path:
         sys.path.insert(0, str(repo))
     return repo
+
+
+if not _running_in_notebook() and '__file__' in globals():
+    _REPO_ROOT = Path(__file__).resolve().parents[2]
+    if str(_REPO_ROOT) not in sys.path:
+        sys.path.insert(0, str(_REPO_ROOT))
 
 
 if __name__ == '__main__' and _running_in_notebook():
@@ -156,6 +162,12 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
 
 # %%
+if not _running_in_notebook() and '__file__' in globals():
+    _REPO_ROOT = Path(__file__).resolve().parents[2]
+    if str(_REPO_ROOT) not in sys.path:
+        sys.path.insert(0, str(_REPO_ROOT))
+
+
 if __name__ == '__main__' and _running_in_notebook():
     _out = resolve_runtime_paths()['outputs'] / 'mlwa_e3_brc_nb'
     print(run_e3_smoke(_out) if globals().get('SMOKE', True) else {'status': STATUS_SKIPPED_GATE_NOT_MET})

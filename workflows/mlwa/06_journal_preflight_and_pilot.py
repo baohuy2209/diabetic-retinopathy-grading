@@ -2,7 +2,7 @@
 # # 06 · MLWA Journal Preflight, Asset Audit & Pilot Profiler
 
 # %%
-NOTEBOOK_CODE_SHA256 = '328c81ca2570f812cedf46047b8682a752a3e7756dc7a60a4417447dddee165b'
+NOTEBOOK_CODE_SHA256 = '8350b122b29d03ec9b14ed330b9983f640730ae15032c16b43b45a120104e76b'
 
 # %%
 import os
@@ -58,6 +58,12 @@ def _bootstrap_colab_repo() -> Path:
     return repo
 
 
+if not _running_in_notebook() and '__file__' in globals():
+    _REPO_ROOT = Path(__file__).resolve().parents[2]
+    if str(_REPO_ROOT) not in sys.path:
+        sys.path.insert(0, str(_REPO_ROOT))
+
+
 if __name__ == '__main__' and _running_in_notebook():
     _REPO = _bootstrap_colab_repo()
     MODE = 'preflight'  # 'preflight' | 'pilot' | 'smoke'
@@ -68,6 +74,7 @@ import argparse
 import json
 from typing import Any, Dict, Optional, Sequence
 
+import numpy as np
 import torch
 from torch.utils.data import DataLoader
 
@@ -270,6 +277,12 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
 
 # %%
+if not _running_in_notebook() and '__file__' in globals():
+    _REPO_ROOT = Path(__file__).resolve().parents[2]
+    if str(_REPO_ROOT) not in sys.path:
+        sys.path.insert(0, str(_REPO_ROOT))
+
+
 if __name__ == '__main__' and _running_in_notebook():
     _out = Path(OUTPUT_DIR) if OUTPUT_DIR else (resolve_runtime_paths()['outputs'] / 'mlwa_journal_preflight')
     if MODE == 'smoke':

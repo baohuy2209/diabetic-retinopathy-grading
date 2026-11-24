@@ -2,7 +2,7 @@
 # # 14 · E6 Opt-In Generality (G2 Gate, Pretraining Exposure Audit & External Interfaces)
 
 # %%
-NOTEBOOK_CODE_SHA256 = 'ad8d1f2fac82bc7522c895203ee54eb5d44d3015839d25d5bfe7e832f669a6b7'
+NOTEBOOK_CODE_SHA256 = '2131c61aaf882535da785f0cde4e54bf17209c8c58f07bec08d1f292d1f823d5'
 
 # %%
 import os
@@ -56,6 +56,12 @@ def _bootstrap_colab_repo() -> Path:
     if str(repo) not in sys.path:
         sys.path.insert(0, str(repo))
     return repo
+
+
+if not _running_in_notebook() and '__file__' in globals():
+    _REPO_ROOT = Path(__file__).resolve().parents[2]
+    if str(_REPO_ROOT) not in sys.path:
+        sys.path.insert(0, str(_REPO_ROOT))
 
 
 if __name__ == '__main__' and _running_in_notebook():
@@ -182,6 +188,12 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
 
 # %%
+if not _running_in_notebook() and '__file__' in globals():
+    _REPO_ROOT = Path(__file__).resolve().parents[2]
+    if str(_REPO_ROOT) not in sys.path:
+        sys.path.insert(0, str(_REPO_ROOT))
+
+
 if __name__ == '__main__' and _running_in_notebook():
     _out = resolve_runtime_paths()['outputs'] / 'mlwa_e6_generality_nb'
     print(run_e6_smoke(_out) if globals().get('SMOKE', True) else {'status': 'OPT_IN_OR_GATE_INPUTS_NOT_SUPPLIED'})

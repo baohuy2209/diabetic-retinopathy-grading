@@ -2,7 +2,7 @@
 # # 15 · MLWA Journal Verified-Only Reports, Coverage Audit & Publication Figures
 
 # %%
-NOTEBOOK_CODE_SHA256 = '9134b13e445b51f4174cb3469a10e01e40b90f960275ea731fade6b637ddeed8'
+NOTEBOOK_CODE_SHA256 = '462c2c77d6a43af1c9b1635153432d70ac0951d4270cdf6ff70d19c930ef0d32'
 
 # %%
 import os
@@ -56,6 +56,12 @@ def _bootstrap_colab_repo() -> Path:
     if str(repo) not in sys.path:
         sys.path.insert(0, str(repo))
     return repo
+
+
+if not _running_in_notebook() and '__file__' in globals():
+    _REPO_ROOT = Path(__file__).resolve().parents[2]
+    if str(_REPO_ROOT) not in sys.path:
+        sys.path.insert(0, str(_REPO_ROOT))
 
 
 if __name__ == '__main__' and _running_in_notebook():
@@ -118,6 +124,12 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
 
 # %%
+if not _running_in_notebook() and '__file__' in globals():
+    _REPO_ROOT = Path(__file__).resolve().parents[2]
+    if str(_REPO_ROOT) not in sys.path:
+        sys.path.insert(0, str(_REPO_ROOT))
+
+
 if __name__ == '__main__' and _running_in_notebook():
     _paths = resolve_runtime_paths(_REPO)
     _res_root = _paths['repo_root'] / 'result'

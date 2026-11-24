@@ -2,7 +2,7 @@
 # # 07 · E2 Controlled 2x2 Head x Objective Factorial Training
 
 # %%
-NOTEBOOK_CODE_SHA256 = '90c6d8d1f29e07d124f932c6ddee2e43b0a2e2ae3d5876249f70e5df7f1a26fa'
+NOTEBOOK_CODE_SHA256 = 'd049194bd18ea93d309b9600fb158fdca60f47f82f74afc3824039e1b1df1373'
 
 # %%
 import os
@@ -56,6 +56,12 @@ def _bootstrap_colab_repo() -> Path:
     if str(repo) not in sys.path:
         sys.path.insert(0, str(repo))
     return repo
+
+
+if not _running_in_notebook() and '__file__' in globals():
+    _REPO_ROOT = Path(__file__).resolve().parents[2]
+    if str(_REPO_ROOT) not in sys.path:
+        sys.path.insert(0, str(_REPO_ROOT))
 
 
 if __name__ == '__main__' and _running_in_notebook():
@@ -240,6 +246,12 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
 
 # %%
+if not _running_in_notebook() and '__file__' in globals():
+    _REPO_ROOT = Path(__file__).resolve().parents[2]
+    if str(_REPO_ROOT) not in sys.path:
+        sys.path.insert(0, str(_REPO_ROOT))
+
+
 if __name__ == '__main__' and _running_in_notebook():
     _paths = resolve_runtime_paths()
     print(run_e2_jobs(
