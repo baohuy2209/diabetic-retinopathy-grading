@@ -94,12 +94,27 @@ def generate_journal_reports(
         eq.to_csv(tables_dir / "legacy_e0_equal_cohort_summary.csv", index=False)
         generated_tables["legacy_e0_equal_cohort_summary"] = str(tables_dir / "legacy_e0_equal_cohort_summary.csv")
 
-        fig, ax = plt.subplots(figsize=(6.2, 3.8))
+        fig, ax = plt.subplots(figsize=(6.6, 4.0))
+        offsets = {
+            ("V2", "argmax"): (-8, -11),
+            ("V2", "native_replay"): (5, 3),
+            ("V2", "posterior_median"): (5, 3),
+            ("V2", "rounded_expectation"): (5, -9),
+            ("V2", "cibd_selected"): (5, 3),
+            ("V3", "argmax"): (5, 3),
+            ("V3", "posterior_median"): (5, 4),
+            ("V3", "cibd_selected"): (5, 3),
+            ("V3", "native_replay"): (-6, 7),
+            ("V3", "rounded_expectation"): (-12, -12),
+        }
         for var, col in [("V2", "#0072B2"), ("V3", "#C0392B")]:
             v_eq = eq[eq["variant"] == var]
             ax.scatter(v_eq["within1_pp"], v_eq["recall_g3_pp"], color=col, s=60, label=f"{var} (archived replay)")
             for _, r in v_eq.iterrows():
-                ax.annotate(str(r["decoder"]), (r["within1_pp"], r["recall_g3_pp"]), xytext=(4, 3), textcoords="offset points", fontsize=7.5, color=col)
+                dec = str(r["decoder"])
+                dx, dy = offsets.get((var, dec), (4, 3))
+                ax.annotate(dec, (r["within1_pp"], r["recall_g3_pp"]), xytext=(dx, dy), textcoords="offset points", fontsize=7.5, color=col)
+        ax.margins(x=0.08, y=0.12)
         ax.set_xlabel("Equal-cohort target Within-1 accuracy (%)")
         ax.set_ylabel("Equal-cohort target Grade 3 recall (%)")
         ax.set_title("Legacy E0 Operating Points (Single-Seed P0 Replay; G0=DIAGNOSTIC)")

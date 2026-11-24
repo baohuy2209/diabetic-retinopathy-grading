@@ -130,7 +130,13 @@ def normalize_manifest_df(
         raise ValueError("Manifest missing cohort column ('dataset_key' or 'cohort').")
 
     out["image_id"] = out[id_col].astype(str)
-    out["cohort"] = out[cohort_col].astype(str).str.lower()
+    out["cohort"] = (
+        out[cohort_col]
+        .astype(str)
+        .str.strip()
+        .str.lower()
+        .replace({"messidor-2": "messidor2", "messidor_2": "messidor2", "deep-drid": "deepdrid", "deep_drid": "deepdrid"})
+    )
     out["y_true"] = pd.to_numeric(out[y_col], errors="raise").astype(int)
     if not out["y_true"].isin(range(5)).all():
         raise ValueError("Manifest contains invalid grade outside {0..4}.")
