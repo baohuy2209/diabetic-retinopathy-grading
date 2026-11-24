@@ -1,0 +1,44 @@
+{
+  "schema": "mlwa_experiment_registry_v1",
+  "counts": {
+    "e2_mandatory_unique_jobs": 72,
+    "e2b_recommended_unique_jobs": 18,
+    "e4_mandatory_unique_jobs": 36,
+    "e4_supp_optional_jobs": 18,
+    "pilot_jobs": 2,
+    "total_mandatory_primary_gpu_jobs": 108
+  },
+  "legacy_completed": {
+    "P0_LODO": {
+      "status": "DIAGNOSTIC_REPLAY",
+      "run_dir": "result/p0_fp32_main_lodo_v1",
+      "seed": 42
+    },
+    "P0_POOLED_5HEADS": {
+      "status": "PENDING_ASSETS",
+      "reason": "Missing trained 25-epoch checkpoints (local files are epoch=1 smoke)"
+    },
+    "E0_LEGACY": {
+      "status": "COMPLETE",
+      "run_dir": "result/p0_fp32_main_lodo_v1_e0_resume_v2"
+    },
+    "E1_LEGACY": {
+      "status": "COMPLETE",
+      "run_dir": "result/p0_fp32_main_lodo_v1_e1_resume_v2"
+    }
+  },
+  "gated_or_opt_in_post_gpu": {
+    "E3_BRC": {
+      "status": "SKIPPED_GATE_NOT_MET",
+      "reason": "Legacy E1 s_v3 (0.5409) > z_v3 (0.5109); awaits journal E1 multi-seed check."
+    },
+    "E5_PRIOR_ADAPTATION": {
+      "status": "OPT_IN_CPU",
+      "flag": "--enable-e5"
+    },
+    "E6_GENERALITY": {
+      "status": "SKIPPED_GATE_NOT_MET",
+      "flag": "--enable-e6"
+    }
+  }
+}

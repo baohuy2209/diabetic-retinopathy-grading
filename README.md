@@ -77,6 +77,8 @@ For P0, set the optional pooled-head map and manifests only when running the ind
 
 ## Maintenance and validation
 
+For the MLWA journal extension protocol, multi-seed factorial schedule, Colab bundle usage, and verified-only reporting runbook, see [MLWA experiments runbook](README_MLWA_EXPERIMENTS.md) and [journal scope addendum](docs/mlwa/journal_scope_addendum.md).
+
 Edit the corresponding file under `workflows/`, then run:
 
 ```powershell
